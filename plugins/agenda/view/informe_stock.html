@@ -1,0 +1,32 @@
+{include="header"}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class="text-uppercase">Referencia</th>
+        <th class="text-uppercase">Stock</th>
+    </tr>
+    </thead>
+    {loop="$fsc->inventario"}
+    <tr>
+        <td>
+            {$value['referencia']}
+        </td>
+        <td>
+            {$value['cantidad']}
+        </td>
+    </tr>
+    {/loop}
+</table>
+
+<nav>
+    <ul class="pager">
+        {if condition="$fsc->offset!=0"}
+        <li class="previous"><a href="{$fsc->url()}&offset={$fsc->offset-8}"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+        {/if}
+        {if condition="!empty($fsc->inventario)"}
+        <li class="next"><a href="{$fsc->url()}&offset={$fsc->offset+8}">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+        {/if}
+    </ul>
+</nav>
+{include="footer"}

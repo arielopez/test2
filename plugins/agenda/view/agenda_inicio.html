@@ -1,0 +1,163 @@
+{include="header"}
+<h1 style="margin-left:20px;padding-top: 10px; "> Agenda</h1>
+
+<div class=" panel">
+    <div>
+        <br>
+        <!-- Nav tabs -->
+
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li><a href="{$fsc->url()}">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            </a></li>
+            <li role="presentation" {if condition="!$fsc->editar"} class="active" {/if} ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Listado</a>
+            </li>
+            <li role="presentation"><a href="#nuevo" aria-controls="nuevo" role="tab" data-toggle="tab">Nuevo</a></li>
+            {if condition="$fsc->editar"}
+            <li role="presentation" class="active"><a href="#editar" aria-controls="editar" role="tab" data-toggle="tab">Editar</a></li>
+            {/if}
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane {if condition="!$fsc->editar"} active {/if}" id="home">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-md-2">Fecha</th>
+                            <th>Tarea</th>
+                            <th class="col-md-1">Usuario</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop="$fsc->listado"}
+                        {if condition="$value[usuario]==$fsc->user->nick"}
+                        <tr class="bg-success">
+                            {else}
+                        <tr>
+                            {/if}
+                            <td><a href="{$fsc->url()}&id={$value['id']}">{$value['fecha']}</a></td>
+                            <td>{$value['tarea']}</td>
+                            <td>{$value['usuario']}</td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="nuevo">
+                <form action="{$fsc->url()}" class="form" method="post" style="margin-top: 10px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Fecha:
+                                    <input type="text" value="{$fsc->today()}" class="form-control datepicker "
+                                           name="fecha">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Hora:
+                                    <input type="text" name="hora" value="{$fsc->hour()}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Usuario:
+                                    <select name="usuario" id="listUsers" class="form-control">
+                                        <option value="">Ninguno</option>
+                                        <option value="">-------</option>
+                                        {loop="$fsc->user->all()"}
+                                        <option value="{$value->nick}">{$value->nick}</option>
+                                        {/loop}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="tarea" rows="5" class="form-control"></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"> </span>
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {if condition="$fsc->editar"}
+            <div role="tabpanel" class="tab-pane  active " id="editar">
+                <form action="{$fsc->url()}" class="form" method="post" style="margin-top: 10px;">
+                    <input type="hidden" name="id" value="{$fsc->editar[0]['id']}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12"><h3>Editando Tarea</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Fecha:
+                                    <input type="text" value="{$fsc->separa_fecha()}" class="form-control datepicker "
+                                           name="efecha">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Hora:
+                                    <input type="text" name="hora" value="{$fsc->separa_hora()}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    Usuario:
+                                    <select name="usuario" id="listUsers" class="form-control">
+                                        <option value="">Ninguno</option>
+                                        <option value="">-------</option>
+                                        {loop="$fsc->user->all()"}
+                                        {if condition="$value->nick==$fsc->editar[0]['usuario']"}
+                                        <option value="{$value->nick}" selected="selected">{$value->nick}</option>
+                                        {else}
+                                        <option value="{$value->nick}">{$value->nick}</option>
+                                        {/if}
+                                        {/loop}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="tarea" rows="5" class="form-control">{$fsc->editar[0]['tarea']}</textarea>
+                                </div>
+                                <div class="text-right">
+                                    <a href="{$fsc->url()}&delete={$fsc->editar[0]['id']}" class="btn btn-sm btn-danger">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        Eliminar</a>
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"> </span>
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {/if}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{include="footer"}

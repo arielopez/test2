@@ -1,0 +1,17 @@
+{include="header"}
+<br>
+<div class="container container-fluid">
+    <div class="row">
+        {loop="$fsc->folders()"}
+        <div class="col-md-2">
+            <b class="text-capitalize">{$value1}</b>
+            <ul class="list-unstyled">
+                {loop="$fsc->pages($value1)"}
+                <li><a href="{$value2->url()}" class="btn btn-sm btn-default">{$value2->title}</a></li>
+                {/loop}
+            </ul>
+        </div>
+        {/loop}
+    </div>
+</div>
+{include="footer"}
