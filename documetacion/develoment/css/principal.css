@@ -1,0 +1,20 @@
+.menu-principal{
+	height:170px; 
+}
+.principal-menu-item{
+	margin: 15px;
+	height: 75%;
+	background: orange;
+}
+.menu-principal a{
+	text-decoration: none;
+	
+}
+.panel-heading >h3{
+	color:#FFF;
+}
+div.panel {
+}
+.panel-primary>div.panel-heading{
+	height: 145px; 
+}

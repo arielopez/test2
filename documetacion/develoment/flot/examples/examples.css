@@ -1,0 +1,169 @@
+
+
+
+
+
+
+.demo-container {
+  box-sizing: border-box;
+  width: 450px;
+  height: 290px;
+  padding: 20px 15px 15px 15px;
+  margin: 15px auto 15px auto;
+}
+
+.demo-placeholder {
+  margin-left: 28px!important;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+.legend .legendLabel{
+  padding-left: 7px;
+  padding-bottom: 2px;
+}
+
+.bg-danger {
+  background-color: #fc8675!important;
+  color: #fff!important;
+}
+
+.panel-stat3 {
+  position: relative;
+  overflow: hidden;
+  padding: 25px 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.bg-info {
+  background-color: #6bafbd;
+  color: #fff;
+}
+
+.bg-warning {
+  background-color: #f3ce85;
+  color: #fff;
+}
+.bg-success {
+  background-color: #65cea7;
+  color: #fff;
+}
+.m-top-none {
+  margin-top: 0;
+}
+
+.m-left-xs {
+  margin-left: 5px;
+  font-size:12px;
+}
+
+.panel-stat3 .stat-icon {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  font-size: 30px;
+  opacity: .3;
+}
+.panel-stat3 .refresh-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  color: rgba(0,0,0,.3);
+}
+
+.panel-stat3 .refresh-button:hover {
+  color: #fff;
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+}
+
+.loading-overlay {
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.4);
+  text-align: center;
+}
+
+#cboxOverlay {
+  background: url(/public/images/overlay.png) repeat 0 0;
+}
+
+#cboxOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+#colorbox, #cboxOverlay, #cboxWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loading-overlay .loading-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  color: #fff;
+  animation: spin .8s infinite linear;
+  -webkit-animation: spin .8s infinite linear;
+  -moz-animation: spin .8s infinite linear;
+  -ms-animation: spin .8s infinite linear;
+  -o-animation: spin .8s infinite linear;
+}
+
+
+.loading-overlay.active {
+  display: block;
+}
+
+.panel-stat3 .download-button {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  color: rgba(0,0,0,.3);
+}
+
+.panel-stat3 .download-button:hover {
+  color: #fff;
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+}
+
+.input-sm {
+  height: 36px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0;
+  width: 65px!important;
+}

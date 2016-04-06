@@ -45,7 +45,7 @@ class ventas_articulos extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Artículos', 'ventas', FALSE, TRUE);
+      parent::__construct(__CLASS__, 'Artículos', 'Productos', FALSE, true);
    }
    
    protected function private_core()
