@@ -20,7 +20,7 @@
       $("#b_eliminar").click(function(event) {
          event.preventDefault();
          if( confirm("¿Realmente desea eliminar este ejercicio?") )
-            window.location.href = 'index.php?page=contabilidad_ejercicios&delete={$fsc->ejercicio->codejercicio}';
+            window.location.href = '../../../index.php';
       });
    });
 </script>
@@ -270,19 +270,19 @@
                   {/if}
                {else}
                <div class="radio">
-                  <label onclick="window.location.href = 'index.php?page=admin_home#descargas';">
+                  <label onclick="window.location.href = '../../../index.php';">
                      <input type="radio" name="fuente" value="" disabled="disabled"/>
                      PUC de <b>Colombia</b> (Requiere instalar plugin colombia)
                   </label>
                </div>
                <div class="radio">
-                  <label onclick="window.location.href = 'index.php?page=admin_home#descargas';">
+                  <label onclick="window.location.href = '../../../index.php';">
                      <input type="radio" name="fuente" value="" disabled="disabled"/>
                      Plan contable de <b>Panamá</b> (Requiere instalar plugin panama)
                   </label>
                </div>
                <div class="radio">
-                  <label onclick="window.location.href = 'index.php?page=admin_home#descargas';">
+                  <label onclick="window.location.href = '../../../index.php';">
                      <input type="radio" name="fuente" value="" disabled="disabled"/>
                      PCGE de <b>Perú</b> (Requiere instalar plugin peru)
                   </label>

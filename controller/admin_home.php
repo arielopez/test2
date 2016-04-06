@@ -464,7 +464,7 @@ class admin_home extends fs_controller
                 'wizard' => FALSE,
             );
             
-            if( file_exists('plugins/'.$f.'/facturascripts.ini') )
+            if( file_exists('plugins/'.$f.'/plugin.ini') )
             {
                $plugin['compatible'] = TRUE;
                $plugin['enabled'] = in_array($f, $this->plugins());
@@ -474,7 +474,7 @@ class admin_home extends fs_controller
                   $plugin['description'] = file_get_contents('plugins/'.$f.'/description');
                }
                
-               $ini_file = parse_ini_file('plugins/'.$f.'/facturascripts.ini');
+               $ini_file = parse_ini_file('plugins/'.$f.'/plugin.ini');
                if( isset($ini_file['version']) )
                {
                   $plugin['version'] = intval($ini_file['version']);

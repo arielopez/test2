@@ -27,7 +27,7 @@ class contabilidad_asientos extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Asientos', 'admin', FALSE, TRUE);
+      parent::__construct(__CLASS__, 'Asientos', 'admin', FALSE, FALSE);
    }
    
    protected function private_core()

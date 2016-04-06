@@ -62,7 +62,7 @@
             <ul class="nav navbar-nav">
                {loop="$fsc->folders()"}
                <li class="dropdown{if="$value1==$fsc->page->folder"} active{/if}">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: capitalize;">{$value1}</a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: capitalize;">{$value1}<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                      {loop="$fsc->pages($value1)"}
                      <li{if="$value2->showing()"} class="active"{/if}><a href="{$value2->url()}">{$value2->title}</a></li>
@@ -115,7 +115,7 @@
                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="{$fsc->user->nick}">
                      <span class="glyphicon glyphicon-user hidden-xs">  </span>
-                      <span class="text-capitalize">&nbsp; {$fsc->user->nick}</span>
+                      <span class="text-capitalize">&nbsp; {$fsc->user->nick}<b class="caret"></b></span>
                       <span class="visible-xs">Usuario</span>
                   </a>
                   <ul class="dropdown-menu">
