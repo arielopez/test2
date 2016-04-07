@@ -1,4 +1,4 @@
-<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
+<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header_modificado") . ( substr("header_modificado",-1,1) != "/" ? "/" : "" ) . basename("header_modificado") );?>
 
 
 <script type="text/javascript">
@@ -42,44 +42,56 @@
 
 <div class="container-fluid" style="margin-top: 10px;">
    <div class="row">
-      <div class="col-xs-12">
-         <div class="btn-group">
-            <a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>" title="Recargar la página">
-               <span class="glyphicon glyphicon-refresh"></span>
-            </a>
-            <?php if( $fsc->page->is_default() ){ ?>
-
-            <a class="btn btn-sm btn-default active" href="<?php echo $fsc->url();?>&amp;default_page=FALSE" title="desmarcar como página de inicio">
-               <span class="glyphicon glyphicon-home"></span>
-            </a>
-            <?php }else{ ?>
-
-            <a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>&amp;default_page=TRUE" title="marcar como página de inicio">
-               <span class="glyphicon glyphicon-home"></span>
-            </a>
-            <?php } ?>
-
-         </div>
-         <div class="btn-group">
-            <a id="b_nuevo_articulo" class="btn btn-sm btn-success" href="#">
-               <span class="glyphicon glyphicon-plus"></span>
-               <span class="hidden-xs">&nbsp; Nuevo</span>
-            </a>
-            <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
-            <?php if( $value1->type=='button' ){ ?>
-
-            <a href="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>" class="btn btn-sm btn-default"><?php echo $value1->text;?></a>
-            <?php } ?>
-
-            <?php } ?>
-
-         </div>
+      <!--<div class="col-xs-12">-->
+         <!--<div class="btn-group">-->
+            <!--<a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>" title="Recargar la página">-->
+               <!--<span class="glyphicon glyphicon-refresh"></span>-->
+            <!--</a>-->
+            <!--<?php if( $fsc->page->is_default() ){ ?>-->
+            <!--<a class="btn btn-sm btn-default active" href="<?php echo $fsc->url();?>&amp;default_page=FALSE" title="desmarcar como página de inicio">-->
+               <!--<span class="glyphicon glyphicon-home"></span>-->
+            <!--</a>-->
+            <!--<?php }else{ ?>-->
+            <!--<a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>&amp;default_page=TRUE" title="marcar como página de inicio">-->
+               <!--<span class="glyphicon glyphicon-home"></span>-->
+            <!--</a>-->
+            <!--<?php } ?>-->
+         <!--</div>-->
+         <!--<div class="btn-group">-->
+            <!--<a id="b_nuevo_articulo" class="btn btn-sm btn-success" href="#">-->
+               <!--<span class="glyphicon glyphicon-plus"></span>-->
+               <!--<span class="hidden-xs">&nbsp; Nuevo</span>-->
+            <!--</a>-->
+            <!--<?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>-->
+            <!--<?php if( $value1->type=='button' ){ ?>-->
+            <!--<a href="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>" class="btn btn-sm btn-default"><?php echo $value1->text;?></a>-->
+            <!--<?php } ?>-->
+            <!--<?php } ?>-->
+         <!--</div>-->
       </div>
    </div>
 </div>
 
-<div role="tabpanel" style="margin-top: 10px;">
+<div class="row">
+   <div class=" col-md-3 bar">
+      <ul class="nav nav-sidebar bs-glyphicons">
+         <?php $loop_var1=$fsc->pages($fsc->page->folder); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
+         <li class="li-vertical">
+            <a class="panel-main-view a-reset" href="<?php echo $value1->url();?>">
+               <div class="panel panel-stats panel-primary">
+                  <div class="panel-heading <?php if( $value1->showing() ){ ?> bt-active <?php } ?> text-center">
+                     <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                  </div>
+               </div>
+            </a>
+         </li>
+         <?php } ?>
+
+         </ul>
+      </div>
+
+<div role="tabpanel" style="margin-top: 10px;" class="col-md-8">
    <ul id="ul_tabs" class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
          <a href="#articulos" aria-controls="articulos" role="tab" data-toggle="tab">
@@ -203,10 +215,7 @@
                               </label>
                            </div>
                            <div class="checkbox-inline">
-                              <label>
-                                 <input type="checkbox" name="b_publicos"<?php if( $fsc->b_publicos ){ ?> checked="checked"<?php } ?> value="TRUE" onchange="this.form.submit()"/>
-                                 Públicos
-                              </label>
+
                            </div>
                            &nbsp;
                            <div class="btn-group">
@@ -480,9 +489,6 @@
                   <?php } ?>
 
                   <p class="help-block">
-                     ¿Necesitas un sistema de tarifas más <b>avanzado</b>? el plugin
-                     <a href="https://www.facturascripts.com/store/producto/plugin-facturacion_premium/" target="_blank">facturación premium</a>
-                     permite definir tarifas específicas por familia y precios fijos para artículos. <p class="help-block">
 
                   </p>
                   <form name="f_nueva_tarifa" action="<?php echo $fsc->url();?>#tarifas" method="post" class="form">
@@ -566,7 +572,7 @@
       </div>
    </div>
 </div>
-
+</div>
 <form class="form-horizontal" role="form" name="f_nuevo_articulo" action="<?php echo $fsc->url();?>" method="post">
    <div class="modal" id="modal_nuevo_articulo">
       <div class="modal-dialog">
