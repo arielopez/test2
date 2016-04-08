@@ -1,4 +1,4 @@
-<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
+<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header_modificado") . ( substr("header_modificado",-1,1) != "/" ? "/" : "" ) . basename("header_modificado") );?>
 
 
 <script type="text/javascript">
@@ -30,7 +30,17 @@
             <a class="panel-main-view a-reset" href="<?php echo $value1->url();?>">
                <div class="panel panel-stats panel-primary">
                   <div class="panel-heading <?php if( $value1->showing() ){ ?> bt-active <?php } ?> text-center">
+                     <?php if( $value1->title=='Artículos' ){ ?>
+
+                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php }elseif( $value1->title=='Nuevo artículo' ){ ?>
+
+                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php }else{ ?>
+
                      <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php } ?>
+
                   </div>
                </div>
             </a>
@@ -39,9 +49,10 @@
 
       </ul>
    </div>
-<div class="container-fluid">
-   <div class="row">
-      <div class="col-sm-8">
+<div class="col-sm-8">
+
+
+      <div class="">
          <div class="page-header">
             <h1>
                <a class="btn btn-xs btn-default" href="index.php?page=ventas_articulos">
@@ -68,7 +79,7 @@
             </p>
          </div>
       </div>
-   </div>
+
    <div class="row">
       <div class="col-sm-9">
          <div class="btn-group">
@@ -127,7 +138,7 @@
 
    </div>
 </div>
-</div>
+
 <form class="form" name="f_nueva_familia" action="<?php echo $fsc->url();?>" method="post">
    <?php if( $fsc->madre ){ ?>
 
@@ -173,5 +184,5 @@
       </div>
    </div>
 </form>
-
+</div>
 <?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("footer") . ( substr("footer",-1,1) != "/" ? "/" : "" ) . basename("footer") );?>

@@ -11,6 +11,7 @@
    <link rel="stylesheet" href="view/css/datepicker.css" />
    <link rel="stylesheet" href="view/css/custom.css" />
    <link rel="stylesheet" href="view/css/estilos.css">
+   <link rel="stylesheet" href="view/font-awesome/css/font-awesome.min.css">
    <script type="text/javascript" src="view/js/jquery.min.js"></script>
    <script type="text/javascript" src="view/js/bootstrap.min.js"></script>
    <script type="text/javascript" src="view/js/bootstrap-datepicker.js" charset="UTF-8"></script>
@@ -186,4 +187,5 @@
 
    
    <?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("feedback") . ( substr("feedback",-1,1) != "/" ? "/" : "" ) . basename("feedback") );?>
+
 

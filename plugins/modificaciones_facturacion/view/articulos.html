@@ -67,7 +67,7 @@
             <!--{/if}-->
             <!--{/loop}-->
          <!--</div>-->
-      </div>
+      <!--</div>-->
    </div>
 </div>
 
@@ -79,7 +79,13 @@
             <a class="panel-main-view a-reset" href="{$value->url()}">
                <div class="panel panel-stats panel-primary">
                   <div class="panel-heading {if="$value->showing()"} bt-active {/if} text-center">
+                     {if="$value->title=='Artículos'"}
+                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {elseif="$value->title=='Nuevo artículo'"}
+                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {else}
                      <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {/if}
                   </div>
                </div>
             </a>
@@ -356,7 +362,7 @@
                                        <input class="form-control" type="text" name="nombre" value="{$value->nombre}" maxlength="50" autocomplete="off"/>
                                     </div>
                                  </div>
-                                 <div class="col-sm-3">
+                                 <div class="col-sm-2">
                                     <div class="form-group">
                                        Aplicar
                                        <select name="aplicar_a" class="form-control">
@@ -377,7 +383,7 @@
                                        <input class="form-control" type="number" step="any" name="inclineal" value="{$value->y()}" autocomplete="off"/>
                                     </div>
                                  </div>
-                                 <div class="col-sm-2">
+                                 <div class="col-sm-3">
                                     <br/>
                                     <div class="form-control">{$value->diff()}</div>
                                  </div>

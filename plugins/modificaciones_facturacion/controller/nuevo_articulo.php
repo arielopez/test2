@@ -45,7 +45,7 @@ class nuevo_articulo extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Nuevo articulo', 'Productos', FALSE, TRUE);
+      parent::__construct(__CLASS__, 'Nuevo artículo', 'Productos', FALSE, TRUE);
    }
    
    protected function private_core()

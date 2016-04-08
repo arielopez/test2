@@ -1,4 +1,4 @@
-{include="header"}
+{include="header_modificado"}
 
 <script type="text/javascript">
    $(document).ready(function() {
@@ -17,25 +17,32 @@
       });
    });
 </script>
-
-<div class="container">
-   <div class="row">
-      <div class=" col-md-3 bar">
-         <ul class="nav nav-sidebar bs-glyphicons">
-            {loop="$fsc->pages($fsc->page->folder)"}
-            <li class="li-vertical">
-               <a class="panel-main-view a-reset" href="{$value->url()}">
-                  <div class="panel panel-stats panel-primary">
-                     <div class="panel-heading {if="$value->showing()"} bt-active {/if} text-center">
-                        <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
-                     </div>
+<div class="row">
+   <div class=" col-md-3 bar">
+      <ul class="nav nav-sidebar bs-glyphicons">
+         {loop="$fsc->pages($fsc->page->folder)"}
+         <li class="li-vertical">
+            <a class="panel-main-view a-reset" href="{$value->url()}">
+               <div class="panel panel-stats panel-primary">
+                  <div class="panel-heading {if="$value->showing()"} bt-active {/if} text-center">
+                     {if="$value->title=='Artículos'"}
+                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {elseif="$value->title=='Nuevo artículo'"}
+                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {else}
+                     <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                     {/if}
                   </div>
-               </a>
-            </li>
-            {/loop}
-         </ul>
-      </div>
-      <div class="col-sm-8">
+               </div>
+            </a>
+         </li>
+         {/loop}
+      </ul>
+   </div>
+<div class="col-sm-8">
+
+
+      <div class="">
          <div class="page-header">
             <h1>
                <a class="btn btn-xs btn-default" href="index.php?page=ventas_articulos">
@@ -59,7 +66,7 @@
             </p>
          </div>
       </div>
-   </div>
+
    <div class="row">
       <div class="col-sm-9">
          <div class="btn-group">
@@ -152,5 +159,5 @@
       </div>
    </div>
 </form>
-
+</div>
 {include="footer"}

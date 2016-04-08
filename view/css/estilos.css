@@ -58,6 +58,7 @@ a {
 .div-fload{
 	float: left;
 	padding-left: 10px;
+	padding-top: 10px;
 }
 .panel {
 	margin: 0;
@@ -74,6 +75,7 @@ a {
 }
 .li-vertical h3 {
 	color: #FFF;
+	margin-bottom: 18px;
 }
 .caret{
 	margin-left: 5px;

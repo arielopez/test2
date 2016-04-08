@@ -68,7 +68,7 @@
             <!--<?php } ?>-->
             <!--<?php } ?>-->
          <!--</div>-->
-      </div>
+      <!--</div>-->
    </div>
 </div>
 
@@ -81,7 +81,17 @@
             <a class="panel-main-view a-reset" href="<?php echo $value1->url();?>">
                <div class="panel panel-stats panel-primary">
                   <div class="panel-heading <?php if( $value1->showing() ){ ?> bt-active <?php } ?> text-center">
+                     <?php if( $value1->title=='Artículos' ){ ?>
+
+                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php }elseif( $value1->title=='Nuevo artículo' ){ ?>
+
+                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php }else{ ?>
+
                      <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
+                     <?php } ?>
+
                   </div>
                </div>
             </a>
@@ -405,7 +415,7 @@
                                        <input class="form-control" type="text" name="nombre" value="<?php echo $value1->nombre;?>" maxlength="50" autocomplete="off"/>
                                     </div>
                                  </div>
-                                 <div class="col-sm-3">
+                                 <div class="col-sm-2">
                                     <div class="form-group">
                                        Aplicar
                                        <select name="aplicar_a" class="form-control">
@@ -426,7 +436,7 @@
                                        <input class="form-control" type="number" step="any" name="inclineal" value="<?php echo $value1->y();?>" autocomplete="off"/>
                                     </div>
                                  </div>
-                                 <div class="col-sm-2">
+                                 <div class="col-sm-3">
                                     <br/>
                                     <div class="form-control"><?php echo $value1->diff();?></div>
                                  </div>
