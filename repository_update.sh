@@ -24,7 +24,7 @@ while [ ${continuar} = "y" ]; do
        ;;
        3)
             echo -n "Se va ha impactar repositorio..";read a
-            git push origin limpia_mas_inicio
+            git push origin limpia_mas
        ;;
        *)
          echo -n " Valor invalido..";read a
