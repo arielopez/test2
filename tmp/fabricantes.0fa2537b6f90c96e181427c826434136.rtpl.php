@@ -1,4 +1,4 @@
-<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header_modificado") . ( substr("header_modificado",-1,1) != "/" ? "/" : "" ) . basename("header_modificado") );?>
+<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header_modificado2") . ( substr("header_modificado2",-1,1) != "/" ? "/" : "" ) . basename("header_modificado2") );?>
 
 
 <script type="text/javascript">
@@ -12,38 +12,7 @@
       });
    });
 </script>
-<div class="row">
-   <div class=" col-md-3 bar">
-      <ul class="nav nav-sidebar bs-glyphicons">
-         <?php $loop_var1=$fsc->pages($fsc->page->folder); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
 
-         <li class="li-vertical">
-            <a class="panel-main-view a-reset" href="<?php echo $value1->url();?>">
-               <div class="panel panel-stats panel-primary">
-                  <div class="panel-heading <?php if( $value1->showing() ){ ?> bt-active <?php } ?> text-center">
-                     <?php if( $value1->title=='Artículos' ){ ?>
-
-                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
-                     <?php }elseif( $value1->title=='Nuevo artículo' ){ ?>
-
-                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
-                     <?php }elseif( $value1->title=='Fabricantes' ){ ?>
-
-                     <i><span class="fa fa-bar-chart-o fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
-                     <?php }else{ ?>
-
-                     <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3><?php echo $value1->title;?></h3>
-                     <?php } ?>
-
-                  </div>
-               </div>
-            </a>
-         </li>
-         <?php } ?>
-
-      </ul>
-   </div>
-   <div class="col-sm-8">
 <div class="">
    <div class="row">
       <div class="col-sm-12">
@@ -162,4 +131,4 @@
 </div>
    </div>
 
-<?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("footer") . ( substr("footer",-1,1) != "/" ? "/" : "" ) . basename("footer") );?>
+<?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("footer2") . ( substr("footer2",-1,1) != "/" ? "/" : "" ) . basename("footer2") );?>

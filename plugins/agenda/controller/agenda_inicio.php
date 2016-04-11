@@ -16,8 +16,9 @@ class agenda_inicio extends fs_controller
     }
     public function private_core()
     {
+
         $this->editar=FALSE;
-        if(isset($_POST['fecha'])){
+        if(isset($_POST['fecha'])){ //nueva tarea
             $fecha=date('Y-m-d',strtotime($_POST['fecha']));
             $fecha.=' '.$_POST['hora'];
             $sql="INSERT INTO agenda (fecha,usuario,tarea) VALUES ('".$fecha."','"
@@ -30,21 +31,27 @@ class agenda_inicio extends fs_controller
                 $this->new_error_msg('Error al guardar los datos');
 
         }
-        elseif(isset($_POST['id'])){
+        elseif(isset($_POST['id'])){//actualizar y o editar tarea
             $fecha=date('Y-m-d',strtotime($_POST['efecha']));
             $fecha.=' '.$_POST['hora'];
             $this->editar=$this->db->select("SELECT * FROM agenda WHERE id='".$_POST['id']."';");
+            $completado=0;
+            if(isset($_POST['completado']))
+                $completado=1;
 
             if($this->editar){
-                $sql="UPDATE agenda SET fecha='".$fecha."', usuario='".$_POST['usuario']."',tarea='".$_POST['tarea']."' WHERE id='".$_POST['id']."';";
+                $sql="UPDATE agenda SET fecha='".$this->db->escape_string($fecha)."', usuario='".$_POST['usuario']
+                    ."',tarea='".$this->db->escape_string(htmlentities($_POST['tarea']))
+                    ."',completado='".$completado
+                    ."' WHERE id='".$this->db->escape_string($_POST['id'])."';";
                 if($this->db->exec($sql)){
                     $this->new_message('Se ha modificado correctamente');
-                    $this->editar=$this->db->select("SELECT * FROM agenda WHERE id='".$_POST['id']."';");
+                    $this->editar=$this->db->select("SELECT * FROM agenda WHERE id='".$this->db->escape_string($_POST['id'])."';");
                 }else
                     $this->new_error_msg('Error al modificar los datos');
             }
 
-        }elseif(isset($_GET['delete'])){
+        }elseif(isset($_GET['delete'])){ //eliminar tarea
             $sql="DELETE FROM agenda WHERE id='".$_GET['delete']."';";
             if($this->db->exec($sql)){
                 $this->new_message("Tarea eliminada");
@@ -54,7 +61,7 @@ class agenda_inicio extends fs_controller
 
         }
 
-        elseif(isset($_GET['id'])){
+        elseif(isset($_GET['id'])){ // desplegar agenda
             $this->editar=$this->db->select("SELECT * FROM agenda WHERE id='".$_GET['id']."';");
         }
 

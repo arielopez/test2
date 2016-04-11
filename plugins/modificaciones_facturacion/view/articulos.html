@@ -1,4 +1,4 @@
-{include="header_modificado"}
+{include="header_modificado2"}
 
 <script type="text/javascript">
    function show_nuevo_articulo()
@@ -43,24 +43,24 @@
    <div class="row">
       <!--<div class="col-xs-12">-->
          <!--<div class="btn-group">-->
-            <!--<a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">-->
-               <!--<span class="glyphicon glyphicon-refresh"></span>-->
-            <!--</a>-->
-            <!--{if="$fsc->page->is_default()"}-->
-            <!--<a class="btn btn-sm btn-default active" href="{$fsc->url()}&amp;default_page=FALSE" title="desmarcar como página de inicio">-->
-               <!--<span class="glyphicon glyphicon-home"></span>-->
-            <!--</a>-->
-            <!--{else}-->
-            <!--<a class="btn btn-sm btn-default" href="{$fsc->url()}&amp;default_page=TRUE" title="marcar como página de inicio">-->
-               <!--<span class="glyphicon glyphicon-home"></span>-->
-            <!--</a>-->
-            <!--{/if}-->
+            <a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">
+               <span class="glyphicon glyphicon-refresh"></span>
+            </a>
+            {if="$fsc->page->is_default()"}
+            <a class="btn btn-sm btn-default active" href="{$fsc->url()}&amp;default_page=FALSE" title="desmarcar como página de inicio">
+               <span class="glyphicon glyphicon-home"></span>
+            </a>
+            {else}
+            <a class="btn btn-sm btn-default" href="{$fsc->url()}&amp;default_page=TRUE" title="marcar como página de inicio">
+               <span class="glyphicon glyphicon-home"></span>
+            </a>
+            {/if}
          <!--</div>-->
          <!--<div class="btn-group">-->
-            <!--<a id="b_nuevo_articulo" class="btn btn-sm btn-success" href="#">-->
-               <!--<span class="glyphicon glyphicon-plus"></span>-->
-               <!--<span class="hidden-xs">&nbsp; Nuevo</span>-->
-            <!--</a>-->
+            <a id="b_nuevo_articulo" class="btn btn-sm btn-success" href="#">
+               <span class="glyphicon glyphicon-plus"></span>
+               <span class="hidden-xs">&nbsp; Nuevo</span>
+            </a>
             <!--{loop="$fsc->extensions"}-->
             <!--{if="$value->type=='button'"}-->
             <!--<a href="index.php?page={$value->from}{$value->params}" class="btn btn-sm btn-default">{$value->text}</a>-->
@@ -71,30 +71,7 @@
    </div>
 </div>
 
-<div class="row">
-   <div class=" col-md-3 bar">
-      <ul class="nav nav-sidebar bs-glyphicons">
-         {loop="$fsc->pages($fsc->page->folder)"}
-         <li class="li-vertical">
-            <a class="panel-main-view a-reset" href="{$value->url()}">
-               <div class="panel panel-stats panel-primary">
-                  <div class="panel-heading {if="$value->showing()"} bt-active {/if} text-center">
-                     {if="$value->title=='Artículos'"}
-                     <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
-                     {elseif="$value->title=='Nuevo artículo'"}
-                     <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
-                     {else}
-                     <i><span class="fa fa-users fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
-                     {/if}
-                  </div>
-               </div>
-            </a>
-         </li>
-         {/loop}
-         </ul>
-      </div>
-
-<div role="tabpanel" style="margin-top: 10px;" class="col-md-8">
+<div role="tabpanel" style="margin-top: 10px;" class="">
    <ul id="ul_tabs" class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
          <a href="#articulos" aria-controls="articulos" role="tab" data-toggle="tab">
@@ -617,4 +594,4 @@
    </div>
 </form>
 
-{include="footer"}
+{include="footer2"}

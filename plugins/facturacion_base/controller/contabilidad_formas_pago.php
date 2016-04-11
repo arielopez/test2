@@ -12,7 +12,7 @@ class contabilidad_formas_pago extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Formas de Pago', 'Administracion');
+      parent::__construct(__CLASS__, 'Formas de Pago', 'Administracion',false,false);
    }
    
    protected function private_core()

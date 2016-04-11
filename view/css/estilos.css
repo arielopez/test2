@@ -64,9 +64,10 @@ a {
 	margin: 0;
 }
 .li-vertical{
-	width: 85%;
-	padding-right: 20px;
-	padding-left: 15px;
+	/*width: 85%;*/
+	/*padding-right: 20px;*/
+	/*padding-left: 15px;*/
+	/*margin-right: 20px;*/
 } 
 .panel-primary > .bt-active{
     color: #FFF;
@@ -102,4 +103,7 @@ a {
 	border-right: 1px solid #424243;
 	height: 50px;
 }
-
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
