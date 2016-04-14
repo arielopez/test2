@@ -1,8 +1,6 @@
 <?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
 
-
 <?php if( $fsc->articulo ){ ?>
-
 <script type="text/javascript">
    function cambiar_pvp()
    {
@@ -77,14 +75,11 @@
       $("#b_eliminar_articulo").click(function(event) {
          event.preventDefault();
          <?php if( $fsc->articulo->publico ){ ?>
-
          alert('Este artículo es público. Si estas seguro de que quieres eliminarlo, desmarcalo como público, guarda y pulsa eliminar.');
          <?php }else{ ?>
-
          if( confirm("¿Estas seguro de que deseas eliminar este articulo?") )
             window.location.href = "../../../index.php"urlencode($fsc->articulo->referencia)"}";
          <?php } ?>
-
       });
       $("#b_imagen").click(function(event) {
          event.preventDefault();
@@ -122,27 +117,20 @@
             <span class="hidden-xs">&nbsp; Imagen</span>
          </a>
          <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
             <?php if( $value1->type=='button' ){ ?>
-
             <a href="index.php?page=<?php echo $value1->from;?>&ref=<?php echo urlencode($fsc->articulo->referencia); ?><?php echo $value1->params;?>" class="btn btn-sm btn-default">
                <?php echo $value1->text;?>
-
             </a>
             <?php } ?>
-
          <?php } ?>
-
       </div>
       <div class="col-xs-2 text-right">
          <?php if( $fsc->allow_delete ){ ?>
-
          <a href="#" id="b_eliminar_articulo" class="btn btn-sm btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
             <span class="hidden-xs">&nbsp; Eliminar</span>
          </a>
          <?php } ?>
-
       </div>
    </div>
 </div>
@@ -156,7 +144,6 @@
          </a>
       </li>
       <?php if( $fsc->mostrar_tab_precios ){ ?>
-
       <li role="presentation">
          <a href="#precios" aria-controls="precios" role="tab" data-toggle="tab">
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
@@ -164,9 +151,7 @@
          </a>
       </li>
       <?php } ?>
-
       <?php if( $fsc->mostrar_tab_stock ){ ?>
-
       <li role="presentation">
          <a href="#stock" aria-controls="stock" role="tab" data-toggle="tab">
             <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
@@ -174,9 +159,7 @@
          </a>
       </li>
       <?php } ?>
-
       <?php if( $fsc->equivalentes ){ ?>
-
       <li role="presentation">
          <a href="#equivalentes" aria-controls="equivalentes" role="tab" data-toggle="tab">
             <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
@@ -184,18 +167,13 @@
          </a>
       </li>
       <?php } ?>
-
       <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
          <?php if( $value1->type=='tab' ){ ?>
-
          <li role="presentation">
             <a href="#ext_<?php echo $value1->name;?>" aria-controls="ext_<?php echo $value1->name;?>" role="tab" data-toggle="tab"><?php echo $value1->text;?></a>
          </li>
          <?php } ?>
-
       <?php } ?>
-
       <li class="dropdown">
          <a class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -204,19 +182,14 @@
          </a>
          <ul class="dropdown-menu" role="menu">
          <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
             <?php if( $value1->type=='tab_button' ){ ?>
-
             <li>
                <a href="index.php?page=<?php echo $value1->from;?>&ref=<?php echo urlencode($fsc->articulo->referencia); ?><?php echo $value1->params;?>">
                   <?php echo $value1->text;?>
-
                </a>
             </li>
             <?php } ?>
-
          <?php } ?>
-
          </ul>
       </li>
    </ul>
@@ -236,14 +209,10 @@
                         <select name="tipo" class="form-control" onchange="this.form.submit()">
                            <option value="">Producto simple</option>
                            <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                               <?php if( $value1->type=='tipo_art' ){ ?>
-
                               <option value="<?php echo $value1->params;?>"<?php if( $fsc->articulo->tipo==$value1->params ){ ?> selected=""<?php } ?>><?php echo $value1->text;?></option>
                               <?php } ?>
-
                            <?php } ?>
-
                         </select>
                      </div>
                   </div>
@@ -262,17 +231,12 @@
                            <option value="">Ninguna</option>
                            <option value="">-------</option>
                            <?php $loop_var1=$fsc->familia->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                               <?php if( $value1->codfamilia===$fsc->articulo->codfamilia ){ ?>
-
                               <option value="<?php echo $value1->codfamilia;?>" selected=""><?php echo $value1->nivel;?><?php echo $value1->descripcion;?></option>
                               <?php }else{ ?>
-
                               <option value="<?php echo $value1->codfamilia;?>"><?php echo $value1->nivel;?><?php echo $value1->descripcion;?></option>
                               <?php } ?>
-
                            <?php } ?>
-
                         </select>
                      </div>
                   </div>
@@ -283,17 +247,12 @@
                            <option value="">Ninguno</option>
                            <option value="">-------</option>
                            <?php $loop_var1=$fsc->fabricante->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                               <?php if( $value1->codfabricante===$fsc->articulo->codfabricante ){ ?>
-
                               <option value="<?php echo $value1->codfabricante;?>" selected=""><?php echo $value1->nombre;?></option>
                               <?php }else{ ?>
-
                               <option value="<?php echo $value1->codfabricante;?>"><?php echo $value1->nombre;?></option>
                               <?php } ?>
-
                            <?php } ?>
-
                         </select>
                      </div>
                   </div>
@@ -367,7 +326,6 @@
                         </label>
                      </div>
                      <?php if( $fsc->mostrar_boton_publicar ){ ?>
-
                      <div class="checkbox">
                         <label title="Sincronizar con tienda online (si está disponible)">
                            <input type="checkbox" name="publico" value="TRUE"<?php if( $fsc->articulo->publico ){ ?> checked="checked"<?php } ?>/>
@@ -375,10 +333,8 @@
                         </label>
                      </div>
                      <?php }elseif( $fsc->articulo->publico ){ ?>
-
                      <input type="hidden" name="publico" value="TRUE"/>
                      <?php } ?>
-
                   </div>
                </div>
                <div class="row">
@@ -398,7 +354,6 @@
          </form>
       </div>
       <?php if( $fsc->mostrar_tab_precios ){ ?>
-
       <div role="tabpanel" class="tab-pane" id="precios">
          <form action="<?php echo $fsc->url();?>#precios" method="post" class="form">
             <input type="hidden" name="referencia" value="<?php echo $fsc->articulo->referencia;?>"/>
@@ -420,17 +375,12 @@
                         <a href="<?php echo $fsc->impuesto->url();?>"><?php  echo FS_IVA;?></a>:
                         <select class="form-control" name="codimpuesto" onchange="this.form.submit()">
                         <?php $loop_var1=$fsc->impuesto->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                            <?php if( $value1->codimpuesto==$fsc->articulo->codimpuesto ){ ?>
-
                            <option value="<?php echo $value1->codimpuesto;?>" selected=""><?php echo $value1->descripcion;?></option>
                            <?php }else{ ?>
-
                            <option value="<?php echo $value1->codimpuesto;?>"><?php echo $value1->descripcion;?></option>
                            <?php } ?>
-
                         <?php } ?>
-
                         </select>
                      </div>
                   </div>
@@ -449,13 +399,10 @@
                      <div class="form-group">
                         Precio de Coste:
                         <?php if( $fsc->articulo->secompra AND FS_COST_IS_AVERAGE ){ ?>
-
                         <input type="text" name="coste" id="coste" class="form-control" value="<?php echo $fsc->articulo->preciocoste();?>" disabled="disabled">
                         <?php }else{ ?>
-
                         <input type="text" name="preciocoste" id="coste" class="form-control" value="<?php echo $fsc->articulo->preciocoste();?>" onclick="this.select()" autocomplete="off">
                         <?php } ?>
-
                         <p class="help-block">
                            Puede cambiar la configuración de precio de coste desde
                            la configuración del <a href="index.php?page=admin_almacenes">almacén</a>.
@@ -503,7 +450,6 @@
                               </tr>
                            </thead>
                            <?php $loop_var1=$fsc->get_tarifas(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                            <tr>
                               <td width="120"><div class="form-control"><a href="<?php echo $value1->tarifa_url;?>"><?php echo $value1->codtarifa;?></a></div></td>
                               <td><div class="form-control"><?php echo $value1->tarifa_nombre;?></div></td>
@@ -516,12 +462,10 @@
                               </td>
                            </tr>
                            <?php }else{ ?>
-
                            <tr class="warning">
                               <td colspan="5">No hay tarifas definidas.</td>
                            </tr>
                            <?php } ?>
-
                         </table>
                      </div>
                      <div class="container-fluid">
@@ -548,7 +492,6 @@
                               </tr>
                            </thead>
                            <?php $loop_var1=$fsc->get_articulo_proveedores(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                            <tr>
                               <td><a href="<?php echo $value1->url_proveedor();?>"><?php echo $value1->nombre_proveedor();?></a></td>
                               <td><?php echo $value1->refproveedor;?></td>
@@ -557,14 +500,11 @@
                               <td class="text-right"><?php echo $fsc->show_precio($value1->total_iva());?></td>
                               <td class="text-right">
                                  <?php if( $value1->nostock ){ ?>-<?php }else{ ?><?php echo $value1->stock;?><?php } ?>
-
                               </td>
                            </tr>
                            <?php }else{ ?>
-
                            <tr><td colspan="6" class="bg-warning">Sin resultados.</td></tr>
                            <?php } ?>
-
                         </table>
                      </div>
                   </div>
@@ -573,9 +513,7 @@
          </form>
       </div>
       <?php } ?>
-
       <?php if( $fsc->mostrar_tab_stock ){ ?>
-
       <div role="tabpanel" class="tab-pane" id="stock">
          <div class="table-responsive">
             <table class="table table-hover">
@@ -590,7 +528,6 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->stocks; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                <tr>
                   <form action="<?php echo $fsc->url();?>#stock" method="post" class="form">
                      <input type="hidden" name="idstock" value="<?php echo $value1->idstock;?>"/>
@@ -612,9 +549,7 @@
                   </form>
                </tr>
                <?php } ?>
-
                <?php if( $fsc->nuevos_almacenes ){ ?>
-
                <tr class="info">
                   <form action="<?php echo $fsc->url();?>#stock" method="post" class="form">
                      <input type="hidden" name="referencia" value="<?php echo $fsc->articulo->referencia;?>"/>
@@ -622,10 +557,8 @@
                      <td>
                         <select class="form-control" name="almacen">
                            <?php $loop_var1=$fsc->nuevos_almacenes; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                            <option value="<?php echo $value1->codalmacen;?>"><?php echo $value1->nombre;?></option>
                            <?php } ?>
-
                         </select>
                      </td>
                      <td>
@@ -642,7 +575,6 @@
                   </form>
                </tr>
                <?php } ?>
-
             </table>
          </div>
          <div class="container-fluid">
@@ -679,26 +611,22 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->get_movimientos(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                <tr class='clickableRow<?php if( $value1['movimiento']=='-' ){ ?> warning<?php }elseif( $value1['movimiento']>0 ){ ?> success<?php }else{ ?> danger<?php } ?>' href='<?php echo $value1['url'];?>'>
                   <td>
                      <?php echo $value1['codalmacen'];?> - <a href="<?php echo $value1['url'];?>"><?php echo $value1['origen'];?></a>
                   </td>
                   <td class="text-right">
                      <?php if( $value1['movimiento']>0 ){ ?>+<?php } ?><?php echo $value1['movimiento'];?>
-
                   </td>
                   <td class="text-right"><?php echo $value1['final'];?></td>
                   <td class="text-right"><?php echo $value1['fecha'];?></td>
                   <td class="text-right"><?php echo $value1['hora'];?></td>
                </tr>
                <?php }else{ ?>
-
                <tr>
                   <td colspan="5" class="warning">Sin resultados.</td>
                </tr>
                <?php } ?>
-
                <tr>
                   <td colspan="2"></td>
                   <td class="text-right"><b><?php echo $fsc->articulo->stockfis;?></b></td>
@@ -718,7 +646,6 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->regularizaciones; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                <tr<?php if( $value1->cantidadfin<$value1->cantidadini ){ ?> class="danger"<?php } ?>>
                   <td><?php echo $value1->nick;?></td>
                   <td><?php echo $value1->motivo;?></td>
@@ -728,28 +655,22 @@
                   <td class="text-right"><?php echo $value1->hora;?></td>
                   <td>
                      <?php if( $fsc->allow_delete ){ ?>
-
                      <a href="<?php echo $fsc->url();?>&deletereg=<?php echo $value1->id;?>#stock" title="Eliminar la regularización">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                      </a>
                      <?php } ?>
-
                   </td>
                </tr>
                <?php }else{ ?>
-
                <tr class="warning">
                   <td colspan="7">Sin resultados.</td>
                </tr>
                <?php } ?>
-
             </table>
          </div>
       </div>
       <?php } ?>
-
       <?php if( $fsc->equivalentes ){ ?>
-
       <div role="tabpanel" class="tab-pane" id="equivalentes">
          <div class="table-responsive">
             <table class="table table-hover">
@@ -762,41 +683,32 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->equivalentes; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                <tr class="clickableRow" href="<?php echo $value1->url();?>">
                   <td>
                      <a href="<?php echo $value1->url();?>"><?php echo $value1->referencia;?></a>
                      <?php echo $value1->descripcion;?>
-
                   </td>
                   <td class="text-right"><?php echo $fsc->show_precio($value1->pvp);?></td>
                   <td class="text-right"><?php echo $fsc->show_precio($value1->pvp_iva());?></td>
                   <td class="text-right"><?php echo $value1->stockfis;?></td>
                </tr>
                <?php }else{ ?>
-
                <tr class="warning">
                   <td colspan="3">Sin resultados.</td>
                </tr>
                <?php } ?>
-
             </table>
          </div>
       </div>
       <?php } ?>
-
       <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
          <?php if( $value1->type=='tab' ){ ?>
-
          <div role="tabpanel" class="tab-pane" id="ext_<?php echo $value1->name;?>">
             <iframe src="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>&ref=<?php echo urlencode($fsc->articulo->referencia); ?>" width="100%" height="2000" frameborder="0">
             </iframe>
          </div>
          <?php } ?>
-
       <?php } ?>
-
    </div>
 </div>
 
@@ -814,7 +726,6 @@
             </div>
             <div class="modal-body">
                <?php if( $fsc->articulo->imagen_url() ){ ?>
-
                <div class="thumbnail">
                   <img src="<?php echo $fsc->articulo->imagen_url();?>" alt="<?php echo $fsc->articulo->referencia;?>"/>
                   <div class="caption">
@@ -822,37 +733,30 @@
                   </div>
                </div>
                <?php }else{ ?>
-
                <div class="form-group">
                   <input type="file" name="fimagen" accept="image/jpeg, image/png"/>
                </div>
                <?php } ?>
-
             </div>
             <div class="modal-footer">
                <?php if( $fsc->articulo->imagen_url() ){ ?>
-
                <a class="btn btn-sm btn-danger" href="<?php echo $fsc->url();?>&delete_img=TRUE">
                   <span class="glyphicon glyphicon-trash"></span> &nbsp; Eliminar
                </a>
                <?php }else{ ?>
-
                <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
                   <span class="glyphicon glyphicon-floppy-disk"></span> &nbsp; Guardar
                </button>
                <?php } ?>
-
             </div>
          </div>
       </div>
    </div>
 </form>
 <?php }else{ ?>
-
 <div class="thumbnail">
    <img src="view/img/fuuu_face.png" alt="fuuuuu"/>
 </div>
 <?php } ?>
-
 
 <?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("footer") . ( substr("footer",-1,1) != "/" ? "/" : "" ) . basename("footer") );?>

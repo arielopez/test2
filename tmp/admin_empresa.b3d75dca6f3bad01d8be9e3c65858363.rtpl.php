@@ -1,6 +1,5 @@
 <?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
 
-
 <script type="text/javascript" src="<?php echo $fsc->get_js_location('provincias.js');?>"></script>
 <script type="text/javascript">
    function comprobar_url()
@@ -107,14 +106,10 @@
                </a>
                <span class="btn-group">
                   <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                      <?php if( $value1->type=='button' ){ ?>
-
                      <a href="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>" class="btn btn-xs btn-default"><?php echo $value1->text;?></a>
                      <?php } ?>
-
                   <?php } ?>
-
                </span>
             </h1>
          </div>
@@ -130,7 +125,6 @@
                <span class="glyphicon glyphicon-envelope"></span> &nbsp; Email
             </a>
             <?php if( $fsc->facturacion_base ){ ?>
-
             <a id="b_facturacion" href="#facturacion" class="list-group-item" onclick="mostrar_seccion('facturacion')">
                <span class="glyphicon glyphicon-usd"></span> &nbsp; Facturación
             </a>
@@ -141,16 +135,11 @@
                <span class="glyphicon glyphicon-print"></span> &nbsp; Impresión
             </a>
             <?php } ?>
-
             <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                <?php if( $value1->type=='button' ){ ?>
-
                <a href="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>" class="list-group-item"><?php echo $value1->text;?></a>
                <?php } ?>
-
             <?php } ?>
-
          </div>
       </div>
       <div class="col-md-10 col-sm-9">
@@ -169,7 +158,6 @@
                      <input class="form-control" type="text" name="nombrecorto" value="<?php echo $fsc->empresa->nombrecorto;?>" autocomplete="off"/>
                   </div>
                   <?php if( $fsc->facturacion_base ){ ?>
-
                   <div class="form-group col-sm-4">
                      <?php  echo FS_CIFNIF;?>:
                      <input class="form-control" type="text" name="cifnif" value="<?php echo $fsc->empresa->cifnif;?>" autocomplete="off"/>
@@ -182,10 +170,8 @@
                      <a href="<?php echo $fsc->pais->url();?>">País</a>:
                      <select name="codpais" class="form-control">
                         <?php $loop_var1=$fsc->pais->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->codpais;?>"<?php if( $fsc->empresa->codpais == $value1->codpais ){ ?> selected=""<?php } ?>><?php echo $value1->nombre;?></option>
                         <?php } ?>
-
                      </select>
                   </div>
                   <div class="form-group col-sm-3">
@@ -213,7 +199,6 @@
                      <input class="form-control" type="text" name="fax" value="<?php echo $fsc->empresa->fax;?>" autocomplete="off"/>
                   </div>
                   <?php } ?>
-
                   <div class="form-group col-sm-4">
                      Web:
                      <input class="form-control" type="text" name="web" value="<?php echo $fsc->empresa->web;?>" autocomplete="off"/>
@@ -314,10 +299,8 @@
                      <a href="<?php echo $fsc->divisa->url();?>">Divisa</a>:
                      <select name="coddivisa" class="form-control">
                      <?php $loop_var1=$fsc->divisa->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->coddivisa;?>"<?php if( $fsc->empresa->coddivisa == $value1->coddivisa ){ ?> selected=""<?php } ?>><?php echo $value1->descripcion;?></option>
                      <?php } ?>
-
                      </select>
                      <p class="help-block">
                         <a href="index.php?page=admin_home#avanzado">Cambiar el formato</a>.
@@ -327,10 +310,8 @@
                      <a href="<?php echo $fsc->ejercicio->url();?>">Ejercicio</a>:
                      <select name="codejercicio" class="form-control" autofocus >
                      <?php $loop_var1=$fsc->ejercicio->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->codejercicio;?>"<?php if( $fsc->empresa->codejercicio == $value1->codejercicio ){ ?> selected=""<?php } ?>><?php echo $value1->nombre;?></option>
                      <?php } ?>
-
                      </select>
                      <p class="help-block">Sólo sirve para inicializar algunos campos.</p>
                   </div>
@@ -338,10 +319,8 @@
                      <a href="<?php echo $fsc->serie->url();?>">Serie</a>:
                      <select name="codserie" class="form-control">
                      <?php $loop_var1=$fsc->serie->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->codserie;?>"<?php if( $fsc->empresa->codserie == $value1->codserie ){ ?> selected=""<?php } ?>><?php echo $value1->descripcion;?></option>
                      <?php } ?>
-
                      </select>
                      <p class="help-block">El <?php  echo FS_IRPF;?> se define en la serie.</p>
                   </div>
@@ -363,20 +342,16 @@
                      <a href="<?php echo $fsc->forma_pago->url();?>">Forma de pago</a>:
                      <select name="codpago" class="form-control">
                      <?php $loop_var1=$fsc->forma_pago->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->codpago;?>"<?php if( $fsc->empresa->codpago == $value1->codpago ){ ?> selected=""<?php } ?>><?php echo $value1->descripcion;?></option>
                      <?php } ?>
-
                      </select>
                   </div>
                   <div class="form-group col-sm-3">
                      <a href="<?php echo $fsc->almacen->url();?>">Almacén</a>:
                      <select name="codalmacen" class="form-control">
                      <?php $loop_var1=$fsc->almacen->all(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
                         <option value="<?php echo $value1->codalmacen;?>"<?php if( $fsc->empresa->codalmacen == $value1->codalmacen ){ ?> selected=""<?php } ?>><?php echo $value1->nombre;?></option>
                      <?php } ?>
-
                      </select>
                   </div>
                </div>
@@ -396,39 +371,30 @@
                      <div class="checkbox-inline">
                         <label>
                            <?php if( $fsc->impresion['print_ref'] ){ ?>
-
                            <input type="checkbox" name="print_ref" value="TRUE" checked="checked"/>
                            <?php }else{ ?>
-
                            <input type="checkbox" name="print_ref" value="TRUE"/>
                            <?php } ?>
-
                            mostrar referencias.
                         </label>
                      </div>
                      <div class="checkbox-inline">
                         <label>
                            <?php if( $fsc->impresion['print_dto'] ){ ?>
-
                            <input type="checkbox" name="print_dto" value="TRUE" checked="checked"/>
                            <?php }else{ ?>
-
                            <input type="checkbox" name="print_dto" value="TRUE"/>
                            <?php } ?>
-
                            mostrar descuentos.
                         </label>
                      </div>
                      <div class="checkbox-inline">
                         <label>
                            <?php if( $fsc->impresion['print_alb'] ){ ?>
-
                            <input type="checkbox" name="print_alb" value="TRUE" checked="checked"/>
                            <?php }else{ ?>
-
                            <input type="checkbox" name="print_alb" value="TRUE"/>
                            <?php } ?>
-
                            mostrar albaranes relacionados.
                         </label>
                      </div>
@@ -462,7 +428,6 @@
          
          <div id="panel_cuentasb">
             <?php $loop_var1=$fsc->cuenta_banco->all_from_empresa(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
-
             <form action="<?php echo $fsc->url();?>#cuentasb" method="post" class="form">
                <input type="hidden" name="codcuenta" value="<?php echo $value1->codcuenta;?>"/>
                <div class="panel panel-info">
@@ -516,7 +481,6 @@
                </div>
             </form>
             <?php } ?>
-
             <div class="panel panel-success">
                <div class="panel-heading">
                   <h3 class="panel-title">
@@ -545,15 +509,12 @@
                <div style="text-align: center;">
                   <div class="thumbnail">
                      <?php if( $fsc->logo ){ ?>
-
                      <img src="<?php echo $fsc->logo;?>" alt="logotipo"/>
                      <?php }else{ ?>
-
                      <div class="caption">
                         Selecciona una imagen.
                      </div>
                      <?php } ?>
-
                   </div>
                </div>
                <div class="form-group">
@@ -562,12 +523,10 @@
             </div>
             <div class="modal-footer">
                <?php if( $fsc->logo ){ ?>
-
                <a class="btn btn-sm btn-danger pull-left" type="button" href="<?php echo $fsc->url();?>&delete_logo=TRUE#impresion">
                   <span class="glyphicon glyphicon-trash"></span> &nbsp; Eliminar
                </a>
                <?php } ?>
-
                <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
                   <span class="glyphicon glyphicon-floppy-disk"></span> &nbsp; Guardar
                </button>
