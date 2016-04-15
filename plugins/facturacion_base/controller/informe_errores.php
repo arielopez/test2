@@ -42,7 +42,7 @@ class informe_errores extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Errores', 'informes', FALSE, TRUE);
+      parent::__construct(__CLASS__, 'Errores', 'informes', FALSE, FALSE);
    }
    
    protected function private_core()

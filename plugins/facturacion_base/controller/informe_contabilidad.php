@@ -28,7 +28,7 @@ class informe_contabilidad extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Contabilidad', 'informes', FALSE, TRUE);
+      parent::__construct(__CLASS__, 'Contabilidad', 'informes', FALSE, FALSE);
    }
    
    protected function private_core()
