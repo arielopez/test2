@@ -22,7 +22,7 @@
       <div class="">
          <div class="page-header">
             <h1>
-               <a class="btn btn-xs btn-default" href="index.php?page=ventas_articulos">
+               <a class="btn btn-xs btn-default" href="index.php?page=articulos">
                   <span class="glyphicon glyphicon-arrow-left"></span>
                </a> &nbsp;
                {if="$fsc->query==''"}
@@ -82,6 +82,7 @@
    <div class="row">
       {loop="$fsc->resultados"}
       <div class="col-sm-3" style="margin-bottom: 5px;">
+         <!--<a class="btn btn-block btn-default" href="{$value->url()}">-->
          <a class="btn btn-block btn-default" href="{$value->url()}">
             <span class="glyphicon glyphicon-folder-open"></span>
             &nbsp; {$value->descripcion()}

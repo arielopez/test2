@@ -1,1 +1,1 @@
-["fs_users","fs_pages","empresa","fs_extensions2","divisas","fs_vars","agentes","almacenes","cuentasbanco","ejercicios","formaspago","series","paises","impuestos","co_subcuentas","fs_logs","articulos","familias","fabricantes","tarifas"]
+["fs_users","fs_pages","empresa","fs_extensions2","albaranesprov","agentes","series","articulos","lineasalbaranesprov","stocks","divisas","familias","fabricantes","impuestos","tarifas","almacenes","lineasregstocks","articulosprov","articulo_propiedades","ejercicios","co_subcuentas","pedidosprov"]

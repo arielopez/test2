@@ -27,7 +27,7 @@ require_model('regularizacion_stock.php');
 require_model('stock.php');
 require_model('tarifa.php');
 
-class nuevo_articulo extends fs_controller
+class producto_articulo extends fs_controller
 {
    public $allow_delete;
    public $almacen;
@@ -45,7 +45,7 @@ class nuevo_articulo extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Nuevo artículo', 'Productos', FALSE, FALSE);
+      parent::__construct(__CLASS__, 'Articulo', 'Productos', FALSE, FALSE);
    }
    
    protected function private_core()

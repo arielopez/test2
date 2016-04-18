@@ -50,10 +50,10 @@ class fabricante extends fs_model
    {
       if( is_null($this->codfabricante) )
       {
-         return "index.php?page=ventas_fabricantes";
+         return "index.php?page=fabricantes";
       }
       else
-         return "index.php?page=ventas_fabricante&cod=".$this->codfabricante;
+         return "index.php?page=producto_fabricante&cod=".$this->codfabricante;
    }
    
    public function nombre($len = 12)

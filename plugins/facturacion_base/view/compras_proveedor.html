@@ -211,7 +211,7 @@
             <!--a id="b_subcuentas" href="#subcuentas" class="list-group-item" onclick="mostrar_seccion('subcuentas')">
                <span class="glyphicon glyphicon-credit-card"></span> &nbsp; Subcuentas
             </a-->
-            <!--{loop="$fsc->extensions"}
+            {loop="$fsc->extensions"}
                {if="$value->type=='button'"}
                <a href="index.php?page={$value->from}{$value->params}&codproveedor={$fsc->proveedor->codproveedor}" class="list-group-item">
                   {$value->text}
@@ -221,7 +221,7 @@
                   {$value->text}
                </a>
                {/if}
-            {/loop}-->
+            {/loop}
             <a id="b_stats" href="{$fsc->url()}&stats=TRUE#stats" class="list-group-item">
                <span class="glyphicon glyphicon-stats"></span> &nbsp; Estadísticas
             </a>

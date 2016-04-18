@@ -67,10 +67,10 @@ class familia extends fs_model
    {
       if( is_null($this->codfamilia) )
       {
-         return "index.php?page=ventas_familias";
+         return "index.php?page=familias";
       }
       else
-         return "index.php?page=ventas_familia&cod=".$this->codfamilia;
+         return "index.php?page=producto_familia&cod=".$this->codfamilia;
    }
    
    public function descripcion($len = 12)

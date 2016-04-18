@@ -169,13 +169,13 @@
                   <div class="panel panel-stats panel-primary">
                      <div class="panel-heading {if="$value->showing()"} bt-active {/if} text-center">
                         {if="$value->title=='Artículos'"}
-                        <i><span class="fa fa-tasks fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                        <i><span class="fa fa-tasks fa-2x div-fload" aria-hidden="true"></span></i><h4>{$value->title}</h4>
                         {elseif="$value->title=='Nuevo artículo'"}
-                        <i><span class="fa fa-plus fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                        <i><span class="fa fa-plus fa-2x div-fload" aria-hidden="true"></span></i><h4>{$value->title}</h4>
                         {elseif="$value->title=='Fabricantes'"}
-                        <i><span class="fa fa-bar-chart-o fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                        <i><span class="fa fa-bar-chart-o fa-2x div-fload" aria-hidden="true"></span></i><h4>{$value->title}</h4>
                         {else}
-                        <i><span class="fa  fa-3x div-fload" aria-hidden="true"></span></i><h3>{$value->title}</h3>
+                        <i><span class="fa  fa-2x div-fload" aria-hidden="true"></span></i><h4>{$value->title}</h4>
                         {/if}
                      </div>
                   </div>
@@ -184,5 +184,5 @@
             {/loop}
          </ul>
       </div>
-      <div class="col-md-9" style="padding-left: 50px">
+      <div class="col-md-10" style="padding-left: 50px">
 

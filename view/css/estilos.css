@@ -78,6 +78,11 @@ a {
 	color: #FFF;
 	margin-bottom: 18px;
 }
+.li-vertical h4 {
+	color: #FFF;
+	/*margin-bottom: 18px;*/
+	font-size: 20px;
+}
 .caret{
 	margin-left: 5px;
 }

@@ -1,5 +1,6 @@
 <?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header_modificado2") . ( substr("header_modificado2",-1,1) != "/" ? "/" : "" ) . basename("header_modificado2") );?>
 
+
 <script type="text/javascript">
    $(document).ready(function() {   
       document.f_custom_search.query.focus();
@@ -21,13 +22,16 @@
                   <span class="glyphicon glyphicon-arrow-left"></span>
                </a> &nbsp;
                <?php if( $fsc->query=='' ){ ?>
+
                <span class="glyphicon glyphicon-folder-open"></span>
                &nbsp; Fabricantes
                <small><?php echo $fsc->total_fabricantes();?></small>
                <?php }else{ ?>
+
                <span class="glyphicon glyphicon-search"></span>
                &nbsp; Resultados de '<?php echo $fsc->query;?>'
                <?php } ?>
+
                <a class="btn btn-xs btn-default" href="<?php echo $fsc->url();?>" title="Recargar la página">
                   <span class="glyphicon glyphicon-refresh"></span>
                </a>
@@ -46,10 +50,14 @@
                <span class="hidden-xs">&nbsp; Nuevo</span>
             </a>
             <?php $loop_var1=$fsc->extensions; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                <?php if( $value1->type=='button' ){ ?>
+
                <a href="index.php?page=<?php echo $value1->from;?><?php echo $value1->params;?>" class="btn btn-sm btn-default"><?php echo $value1->text;?></a>
                <?php } ?>
+
             <?php } ?>
+
          </div>
       </div>
       <div class="col-sm-3">
@@ -75,17 +83,21 @@
    </div>
    <div class="row">
       <?php $loop_var1=$fsc->resultados; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
       <div class="col-sm-3" style="margin-bottom: 5px;">
          <a class="btn btn-block btn-default" href="<?php echo $value1->url();?>">
             <span class="glyphicon glyphicon-folder-open"></span>
             &nbsp; <?php echo $value1->nombre();?>
+
          </a>
       </div>
       <?php }else{ ?>
+
       <div class="col-sm-12">
          <div class="alert alert-warning">Ningún fabricante encontrado. Pulsa el botón <b>Nuevo</b> para crear uno.</div>
       </div>
       <?php } ?>
+
    </div>
 </div>
 
