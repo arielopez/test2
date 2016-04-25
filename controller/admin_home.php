@@ -31,7 +31,7 @@ class admin_home extends fs_controller
    
    public function __construct()
    {
-      parent::__construct(__CLASS__, 'Panel de control', 'admin', TRUE, TRUE, TRUE);
+      parent::__construct(__CLASS__, 'Panel de control', 'admin', false, false, TRUE);
    }
    
    protected function private_core()
@@ -383,7 +383,7 @@ class admin_home extends fs_controller
       $include = array(
           'factura','facturas','factura_simplificada','factura_rectificativa',
           'albaran','albaranes','pedido','pedidos','presupuesto','presupuestos',
-          'provincia','apartado','cifnif','iva','irpf','numero2'
+          'provincia','apartado','cifnif','iva','irpf','numero2','orden_compra'
       );
       
       foreach($GLOBALS['config2'] as $i => $value)
