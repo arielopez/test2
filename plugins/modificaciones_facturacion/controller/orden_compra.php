@@ -26,8 +26,10 @@ require_model('fabricante.php');
 require_model('familia.php');
 require_model('forma_pago.php');
 require_model('impuesto.php');
-require_model('linea_pedido_proveedor.php');
-require_model('pedido_proveedor.php');
+//require_model('linea_pedido_proveedor.php');
+require_model('linea_orden_compra_proveedor.php');
+require_model('orden_compra_proveedor.php');
+//require_model('pedido_proveedor.php');
 require_model('proveedor.php');
 require_model('regularizacion_iva.php');
 require_model('serie.php');
@@ -55,7 +57,7 @@ class orden_compra extends fs_controller
 
    protected function private_core()
    {
-      $this->ppage = $this->page->get('compras_orden_compra');
+      $this->ppage = $this->page->get('orden_compra');
       $this->agente = FALSE;
       
       $this->divisa = new divisa();
@@ -65,7 +67,7 @@ class orden_compra extends fs_controller
       $this->forma_pago = new forma_pago();
       $this->impuesto = new impuesto();
       $this->nuevo_pedido_url = FALSE;
-      $pedido = new pedido_proveedor();
+      $pedido = new orden_compra_proveedor();
       $this->pedido = FALSE;
       $this->proveedor = new proveedor();
       $this->proveedor_s = FALSE;
@@ -297,7 +299,7 @@ class orden_compra extends fs_controller
                   /// añadimos la línea
                   if( !$encontrada AND intval($_POST['idlinea_' . $num]) == -1 AND isset($_POST['referencia_' . $num]) )
                   {
-                     $linea = new linea_pedido_proveedor();
+                     $linea = new linea_orden_compra_proveedor();
                      $linea->idpedido = $this->pedido->idpedido;
                      $linea->descripcion = $_POST['desc_' . $num];
                      

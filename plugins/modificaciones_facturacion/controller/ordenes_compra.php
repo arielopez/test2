@@ -238,7 +238,7 @@ class ordenes_compra extends fs_controller
    
    public function total_pendientes()
    {
-      $data = $this->db->select("SELECT COUNT(idpedido) as total FROM pedidosprov WHERE idalbaran IS NULL;");
+      $data = $this->db->select("SELECT COUNT(idpedido) as total FROM orden_compra_prov WHERE idalbaran IS NULL;");
       if($data)
       {
          return intval($data[0]['total']);

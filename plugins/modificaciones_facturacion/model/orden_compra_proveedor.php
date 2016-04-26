@@ -276,10 +276,10 @@ class orden_compra_proveedor extends fs_model
    {
       if( is_null($this->idpedido) )
       {
-         return 'index.php?page=compras_pedidos';
+         return 'index.php?page=ordenes_compra';
       }
       else
-         return 'index.php?page=compras_pedido&id='.$this->idpedido;
+         return 'index.php?page=orden_compra&id='.$this->idpedido;
    }
 
    public function albaran_url()

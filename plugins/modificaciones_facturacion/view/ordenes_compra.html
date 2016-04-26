@@ -131,7 +131,7 @@
       <tr class="clickableRow{if="$value->idalbaran"} success{elseif="$value->total<=0"} bg-warning{/if}" href="{$value->url()}">
          <td class="text-center">
             {if condition="$value->idalbaran"}
-            <span class="glyphicon glyphicon-paperclip" title="El {#FS_PEDIDO#} tiene vinculado un {#FS_ALBARAN#}"></span>
+            <span class="glyphicon glyphicon-paperclip" title="la Orden de compra tiene vinculada una {#FS_ALBARAN#}"></span>
             {/if}
          </td>
          <td class="text-left">
@@ -143,7 +143,7 @@
          <td> {$value->numproveedor}</td>
          <td>
             {$value->nombre}
-            <a href="{$fsc->url()}&codproveedor={$value->codproveedor}" class="cancel_clickable" title="Ver más {#FS_PEDIDOS#} de {$value->nombre}">[+]</a>
+            <a href="{$fsc->url()}&codproveedor={$value->codproveedor}" class="cancel_clickable" title="Ver más Ordenes de {$value->nombre}">[+]</a>
          </td>
          <td class="text-left">{$fsc->show_precio($value->total, $value->coddivisa)}</td>
          <td>{$value->observaciones_resume()}</td>

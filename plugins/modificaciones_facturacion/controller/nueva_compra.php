@@ -363,7 +363,7 @@ class nueva_compra extends fs_controller
                 $n = floatval($_POST['numlineas']);
                 for ($i = 0; $i < $n; $i++) {
                     if (isset($_POST['referencia_' . $i])) {
-                        $linea = new linea_pedido_proveedor();
+                        $linea = new linea_orden_compra_proveedor();
                         $linea->idpedido = $pedido->idpedido;
                         $linea->descripcion = $_POST['desc_' . $i];
 

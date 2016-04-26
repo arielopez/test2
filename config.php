@@ -24,7 +24,7 @@ define('FS_TMP_NAME', 'y4w2Z0fo7F/');
 /*
  * En cada ejecución muestra todas las sentencias SQL utilizadas.
  */
-define('FS_DB_HISTORY', false);
+define('FS_DB_HISTORY', true);
 
 /*
  * Habilita el modo demo, para pruebas.
