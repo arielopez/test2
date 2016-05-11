@@ -95,7 +95,7 @@
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
-   <li{if="!isset($_GET['pendientes'])"} class="active"{/if}>
+   <li{if="!isset($_GET['pendientes'])&&!isset($_GET['stock_min'])&&!isset($_GET['stock_min_prov'])"} class="active"{/if}>
       <a href="{$fsc->url()}">
          {if="$fsc->query==''"}
          Todos los {#FS_PEDIDOS#}
@@ -112,8 +112,24 @@
          <span class="hidden-xs badge">{$fsc->total_pendientes()}</span>
       </a>
    </li>
+   <li{if="isset($_GET['stock_min'])"} class="active"{/if}>
+   <a href="{$fsc->url()}&stock_min=TRUE" title="Articulos con stock minimo">
+      <span class="glyphicon glyphicon-th-list"></span>
+      <span class="hidden-xs"> &nbsp; Articulos con stock minimo</span>
+      <!--<span class="hidden-xs badge">{fsc->total_stock_min()}</span>-->
+      <span class="hidden-xs badge">3</span>
+   </a>
+   </li>
+   <!--<li{if="isset($_GET['stock_min_prov'])"} class="active"{/if}>-->
+   <!--<a href="{$fsc->url()}&stock_min_prov=TRUE" title="Asociado a Provedores">-->
+      <!--<span class="glyphicon glyphicon-th-list"></span>-->
+      <!--<span class="hidden-xs"> &nbsp; Asociado a Provedores</span>-->
+      <!--&lt;!&ndash;<span class="hidden-xs badge">{fsc->total_stock_min()}</span>&ndash;&gt;-->
+      <!--<span class="hidden-xs badge">3</span>-->
+   <!--</a>-->
+   <!--</li>-->
 </ul>
-
+{if="!isset($_GET['stock_min'])"}
 <div class="table-responsive word-upper">
    <table class="table table-hover">
       <thead>
@@ -123,8 +139,9 @@
             <th class="text-left col-md-2">Código </th>
             <th class="text-left col-md-2"> Nro. doc. Proveedor</th>
             <th class="text-left col-md-3">Proveedor</th>
-            <th class="text-left col-md-2">Total</th>
-            <th class="text-left col-md-2">Observaciones</th>
+            <th class="text-left col-md-1">Procesado</th>
+            <!--<th class="text-left col-md-2 " >Total</th>-->
+            <th class="text-left col-md-3">Observaciones</th>
          </tr>
       </thead>
       {loop="$fsc->resultados"}
@@ -145,7 +162,8 @@
             {$value->nombre}
             <a href="{$fsc->url()}&codproveedor={$value->codproveedor}" class="cancel_clickable" title="Ver más {#FS_PEDIDOS#} de {$value->nombre}">[+]</a>
          </td>
-         <td class="text-left">{$fsc->show_precio($value->total, $value->coddivisa)}</td>
+         <td class="text-left">true</td>
+         <!--<td class="text-left">{$fsc->show_precio($value->total, $value->coddivisa)}</td>-->
          <td>{$value->observaciones_resume()}</td>
       </tr>
       {else}
@@ -156,7 +174,7 @@
       {/loop}
    </table>
 </div>
-
+{/if}
 <ul class="pager">
    {if="$fsc->anterior_url()!=''"}
    <li class="previous">

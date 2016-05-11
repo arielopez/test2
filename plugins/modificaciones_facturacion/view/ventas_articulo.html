@@ -326,7 +326,7 @@
                         </label>
                      </div>
                      {if="$fsc->mostrar_boton_publicar"}
-                     <div class="checkbox">
+                     <div class="checkbox" style="visibility: hidden">
                         <label title="Sincronizar con tienda online (si está disponible)">
                            <input type="checkbox" name="publico" value="TRUE"{if="$fsc->articulo->publico"} checked="checked"{/if}/>
                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Público

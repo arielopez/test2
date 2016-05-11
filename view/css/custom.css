@@ -53,6 +53,7 @@ ul.dropdown-menu li a:first-letter {
 
 .form-control{
    text-transform: uppercase;
+   font-size: 12px;
 }
 
 .email, .web, .user, .pass{

@@ -92,18 +92,20 @@
             </div>
             
             <div class="btn-group">
+               {if="1>0"}
                {if="$fsc->pedido->idalbaran"}
                <a class="btn btn-sm btn-info text-capitalize" href="{$fsc->pedido->albaran_url()}">
                   <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Ver {#FS_ALBARAN#}
                </a>
                {elseif="$fsc->pedido->editable"}
                <a class="btn btn-sm btn-default" href="{$fsc->url()}&aprobar=TRUE&petid={$fsc->random_string()}">
-                  <span class="glyphicon glyphicon-paperclip"></span> &nbsp; Aprobar
+                  <span class="glyphicon glyphicon-paperclip"></span> &nbsp; Ingresar Cotización
                </a>
                {else}
                <a class="btn btn-sm btn-warning" href="{$fsc->pedido->url()}&desbloquear=TRUE">
                   <span class="glyphicon glyphicon-lock"></span> &nbsp; Desbloquear
                </a>
+               {/if}
                {/if}
             </div>
          </div>
@@ -670,7 +672,7 @@
             <div class="modal-body">
                <div class="form-group">
                   Email del proveedor:
-                  <input class="form-control" type="text" name="email" value="{$fsc->proveedor_s->email}" autocomplete="off"/>
+                  <input class="form-control email" type="text" name="email" value="{$fsc->proveedor_s->email}" autocomplete="off"/>
                </div>
                <div class="form-group">
                   Mensaje:

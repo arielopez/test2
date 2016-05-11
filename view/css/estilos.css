@@ -78,10 +78,10 @@ a {
 	color: #FFF;
 	margin-bottom: 18px;
 }
-.li-vertical h4 {
+.li-vertical h5 {
 	color: #FFF;
 	/*margin-bottom: 18px;*/
-	font-size: 20px;
+	font-size: 15px;
 }
 .caret{
 	margin-left: 5px;
@@ -111,4 +111,10 @@ a {
 .row{
 	margin-left: 0px;
 	margin-right: 0px;
+}
+body{
+	font-size: 12px;
+}
+.hidden{
+	visibility: hidden;
 }

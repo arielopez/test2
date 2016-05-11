@@ -16,13 +16,10 @@
                <div class="form-group">
                   Tu email:
                   <?php if( $fsc->empresa AND $fsc->user->logged_on ){ ?>
-
                   <input type="email" class="form-control" name="feedback_email" placeholder="Tu email" value="<?php echo $fsc->empresa->email;?>"/>
                   <?php }else{ ?>
-
                   <input type="email" class="form-control" name="feedback_email" placeholder="Tu email"/>
                   <?php } ?>
-
                </div>
             </div>
             <div class="modal-footer">
@@ -36,17 +33,12 @@
 </form>
 
 <?php if( $fsc->empresa AND !FS_DEMO AND mt_rand(0,2)==0 ){ ?>
-
 <div style="display: none;">
    <?php if( mt_rand(0,2)>0 AND $fsc->user->logged_on ){ ?>
-
    <iframe src="index.php?page=admin_home&check4updates=TRUE" height="0"></iframe>
    <?php }else{ ?>
-
    <iframe src="<?php  echo FS_COMMUNITY_URL;?>/index.php?page=community_stats&add=TRUE&version=<?php echo $fsc->version();?>&plugins=<?php echo join(',', $GLOBALS['plugins']); ?>" height="0">
    </iframe>
    <?php } ?>
-
 </div>
 <?php } ?>
-
