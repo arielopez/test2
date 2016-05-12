@@ -117,7 +117,7 @@
       <span class="glyphicon glyphicon-th-list"></span>
       <span class="hidden-xs"> &nbsp; Articulos con stock minimo</span>
       <!--<span class="hidden-xs badge">{fsc->total_stock_min()}</span>-->
-      <span class="hidden-xs badge">3</span>
+      <span class="hidden-xs badge">{$fsc->cant_stock_min()}</span>
    </a>
    </li>
    <!--<li{if="isset($_GET['stock_min_prov'])"} class="active"{/if}>-->
@@ -172,6 +172,51 @@
          <td colspan="5">Ningún {#FS_PEDIDO#} encontrado. Pulsa el botón <b>Nuevo</b> para crear uno.</td>
       </tr>
       {/loop}
+   </table>
+</div>
+{else}
+<div class="table-responsive word-upper">
+   <table class="table table-hover">
+      <thead>
+      <tr>
+         <th class="text-left col-sm-3">Referencia + Descripción</th>
+         <th class="text-left col-sm-1">Familia</th>
+         <th class="text-left col-sm-1">Fabricante</th>
+         <th class="text-left col-sm-1">Precio</th>
+         <th class="text-left col-sm-1">Precio+IVA</th>
+         <th class="text-left col-sm-1">Stock Min</th>
+         <th class="text-left col-sm-1">Stock</th>
+      </tr>
+      </thead>
+      <tbody>
+      {loop="$fsc->resultados_stk_minimo"}
+      <tr class="clickableRow" href="index.php?page={$value->url()}">
+         <td><a href="index.php?page=art_a_pedir">{$value->referencia}</a>&nbsp; {$value->descripcion} </td>
+         <td>
+            {if="is_null($value->codfamilia)"}
+            <span>-</span>
+            {else}
+            {$value->codfamilia}
+            {/if}
+         </td>
+         <td>
+            {if="is_null($value->codfabricante)"}
+            <span>-</span>
+            {else}
+            {$value->codfabricante}
+            {/if}
+         </td>
+         <td>{$fsc->show_precio($value->pvp)}</td>
+         <td>{$fsc->show_precio($value->pvp_iva())}</td>
+         <td>{$value->stockmin}</td>
+         <td>{$value->stockfis}</td>
+      </tr>
+      {else}
+      <tr class="warning">
+         <td colspan="7">Ningun artículo encontrado. Pulsa el botón <b>Nuevo</b> para crear uno.</td>
+      </tr>
+      {/loop}
+      </tbody>
    </table>
 </div>
 {/if}

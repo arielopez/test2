@@ -29,6 +29,14 @@ class compras_pedidos extends fs_controller
    public $lineas;
    public $offset;
    public $resultados;
+   public $resultados_stk_minimo;
+   public $b_codfabricante;
+   public $b_constock;
+   public $b_publicos;
+   public $b_bloqueados;
+   public $b_orden;
+   public $b_codtarifa;
+   public $b_codfamilia;
 
    public function __construct()
    {
@@ -43,6 +51,10 @@ class compras_pedidos extends fs_controller
       if( isset($_GET['offset']) )
       {
          $this->offset = intval($_GET['offset']);
+      }
+      if( isset($_GET['stock_min']) )
+      {
+         $this->search_articulos();
       }
 
       if( isset($_POST['buscar_lineas']) )
@@ -244,5 +256,253 @@ class compras_pedidos extends fs_controller
       }
       else
          return 0;
+   }
+   public function cant_stock_min()
+   {
+      $data = $this->db->select("SELECT COUNT(*) as total FROM articulos WHERE  stockmin > stockfis ;");
+      if($data)
+      {
+         return intval($data[0]['total']);
+      }
+      else
+         return 0;
+   }
+
+   private function search_articulos()
+   {
+      $this->resultados_stk_minimo = array();
+      $this->num_resultados = 0;
+      $query = $this->empresa->no_html( strtolower($this->query) );
+      $sql = ' FROM articulos ';
+      $where = ' WHERE stockmin > stockfis and ';
+
+      if($this->query != '')
+      {
+         $sql .= $where;
+         if( is_numeric($query) )
+         {
+            $sql .= "(referencia = ".$this->empresa->var2str($query)
+                . " OR referencia LIKE '%".$query."%'"
+                . " OR equivalencia LIKE '%".$query."%'"
+                . " OR descripcion LIKE '%".$query."%'"
+                . " OR codbarras = '".$query."')";
+         }
+         else
+         {
+            $buscar = str_replace(' ', '%', $query);
+            $sql .= "(lower(referencia) = ".$this->empresa->var2str($query)
+                . " OR lower(referencia) LIKE '%".$buscar."%'"
+                . " OR lower(equivalencia) LIKE '%".$buscar."%'"
+                . " OR lower(descripcion) LIKE '%".$buscar."%')";
+         }
+         $where = ' AND ';
+      }
+
+      if($this->b_codfamilia != '')
+      {
+         $sql .= $where."codfamilia = ".$this->empresa->var2str($this->b_codfamilia);
+         $where = ' AND ';
+      }
+
+      if($this->b_codfabricante != '')
+      {
+         $sql .= $where."codfabricante = ".$this->empresa->var2str($this->b_codfabricante);
+         $where = ' AND ';
+      }
+
+      if($this->b_constock)
+      {
+         $sql .= $where."stockfis > 0";
+         $where = ' AND ';
+      }
+
+      if($this->b_publicos)
+      {
+         $sql .= $where."publico = TRUE";
+         $where = ' AND ';
+      }
+
+      if($this->b_bloqueados)
+      {
+         $sql .= $where."bloqueado = TRUE";
+         $where = ' AND ';
+      }
+      else
+      {
+         $sql .= $where."bloqueado = FALSE";
+         $where = ' AND ';
+      }
+
+      $order = 'referencia DESC';
+      switch($this->b_orden)
+      {
+         case 'stockmin':
+            $order = 'stockfis ASC';
+            break;
+
+         case 'stockmax':
+            $order = 'stockfis DESC';
+            break;
+
+         case 'refmax':
+            if( strtolower(FS_DB_TYPE) == 'postgresql' )
+            {
+               $order = 'referencia DESC';
+            }
+            else
+            {
+               $order = 'lower(referencia) DESC';
+            }
+            break;
+
+         case 'descmin':
+            $order = 'descripcion ASC';
+            break;
+
+         case 'descmax':
+            $order = 'descripcion DESC';
+            break;
+
+         case 'preciomin':
+            /// cogemos datos de la tarifa para ordenar:
+            $tarifa = $this->tarifa->get($this->b_codtarifa);
+            if($tarifa)
+            {
+               if($tarifa->aplicar_a == 'coste')
+               {
+                  $order = 'preciocoste ASC';
+               }
+               else
+               {
+                  $order = 'pvp ASC';
+               }
+            }
+            else
+            {
+               $order = 'pvp ASC';
+            }
+            break;
+
+         case 'preciomax':
+            /// cogemos datos de la tarifa para ordenar:
+            $tarifa = $this->tarifa->get($this->b_codtarifa);
+            if($tarifa)
+            {
+               if($tarifa->aplicar_a == 'coste')
+               {
+                  $order = 'preciocoste DESC';
+               }
+               else
+               {
+                  $order = 'pvp DESC';
+               }
+            }
+            else
+            {
+               $order = 'pvp DESC';
+            }
+            break;
+
+         default:
+         case 'refmin':
+            if( strtolower(FS_DB_TYPE) == 'postgresql' )
+            {
+               $order = 'referencia ASC';
+            }
+            else
+            {
+               $order = 'lower(referencia) ASC';
+            }
+            break;
+      }
+
+      $data = $this->db->select("SELECT COUNT(referencia) as total".$sql);
+      if($data)
+      {
+         $this->total_resultados = intval($data[0]['total']);
+
+         /// ¿Descargar o mostrar en pantalla?
+         if( isset($_GET['download']) )
+         {
+            /// desactivamos el motor de plantillas
+            $this->template = FALSE;
+
+            header("content-type:application/csv;charset=UTF-8");
+            header("Content-Disposition: attachment; filename=\"articulos.csv\"");
+            echo "referencia;codfamilia;codfabricante;descripcion;pvp;iva;codbarras;stock;coste\n";
+
+            $offset2 = 0;
+            $data2 = $this->db->select_limit("SELECT *".$sql." ORDER BY ".$order, 1000, $offset2);
+            while($data2)
+            {
+               $resultados = array();
+               foreach($data2 as $i)
+               {
+                  $resultados[] = new articulo($i);
+               }
+
+               if($this->b_codtarifa != '')
+               {
+                  /// aplicamos la tarifa
+                  $tarifa = $this->tarifa->get($this->b_codtarifa);
+                  if($tarifa)
+                  {
+                     $tarifa->set_precios($resultados);
+
+                     /// si la tarifa añade descuento, lo aplicamos al precio
+                     foreach($resultados as $i => $value)
+                     {
+                        $resultados[$i]->pvp -= $value->pvp*$value->dtopor/100;
+                     }
+                  }
+               }
+
+               /// escribimos los datos de los artículos
+               foreach($resultados as $art)
+               {
+                  echo $art->referencia.';';
+                  echo $art->codfamilia.';';
+                  echo $art->codfabricante.';';
+                  echo $this->fix_html($art->descripcion).';';
+                  echo $art->pvp.';';
+                  echo $art->get_iva().';';
+                  echo trim($art->codbarras).';';
+                  echo $art->stockfis.';';
+                  echo $art->preciocoste()."\n";
+
+                  $offset2++;
+               }
+
+               $data2 = $this->db->select_limit("SELECT *".$sql." ORDER BY ".$order, 1000, $offset2);
+            }
+         }
+         else
+         {
+            $data2 = $this->db->select_limit("SELECT *".$sql." ORDER BY ".$order, FS_ITEM_LIMIT, $this->offset);
+            if($data2)
+            {
+               foreach($data2 as $i)
+               {
+                  $this->resultados_stk_minimo[] = new articulo($i);
+               }
+
+               if($this->b_codtarifa != '')
+               {
+                  /// aplicamos la tarifa
+                  $tarifa = $this->tarifa->get($this->b_codtarifa);
+                  if($tarifa)
+                  {
+                     $tarifa->set_precios($this->resultados_stk_minimo);
+
+                     /// si la tarifa añade descuento, lo aplicamos al precio
+                     foreach($this->resultados_stk_minimo as $i => $value)
+                     {
+                        $this->resultados_stk_minimo[$i]->pvp -= $value->pvp*$value->dtopor/100;
+                     }
+                  }
+               }
+            }
+         }
+      }
    }
 }
