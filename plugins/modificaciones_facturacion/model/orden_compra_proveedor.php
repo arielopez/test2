@@ -33,31 +33,22 @@ class orden_compra_proveedor extends fs_model
     * @var type 
     */
    public $idpedido;
-   
-   /**
-    * ID del albarán relacionado.
-    * @var type 
-    */
    public $idalbaran;
-   
    /**
     * Código único. Para humanos.
     * @var type 
     */
    public $codigo;
-   
    /**
     * Serie relacionada.
     * @var type 
     */
    public $codserie;
-   
    /**
     * Ejercicio relacionado. El que corresponde a la fecha.
     * @var type 
     */
    public $codejercicio;
-   
    /**
     * Código del proveedor del pedido.
     * @var type 
@@ -137,18 +128,7 @@ class orden_compra_proveedor extends fs_model
     * @var type 
     */
    private $totaleuros;
-   
-   /**
-    * % de retención IRPF del pedido. Se obtiene de la serie.
-    * Cada línea puede tener un % distinto.
-    * @var type 
-    */
    public $irpf;
-   
-   /**
-    * Suma de las retenciones IRPF de las líneas del pedido.
-    * @var type 
-    */
    public $totalirpf;
    
    /**
@@ -156,19 +136,12 @@ class orden_compra_proveedor extends fs_model
     * @var type 
     */
    public $tasaconv;
-   
    /**
     * Suma total del recargo de equivalencia de las líneas.
     * @var type 
     */
    public $totalrecargo;
-   
    public $observaciones;
-   
-   /**
-    * Indica si se puede editar o no.
-    * @var type 
-    */
    public $editable;
 
    public function __construct($p = FALSE)
