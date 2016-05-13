@@ -22,6 +22,7 @@ require_model('agente.php');
 require_model('articulo.php');
 require_model('proveedor.php');
 require_model('pedido_proveedor.php');
+require_model('articulo_proveedor.php');
 
 class compras_pedidos extends fs_controller
 {
@@ -37,6 +38,7 @@ class compras_pedidos extends fs_controller
    public $b_orden;
    public $b_codtarifa;
    public $b_codfamilia;
+   public $art_proveedor;
 
    public function __construct()
    {
@@ -56,7 +58,10 @@ class compras_pedidos extends fs_controller
       {
          $this->search_articulos();
       }
-
+      if( isset($_GET['art_proveedor']) )
+      {
+         $this->art_proveedor = $_GET['art_proveedor'];
+      }
       if( isset($_POST['buscar_lineas']) )
       {
          $this->buscar_lineas();
@@ -267,7 +272,36 @@ class compras_pedidos extends fs_controller
       else
          return 0;
    }
+//busca los proveedores del articulo
+   public function get_articulo_proveedores()
+   {
+      $artprov = new articulo_proveedor();
+      $alist = $artprov->all_from_ref($this->art_proveedor);
 
+      /// revismos el impuesto y la descripción
+      foreach($alist as $i => $value)
+      {
+         $guardar = FALSE;
+         if( is_null($value->codimpuesto) )
+         {
+            $alist[$i]->codimpuesto = $this->articulo->codimpuesto;
+            $guardar = TRUE;
+         }
+
+         if( is_null($value->descripcion) )
+         {
+            $alist[$i]->descripcion = $this->articulo->descripcion;
+            $guardar = TRUE;
+         }
+
+         if($guardar)
+         {
+            $alist[$i]->save();
+         }
+      }
+
+      return $alist;
+   }
    private function search_articulos()
    {
       $this->resultados_stk_minimo = array();

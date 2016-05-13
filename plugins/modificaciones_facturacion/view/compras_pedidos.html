@@ -95,7 +95,7 @@
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
-   <li{if="!isset($_GET['pendientes'])&&!isset($_GET['stock_min'])&&!isset($_GET['stock_min_prov'])"} class="active"{/if}>
+   <li{if="!isset($_GET['pendientes'])&&!isset($_GET['stock_min'])&&!isset($_GET['stock_min_prov'])&&!isset($_GET['art_proveedor'])"} class="active"{/if}>
       <a href="{$fsc->url()}">
          {if="$fsc->query==''"}
          Todos los {#FS_PEDIDOS#}
@@ -120,6 +120,16 @@
       <span class="hidden-xs badge">{$fsc->cant_stock_min()}</span>
    </a>
    </li>
+   {if="isset($_GET['art_proveedor'])"}
+   <li class="active">
+   <a href="#" title='Proveedores del articulo '>
+      <span class="glyphicon glyphicon-th-list"></span>
+      <span class="hidden-xs"> &nbsp; {$_GET['art_proveedor']}</span>
+      <!--<span class="hidden-xs badge">{fsc->total_stock_min()}</span>-->
+      <!--<span class="hidden-xs badge">x </span>-->
+   </a>
+   </li>
+   {/if}
    <!--<li{if="isset($_GET['stock_min_prov'])"} class="active"{/if}>-->
    <!--<a href="{$fsc->url()}&stock_min_prov=TRUE" title="Asociado a Provedores">-->
       <!--<span class="glyphicon glyphicon-th-list"></span>-->
@@ -129,7 +139,7 @@
    <!--</a>-->
    <!--</li>-->
 </ul>
-{if="!isset($_GET['stock_min'])"}
+{if="!isset($_GET['stock_min'])&&!isset($_GET['art_proveedor'])"}
 <div class="table-responsive word-upper">
    <table class="table table-hover">
       <thead>
@@ -174,6 +184,39 @@
       {/loop}
    </table>
 </div>
+{elseif="isset($_GET['art_proveedor'])"}
+<div class="table-responsive word-upper">
+   <table class="table table-hover">
+      <thead>
+      <tr>
+         <th>Proveedor</th>
+         <th>Ref. Proveedor</th>
+         <th class="text-right">Precio</th>
+         <th class="text-right">Descuento</th>
+         <th class="text-right">Total+{#FS_IVA#}</th>
+         <th class="text-right">Stock</th>
+      </tr>
+      </thead>
+      <tbody>
+      {loop="$fsc->get_articulo_proveedores()"}
+      <tr>
+         <td><a href="{$value->url_proveedor()}">{$value->nombre_proveedor()}</a></td>
+         <td>{$value->refproveedor}</td>
+         <td class="text-right">{$fsc->show_precio($value->precio)}</td>
+         <td class="text-right">{$fsc->show_numero($value->dto)} %</td>
+         <td class="text-right">{$fsc->show_precio($value->total_iva())}</td>
+         <td class="text-right">
+            {if="$value->nostock"}-{else}{$value->stock}{/if}
+         </td>
+      </tr>
+      {else}
+      <tr class="warning">
+         <td colspan="7">Ningun proveedor encontrado para este <b>Articulo</b>.</td>
+      </tr>
+      {/loop}
+      </tbody>
+   </table>
+</div>
 {else}
 <div class="table-responsive word-upper">
    <table class="table table-hover">
@@ -190,8 +233,8 @@
       </thead>
       <tbody>
       {loop="$fsc->resultados_stk_minimo"}
-      <tr class="clickableRow" href="{$value->url()}">
-         <td><a href="index.php?page=compras_pedidos&art_pedir={$value->referencia}">{$value->referencia}</a>&nbsp; {$value->descripcion} </td>
+      <tr class="clickableRow" href="index.php?page=compras_pedidos&art_proveedor={$value->referencia}">
+         <td><a href="index.php?page=compras_pedidos&art_proveedor={$value->referencia}">{$value->referencia}</a>&nbsp; {$value->descripcion} </td>
          <td>
             {if="is_null($value->codfamilia)"}
             <span>-</span>
