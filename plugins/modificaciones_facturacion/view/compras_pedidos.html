@@ -225,8 +225,8 @@
          <th class="text-left col-sm-3">Referencia + Descripción</th>
          <th class="text-left col-sm-1">Familia</th>
          <th class="text-left col-sm-1">Fabricante</th>
-         <th class="text-left col-sm-1">Precio</th>
-         <th class="text-left col-sm-1">Precio+IVA</th>
+         <th class="text-left col-sm-1">Costo</th>
+         <th class="text-left col-sm-1">Costo+IVA</th>
          <th class="text-left col-sm-1">Stock Min</th>
          <th class="text-left col-sm-1">Stock</th>
       </tr>
@@ -249,7 +249,7 @@
             {$value->codfabricante}
             {/if}
          </td>
-         <td>{$fsc->show_precio($value->pvp)}</td>
+         <td>{$fsc->show_precio($value->costemedio)}</td>
          <td>{$fsc->show_precio($value->pvp_iva())}</td>
          <td>{$value->stockmin}</td>
          <td>{$value->stockfis}</td>
