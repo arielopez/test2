@@ -1,5 +1,6 @@
 <?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
 
+
 <script type="text/javascript">
    function fs_marcar_todo()
    {
@@ -26,8 +27,10 @@
    $(document).ready(function() {
       
       <?php if( $fsc->step=='1' ){ ?>
+
       $('#tab_panel_control a[href="#t_descargas"]').tab('show');
       <?php } ?>
+
       
       if(window.location.hash.substring(1) == 'paginas')
       {
@@ -49,6 +52,7 @@
 </script>
 
 <?php if( !$fsc->step ){ ?>
+
 <div class="well">
    <div class="page-header" style="margin-top: 0px;">
       <h1>¡Bienvenido LimpiaMas <?php echo $fsc->version();?>!</h1>
@@ -62,6 +66,7 @@
    </a>
 </div>
 <?php }elseif( $fsc->step=='1' ){ ?>
+
 <div class="well">
    <div class="page-header" style="margin-top: 0px;">
       <h1>Plugins</h1>
@@ -78,6 +83,7 @@
    </a>
 </div>
 <?php }else{ ?>
+
 <div class="container-fluid" style="margin-top: 10px;">
    <div class="row">
       <div class="col-xs-6">
@@ -86,14 +92,17 @@
                <span class="glyphicon glyphicon-refresh"></span>
             </a>
             <?php if( $fsc->page->is_default() ){ ?>
+
             <a class="btn btn-sm btn-default active" href="<?php echo $fsc->url();?>&amp;default_page=FALSE" title="desmarcar como página de inicio">
                <span class="glyphicon glyphicon-home"></span>
             </a>
             <?php }else{ ?>
+
             <a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>&amp;default_page=TRUE" title="marcar como página de inicio">
                <span class="glyphicon glyphicon-home"></span>
             </a>
             <?php } ?>
+
          </div>
          <!--<div class="btn-group">-->
             <!--<a class="btn btn-sm <?php if( $fsc->check_for_updates() ){ ?>btn-info<?php }else{ ?>btn-default<?php } ?>" href="updater.php" title="Actualizador">-->
@@ -114,6 +123,7 @@
 </div>
 <?php } ?>
 
+
 <div id="tab_panel_control" role="tabpanel">
    <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
@@ -133,8 +143,10 @@
             <span class="glyphicon glyphicon-download-alt"></span>
             <span class="hidden-xs">&nbsp; Descargas</span>
             <?php if( $fsc->new_downloads>0 ){ ?>
+
             <span class="badge" title="Hay <?php echo $fsc->new_downloads;?> nuevas descargas"><?php echo $fsc->new_downloads;?></span>
             <?php } ?>
+
          </a>
       </li>
       <li role="presentation">
@@ -149,6 +161,7 @@
          <form id="f_enable_pages" action="<?php echo $fsc->url();?>" method="post" class="form">
             <input type="hidden" name="modpages" value="TRUE"/>
             <?php if( count($fsc->paginas)>10 ){ ?>
+
             <div class="container-fluid" style="margin-top: 15px; margin-bottom: 10px;">
                <div class="row">
                   <div class="col-xs-6">
@@ -161,15 +174,21 @@
                         </button>
                         <!--
                         <?php $sin_activar=$this->var['sin_activar']=0;?>
+
                         <?php $loop_var1=$fsc->paginas; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                            <?php if( !$value1->enabled ){ ?><?php echo $sin_activar+=1;?><?php } ?>
+
                         <?php } ?>
+
                         -->
                         <?php if( $sin_activar>0 ){ ?>
+
                         <button class="btn btn-sm btn-default" type="button" onclick="fs_marcar_todo()" title="Hay <?php echo $sin_activar;?> página(s) no activa(s).">
                            <b><?php echo $sin_activar;?></b>
                         </button>
                         <?php } ?>
+
                      </div>
                   </div>
                   <div class="col-xs-6 text-right">
@@ -181,6 +200,7 @@
                </div>
             </div>
             <?php } ?>
+
             <div class="table-responsive">
                <table class="table table-hover">
                   <thead>
@@ -193,6 +213,7 @@
                      </tr>
                   </thead>
                   <?php $loop_var1=$fsc->paginas; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                   <tr<?php if( !$value1->exists ){ ?> class="danger"<?php } ?>>
                      <td>
                         <input class="checkbox-inline" type="checkbox" name="enabled[]" value="<?php echo $value1->name;?>"<?php if( $value1->enabled ){ ?> checked="checked"<?php } ?>/>
@@ -200,16 +221,21 @@
                      </td>
                      <td>
                         <?php if( $value1->show_on_menu ){ ?>
+
                         <span class="text-capitalize"><?php echo $value1->folder;?></span> » <?php echo $value1->title;?>
+
                         <?php }else{ ?>
+
                         -
                         <?php } ?>
+
                      </td>
                      <td><?php echo $value1->version;?></td>
                      <td class="text-center"><?php if( $value1->important ){ ?><span class="glyphicon glyphicon-ok"></span><?php } ?></td>
                      <td class="text-center"><?php if( $value1->exists ){ ?><span class="glyphicon glyphicon-ok"></span><?php } ?></td>
                   </tr>
                   <?php } ?>
+
                </table>
             </div>
             <div class="container-fluid">
@@ -249,50 +275,62 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->plugin_advanced_list(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                <tr<?php if( !$value1['compatible'] ){ ?> class="danger"<?php }elseif( $value1['enabled'] ){ ?> class="success"<?php } ?>>
                   <td><?php echo $value1['name'];?></td>
                   <td>
                      <p><?php echo $value1['description'];?></p>
                      <?php if( $value1['wizard']!='' AND $value1['enabled'] ){ ?>
+
                      <a href="index.php?page=<?php echo $value1['wizard'];?>" class="btn btn-xs btn-default">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> &nbsp; Configurar
                      </a>
                      <?php } ?>
+
                   </td>
                   <td class="text-right">
                      <a href="<?php  echo FS_COMMUNITY_URL;?>/index.php?page=community_changelog&plugin=<?php echo $value1['name'];?>&version=<?php echo $value1['version'];?>" target="_blank">
                         <?php echo $value1['version'];?>
+
                      </a>
                   </td>
                   <td class="text-right"><?php echo $value1['prioridad'];?></td>
                   <td class="text-right">
                      <?php if( $value1['enabled'] ){ ?>
+
                      <a class="btn btn-sm btn-danger" href="<?php echo $fsc->url();?>&disable=<?php echo $value1['name'];?>#plugins">
                         <span class="glyphicon glyphicon-remove"></span> &nbsp; Desactivar
                      </a>
                      <?php }else{ ?>
+
                      <div class="btn-group">
                         <?php if( $value1['compatible'] ){ ?>
+
                         <a class="btn btn-sm btn-default" href="<?php echo $fsc->url();?>&caca=<?php echo $fsc->random_string(4);?>&enable=<?php echo $value1['name'];?>#plugins">
                            <span class="glyphicon glyphicon-ok"></span> &nbsp; Activar
                         </a>
                         <?php }else{ ?>
+
                         <a class="btn btn-sm btn-default" href="#" onclick="alert('Le falta el archivo facturascripts.ini')">
                            <span class="glyphicon glyphicon-remove"></span> &nbsp; Incompatible
                         </a>
                         <?php } ?>
+
                         <a class="btn btn-sm btn-default" onclick="eliminar('<?php echo $value1['name'];?>')" title="eliminar plugin">
                            <span class="glyphicon glyphicon-trash"></span>
                         </a>
                      </div>
                      <?php } ?>
+
                   </td>
                </tr>
                <?php }else{ ?>
+
                <tr class="warning">
                   <td colspan="5">No tienes plugin instalados. Mira en la pestaña <b>Descargas</b>.</td>
                </tr>
                <?php } ?>
+
             </table>
          </div>
          <div class="container-fluid">
@@ -320,6 +358,7 @@
                   </tr>
                </thead>
                <?php $loop_var1=$fsc->download_list; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                <tr<?php if( file_exists('plugins/'.$key1) ){ ?> class="success"<?php } ?>>
                   <td class="text-right">
                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true" title="Destacado"></span>
@@ -331,55 +370,72 @@
                   </td>
                   <td class="text-right">
                      <?php if( file_exists('plugins/'.$key1) ){ ?>
+
                      <a href="<?php echo $fsc->url();?>&caca=<?php echo $fsc->random_string(4);?>#plugins" class="btn btn-xs btn-default">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; Instalado
                      </a>
                      <?php }else{ ?>
+
                      <a href="<?php echo $fsc->url();?>&caca=<?php echo $fsc->random_string(4);?>&download=<?php echo $key1;?>#plugins" class="btn btn-xs btn-primary">
                         <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> &nbsp; Descargar
                      </a>
                      <?php } ?>
+
                   </td>
                </tr>
                <?php } ?>
+
                <?php $loop_var1=$fsc->download_list2; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                <tr<?php if( file_exists('plugins/'.$value1->nombre) ){ ?> class="success"<?php }elseif( !$value1->estable ){ ?> class="danger"<?php }elseif( $value1->nuevo ){ ?> class="info"<?php } ?>>
                   <td>
                      <?php if( !$value1->estable ){ ?>
+
                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" title="Todavía en desarrollo. Inestable."></span>
                      <?php } ?>
+
                   </td>
                   <td><?php echo $value1->nombre;?></td>
                   <td>
                      <?php echo nl2br($value1->descripcion); ?><br/>
                      <?php if( substr($value1->zip_link, -4) == '.zip' ){ ?>
+
                      <a href="<?php echo $value1->link;?>" target="_blank">Web del proyecto</a>. &nbsp;
                      <?php } ?>
+
                      Autor: <?php echo $value1->nick;?>.
                   </td>
                   <td class="text-right">
                      <?php if( file_exists('plugins/'.$value1->nombre) ){ ?>
+
                      <a href="<?php echo $fsc->url();?>&caca=<?php echo $fsc->random_string(4);?>#plugins" class="btn btn-xs btn-default">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> &nbsp; Instalado
                      </a>
                      <?php }elseif( $value1->zip_link ){ ?>
+
                         <?php if( $value1->estable ){ ?>
+
                         <a href="<?php echo $fsc->url();?>&caca=<?php echo $fsc->random_string(4);?>&download2=<?php echo $value1->id;?>#plugins" class="btn btn-xs btn-primary">
                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> &nbsp; Descargar
                         </a>
                         <?php }else{ ?>
+
                         <a href="#" class="btn btn-xs btn-primary" onclick="descargar_plugin_inestable('<?php echo $value1->id;?>')">
                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> &nbsp; Descargar
                         </a>
                         <?php } ?>
+
                      <?php }else{ ?>
+
                      <a href="<?php echo $value1->link;?>" target="_blank" class="btn btn-xs btn-info">
                         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> &nbsp; Comprar
                      </a>
                      <?php } ?>
+
                   </td>
                </tr>
                <?php } ?>
+
             </table>
          </div>
       </div>
@@ -392,14 +448,20 @@
                         Zona horaria:
                         <select class="form-control" name="zona_horaria">
                         <?php $loop_var1=$fsc->get_timezone_list(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                            <?php if( isset($GLOBALS['config2']['zona_horaria']) ){ ?>
+
                            <option value="<?php echo $value1['zone'];?>"<?php if( $value1['zone']==$GLOBALS['config2']['zona_horaria'] ){ ?> selected=""<?php } ?>>
                               <?php echo $value1['diff_from_GMT'];?> - <?php echo $value1['zone'];?>
+
                            </option>
                            <?php }else{ ?>
+
                            <option value="<?php echo $value1['zone'];?>"><?php echo $value1['diff_from_GMT'];?> - <?php echo $value1['zone'];?></option>
                            <?php } ?>
+
                         <?php } ?>
+
                         </select>
                      </div>
                   </div>
@@ -407,24 +469,30 @@
                      Portada:
                      <select name="homepage" class="form-control">
                         <?php $loop_var1=$fsc->paginas; $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                         <option value="<?php echo $value1->name;?>"<?php if( $value1->name==$GLOBALS['config2']['homepage'] ){ ?> selected=""<?php } ?>><?php echo $value1->name;?></option>
                         <?php } ?>
+
                      </select>
                   </div>
                   <div class="form-group col-md-3 col-sm-3">
                      Decimales:
                      <select name="nf0" class="form-control">
                      <?php $loop_var1=$fsc->nf0(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                         <option value="<?php echo $value1;?>"<?php if( $value1==$GLOBALS['config2']['nf0'] ){ ?> selected=""<?php } ?>><?php echo $value1;?></option>
                      <?php } ?>
+
                      </select>
                   </div>
                   <div class="form-group col-md-3 col-sm-3">
                      Separador para los Decimales:
                      <select name="nf1" class="form-control">
                      <?php $loop_var1=$fsc->nf1(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                         <option value="<?php echo $key1;?>"<?php if( $key1==$GLOBALS['config2']['nf1'] ){ ?> selected=""<?php } ?>><?php echo $value1;?></option>
                      <?php } ?>
+
                      </select>
                   </div>
                   <div class="form-group col-md-3 col-sm-3">
@@ -432,8 +500,10 @@
                      <select name="nf2" class="form-control">
                         <option value="">(Ninguno)</option>
                         <?php $loop_var1=$fsc->nf1(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                         <option value="<?php echo $key1;?>"<?php if( $key1==$GLOBALS['config2']['nf2'] ){ ?> selected=""<?php } ?>><?php echo $value1;?></option>
                         <?php } ?>
+
                      </select>
                   </div>
                   <div class="form-group col-md-3 col-sm-3">
@@ -458,6 +528,7 @@
                </div>
                <div class="row bg-info">
                   <?php $loop_var1=$fsc->traducciones(); $counter1=-1; if($loop_var1) foreach( $loop_var1 as $key1 => $value1 ){ $counter1++; ?>
+
                   <div class="col-md-2 col-sm-3">
                      <div class="form-group">
                         <span class="text-uppercase"><?php echo $value1['nombre'];?>:</span>
@@ -465,6 +536,7 @@
                      </div>
                   </div>
                   <?php } ?>
+
                </div>
                <div class="row bg-warning">
                   <div class="col-md-12 col-sm-12">

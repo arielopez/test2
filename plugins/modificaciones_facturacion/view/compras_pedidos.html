@@ -190,8 +190,8 @@
       </thead>
       <tbody>
       {loop="$fsc->resultados_stk_minimo"}
-      <tr class="clickableRow" href="index.php?page={$value->url()}">
-         <td><a href="index.php?page=art_a_pedir">{$value->referencia}</a>&nbsp; {$value->descripcion} </td>
+      <tr class="clickableRow" href="{$value->url()}">
+         <td><a href="index.php?page=compras_pedidos&art_pedir={$value->referencia}">{$value->referencia}</a>&nbsp; {$value->descripcion} </td>
          <td>
             {if="is_null($value->codfamilia)"}
             <span>-</span>
