@@ -62,12 +62,16 @@
          
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+               {$perfil_pedido=false}
                {loop="$fsc->folders()"}
                <li class="dropdown{if="$value1==$fsc->page->folder"} active{/if}">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: capitalize;">{$value1}<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                      {loop="$fsc->pages($value1)"}
                      <li{if="$value2->showing()"} class="active"{/if}><a href="{$value2->url()}">{$value2->title}</a></li>
+                        {if="$value2->title=='Pedidos de compra'"}
+                        {$perfil_pedido=true}
+                        {/if}
                      {/loop}
                   </ul>
                </li>
@@ -113,7 +117,15 @@
                      <li><a href="#" id="b_feedback"><span class="glyphicon glyphicon-send"></span> &nbsp; Informar...</a></li>
                   </ul>
                </li-->
-               
+               {if="$perfil_pedido"}
+               <li class="dropdown odd">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-warning-sign"><span class="badge badge-warning">{$fsc->cant_stock_min()}</span></span></a>
+                  <ul class="dropdown-menu">
+                     <li><a href="index.php?page=compras_pedidos&stock_min=TRUE">Producto con stock minimo</a></li>
+                     <!--              <li><a href="#">Configuración</a></li>                -->
+                  </ul>
+               </li>
+               {/if}
                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="{$fsc->user->nick}">
                      <span class="glyphicon glyphicon-user hidden-xs">  </span>

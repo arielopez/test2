@@ -1145,4 +1145,13 @@ class fs_controller
       /// si no está en los plugins estará en el núcleo
       return 'view/js/'.$filename;
    }
+   public function cant_stock_min(){
+      $data = $this->db->select("SELECT COUNT(*) as total FROM articulos WHERE  stockmin > stockfis ;");
+      if($data)
+      {
+         return intval($data[0]['total']);
+      }
+      else
+         return 0;
+   }
 }
