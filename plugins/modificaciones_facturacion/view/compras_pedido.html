@@ -2,7 +2,7 @@
 
 {if="$fsc->pedido"}
 {if="$fsc->pedido->editable"}
-<script type="text/javascript" src="{$fsc->get_js_location('nueva_compra.js')}"></script>
+<script type="text/javascript" src="{$fsc->get_js_location('nuevo_pedido.js')}"></script>
 <script type="text/javascript">
    numlineas = {function="count($fsc->pedido->get_lineas())"};
    fs_nf0 = {#FS_NF0#};
@@ -244,17 +244,17 @@
                <table class="table table-condensed">
                   <thead>
                      <tr>
-                        <th class="text-left" width="180">Referencia</th>
-                        <th class="text-left">Descripción</th>
-                        <th class="text-right" width="80">Cantidad</th>
+                        <th class="text-left col-md-3" width="180">Referencia</th>
+                        <th class="text-left col-md-4">Descripción</th>
+                        <th class="text-right col-md-1" width="80">Cantidad</th>
                         <th width="50"></th>
-                        <th class="text-right" width="110">Precio</th>
-                        <th class="text-right" width="90">Dto. %</th>
-                        <th class="text-right" width="130">Neto</th>
-                        <th class="text-right" width="115">{#FS_IVA#}</th>
-                        <th class="text-right recargo" width="115">RE %</th>
-                        <th class="text-right irpf" width="115">{#FS_IRPF#} %</th>
-                        <th class="text-right" width="140">Total</th>
+                        <!--<th class="text-right" width="110">Precio</th>-->
+                        <!--<th class="text-right" width="90">Dto. %</th>-->
+                        <!--<th class="text-right" width="130">Neto</th>-->
+                        <!--<th class="text-right" width="115">{#FS_IVA#}</th>-->
+                        <!--<th class="text-right recargo" width="115">RE %</th>-->
+                        <!--<th class="text-right irpf" width="115">{#FS_IRPF#} %</th>-->
+                        <!--<th class="text-right" width="140">Total</th>-->
                      </tr>
                   </thead>
                   <tbody id="lineas_albaran">
@@ -278,19 +278,19 @@
                            </button>
                         </td>
                         <td>
-                           <input type="text" class="form-control text-right" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
+                           <input type="text" style="visibility: hidden" class="form-control text-right" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <input type="text" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right"
+                           <input type="text" style="visibility: hidden" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <input type="text" class="form-control text-right" id="neto_{$counter}" name="neto_{$counter}"
+                           <input type="text" style="visibility: hidden" class="form-control text-right" id="neto_{$counter}" name="neto_{$counter}"
                                   onchange="ajustar_neto()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <select class="form-control" id="iva_{$counter}" name="iva_{$counter}" onchange="ajustar_iva('{$counter}')">
+                           <select class="form-control" style="visibility: hidden" id="iva_{$counter}" name="iva_{$counter}" onchange="ajustar_iva('{$counter}')">
                            {loop="$fsc->impuesto->all()"}
                               {if="$value1->codimpuesto==$value2->codimpuesto OR $value1->iva==$value2->iva"}
                               <option value="{$value2->iva}" selected="">{$value2->descripcion}</option>
@@ -309,7 +309,7 @@
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <input type="text" class="form-control text-right" id="total_{$counter}" name="total_{$counter}"
+                           <input type="text" style="visibility: hidden" class="form-control text-right" id="total_{$counter}" name="total_{$counter}"
                                   onchange="ajustar_total()" onclick="this.select()" autocomplete="off"/>
                         </td>
                      </tr>
@@ -323,31 +323,31 @@
                               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                            </a>
                         </td>
-                        <td colspan="2">
-                           <div class="form-control text-right">
-                              Totales
-                              {if="$fsc->pedido->coddivisa!=$fsc->empresa->coddivisa"}
-                              ({$fsc->pedido->coddivisa})
-                              {/if}
-                           </div>
-                        </td>
-                        <td><div id="aneto" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
-                        <td><div id="aiva" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
-                        <td class="recargo"><div id="are" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
-                        <td class="irpf"><div id="airpf" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
+                        <!--<td colspan="2">-->
+                           <!--<div class="form-control text-right">-->
+                              <!--Totales-->
+                              <!--{if="$fsc->pedido->coddivisa!=$fsc->empresa->coddivisa"}-->
+                              <!--({$fsc->pedido->coddivisa})-->
+                              <!--{/if}-->
+                           <!--</div>-->
+                        <!--</td>-->
+                        <!--<td><div id="aneto" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>-->
+                        <!--<td><div id="aiva" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>-->
+                        <!--<td class="recargo"><div id="are" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>-->
+                        <!--<td class="irpf"><div id="airpf" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>-->
                         <td>
-                           <input type="text" name="atotal" id="atotal" class="form-control text-right" style="font-weight: bold;"
+                           <input type="text" style="visibility: hidden" name="atotal" id="atotal" class="form-control text-right" style="font-weight: bold;"
                                   value="0" onchange="recalcular()" autocomplete="off"/>
                         </td>
                      </tr>
                      {if="$fsc->user->admin"}
                      <tr>
-                        <td colspan="6"></td>
-                        <td class="text-right">{$fsc->show_precio($fsc->pedido->neto, $fsc->pedido->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->pedido->totaliva, $fsc->pedido->coddivisa)}</td>
-                        <td class="recargo text-right">{$fsc->show_precio($fsc->pedido->totalrecargo, $fsc->pedido->coddivisa)}</td>
-                        <td class="irpf text-right">{$fsc->show_precio($fsc->pedido->totalirpf, $fsc->pedido->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->pedido->total, $fsc->pedido->coddivisa)}</td>
+                        <!--<td colspan="6"></td>-->
+                        <!--<td class="text-right">{$fsc->show_precio($fsc->pedido->neto, $fsc->pedido->coddivisa)}</td>-->
+                        <!--<td class="text-right">{$fsc->show_precio($fsc->pedido->totaliva, $fsc->pedido->coddivisa)}</td>-->
+                        <!--<td class="recargo text-right">{$fsc->show_precio($fsc->pedido->totalrecargo, $fsc->pedido->coddivisa)}</td>-->
+                        <!--<td class="irpf text-right">{$fsc->show_precio($fsc->pedido->totalirpf, $fsc->pedido->coddivisa)}</td>-->
+                        <!--<td class="text-right">{$fsc->show_precio($fsc->pedido->total, $fsc->pedido->coddivisa)}</td>-->
                      </tr>
                      {/if}
                   </tbody>
@@ -356,15 +356,15 @@
                <table class="table table-hover">
                   <thead>
                      <tr>
-                        <th class="text-left">Artículo</th>
-                        <th class="text-right">Cantidad</th>
-                        <th class="text-right">Precio</th>
-                        <th class="text-right">Dto</th>
-                        <th class="text-right">Neto</th>
-                        <th class="text-right">IVA</th>
-                        <th class="text-right recargo">RE</th>
-                        <th class="text-right irpf">IRPF</th>
-                        <th class="text-right">Total</th>
+                        <th class="text-left col-md-4">Artículo</th>
+                        <th class="text-right col-md-4">Cantidad</th>
+                        <!--<th class="text-right">Precio</th>-->
+                        <!--<th class="text-right">Dto</th>-->
+                        <!--<th class="text-right">Neto</th>-->
+                        <!--<th class="text-right">IVA</th>-->
+                        <!--<th class="text-right recargo">RE</th>-->
+                        <!--<th class="text-right irpf">IRPF</th>-->
+                        <!--<th class="text-right">Total</th>-->
                      </tr>
                   </thead>
                   {loop="$fsc->pedido->get_lineas()"}
@@ -373,13 +373,13 @@
                         <a target="_blank" href="{$value->articulo_url()}">{$value->referencia}</a> {$value->descripcion}
                      </td>
                      <td class="text-right">{$value->cantidad}</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->pedido->coddivisa)}</td>
-                     <td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->pedido->coddivisa)}</td>
-                     <td class="text-right">{$fsc->show_numero($value->iva, 2)} %</td>
-                     <td class="text-right recargo">{$fsc->show_numero($value->recargo, 2)} %</td>
-                     <td class="text-right irpf">{$fsc->show_numero($value->irpf, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->total_iva(), $fsc->pedido->coddivisa)}</td>
+                     <!--<td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->pedido->coddivisa)}</td>-->
+                     <!--<td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>-->
+                     <!--<td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->pedido->coddivisa)}</td>-->
+                     <!--<td class="text-right">{$fsc->show_numero($value->iva, 2)} %</td>-->
+                     <!--<td class="text-right recargo">{$fsc->show_numero($value->recargo, 2)} %</td>-->
+                     <!--<td class="text-right irpf">{$fsc->show_numero($value->irpf, 2)} %</td>-->
+                     <!--<td class="text-right">{$fsc->show_precio($value->total_iva(), $fsc->pedido->coddivisa)}</td>-->
                   </tr>
                   {/loop}
                   <tr>
