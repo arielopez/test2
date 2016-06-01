@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : lineascotizacion_prov.xml
+    Description:
+        Estructura de la tabla lineascotizacion_prov.
+-->
+<tabla>
+    <columna>
+        <nombre>cantidad</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>codimpuesto</nombre>
+        <tipo>varchar(10)</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <columna>
+        <nombre>descripcion</nombre>
+        <tipo>text</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <columna>
+        <nombre>dtolineal</nombre>
+        <tipo>double</tipo>
+        <nulo>YES</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>dtopor</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>idcotizacion</nombre>
+        <tipo>int(11)</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>idlinea</nombre>
+        <tipo>serial</tipo>
+        <nulo>NO</nulo>
+        <defecto>nextval('lineascotizacion_prov_idlinea_seq'::regclass)</defecto>
+    </columna>
+    <columna>
+        <nombre>idlineapedido</nombre>
+        <tipo>int(11)</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <columna>
+        <nombre>idpedido</nombre>
+        <tipo>int(11)</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <columna>
+        <nombre>irpf</nombre>
+        <tipo>double</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <columna>
+        <nombre>iva</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>pvpsindto</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>pvptotal</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>pvpunitario</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>recargo</nombre>
+        <tipo>double</tipo>
+        <nulo>YES</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
+        <nombre>referencia</nombre>
+        <tipo>varchar(18)</tipo>
+        <nulo>YES</nulo>
+    </columna>
+    <restriccion>
+        <nombre>lineascotizacion_prov_pkey</nombre>
+        <consulta>PRIMARY KEY (idlinea)</consulta>
+    </restriccion>
+    <restriccion>
+        <nombre>ca_lineascotizacion_prov_cotizacion_prov2</nombre>
+        <consulta>FOREIGN KEY (...)</consulta>
+    </restriccion>
+</tabla>

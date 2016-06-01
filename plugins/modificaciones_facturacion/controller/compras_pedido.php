@@ -125,6 +125,11 @@ class compras_pedido extends fs_controller
             $this->pedido->editable = TRUE;
             $this->pedido->save();
          }
+         else if( isset($_GET['cerrar']) )
+         {
+            $this->pedido->editable = FALSE;
+            $this->pedido->save();
+         }
       }
       else
          $this->new_error_msg("¡" . ucfirst(FS_PEDIDO) . " de proveedor no encontrado!");

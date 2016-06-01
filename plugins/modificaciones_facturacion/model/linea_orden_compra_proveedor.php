@@ -315,4 +315,19 @@ class linea_orden_compra_proveedor extends fs_model
       
       return $linealist;
    }
+
+   public function orden_compra_from_cotizacion($id)
+   {
+      $facturalist = array();
+
+      $lineas = $this->db->select("SELECT DISTINCT idpedido FROM ".$this->table_name." WHERE idpedido = ".$this->var2str($id).";");
+      if($lineas)
+      {
+         $factura = new orden_compra_proveedor();
+         foreach($lineas as $l)
+            $facturalist[] = $factura->get( $l['idpedido'] );
+      }
+
+      return $facturalist;
+   }
 }

@@ -222,9 +222,9 @@
                </a>
                {/if}
             {/loop}
-            <a id="b_stats" href="{$fsc->url()}&stats=TRUE#stats" class="list-group-item">
+            <!--<a id="b_stats" href="{$fsc->url()}&stats=TRUE#stats" class="list-group-item">
                <span class="glyphicon glyphicon-stats"></span> &nbsp; Estadísticas
-            </a>
+            </a>-->
          </div>
       </div>
       
@@ -299,10 +299,10 @@
                         </div>
                      </div>
                      <div class="row">
-                        <!--div class="col-sm-2">
+                        <div class="col-sm-2">
                            <div class="form-group">
                               <a href="{$fsc->serie->url()}">Serie</a>:
-                              <select class="form-control" name="codserie">
+                              <select class="form-control" name="codserie" disabled>
                               {loop="$fsc->serie->all()"}
                                  {if="$value->codserie==$fsc->proveedor->codserie"}
                                  <option value="{$value->codserie}" selected="">{$value->descripcion}</option>
@@ -312,7 +312,7 @@
                               {/loop}
                               </select>
                            </div>
-                        </div-->
+                        </div>
                         <div class="col-sm-4">
                            <div class="form-group">
                               <a href="{$fsc->forma_pago->url()}">Forma de pago</a>:

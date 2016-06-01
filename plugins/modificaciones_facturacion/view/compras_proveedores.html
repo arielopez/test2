@@ -58,7 +58,7 @@
       <div class="col-sm-2 col-xs-12">
          <form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
             <div class="input-group">
-               <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Buscar">
+               <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Nombre proveedor">
                <span class="input-group-btn hidden-sm">
                   <button class="btn btn-primary" type="submit">
                      <span class="glyphicon glyphicon-search"></span>
@@ -89,6 +89,7 @@
       <a href="{$fsc->url()}&mostrar=acreedores">
          <span class="glyphicon glyphicon-briefcase"></span>
          <span class="hidden-xs word-upper">&nbsp; Acreedores</span>
+         <span class="badge">{$fsc->total_acreedores()}</span>
       </a>
    </li>
    <li >

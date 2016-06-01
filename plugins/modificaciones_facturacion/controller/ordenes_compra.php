@@ -202,11 +202,11 @@ class ordenes_compra extends fs_controller
       /// añadimos las extensiones para proveedors, agentes y artículos
       $extensiones = array(
           array(
-              'name' => 'pedidos_proveedor',
+              'name' => 'ordenes_compra',
               'page_from' => __CLASS__,
               'page_to' => 'compras_proveedor',
               'type' => 'button',
-              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; '.ucfirst(FS_PEDIDOS),
+              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; Ordenes de Compra',
               'params' => ''
           ),
           array(
@@ -214,7 +214,7 @@ class ordenes_compra extends fs_controller
               'page_from' => __CLASS__,
               'page_to' => 'admin_agente',
               'type' => 'button',
-              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; '.ucfirst(FS_PEDIDOS) . ' a proveedor',
+              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; Ordenes a proveedor',
               'params' => ''
           ),
           array(
@@ -222,7 +222,7 @@ class ordenes_compra extends fs_controller
               'page_from' => __CLASS__,
               'page_to' => 'ventas_articulo',
               'type' => 'tab_button',
-              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; '.ucfirst(FS_PEDIDOS) . ' a proveedor',
+              'text' => '<span class="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; Ordenes a proveedor',
               'params' => ''
           ),
       );

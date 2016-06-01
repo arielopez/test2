@@ -210,13 +210,18 @@
          </div>
       </div>
    </div>
-   
+   {$nombre_tipo=''}
+   {loop="$fsc->tipos_a_guardar()"}
+      {if="$value['tipo']==$fsc->tipo"}
+         {$nombre_tipo=$value['nombre']}
+      {/if}
+   {/loop}
    <div class="modal fade" id="modal_guardar">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title">Guardar como...</h4>
+               <h4 class="modal-title">Guardar {$nombre_tipo}</h4>
                <!--p class="help-block">
                   Puedes programar compras usando el plugin
                   <a href="https://" target="_blank">albaranes programados</a>.
@@ -224,12 +229,14 @@
             </div>
             <div class="modal-body">
                {loop="$fsc->tipos_a_guardar()"}
-               <div class="radio">
+               {if="$value['tipo']==$fsc->tipo"}
+               <div class="radio" style="visibility: hidden">
                   <label>
-                     <input type="radio" name="tipo" value="{$value['tipo']}"{if="$value['tipo']==$fsc->tipo"} checked="checked"{/if}/>
+                     <input type="radio" name="tipo" value="{$value['tipo']}"{if="$value['tipo']==$fsc->tipo"}  checked="checked"{/if} />
                      {$value['nombre']}
                   </label>
                </div>
+               {/if}
                {/loop}
                <div class="form-group">
                   Núm. proveedor:
@@ -253,13 +260,13 @@
                {if="!$fsc->proveedor_s->acreedor"}
                <div class="checkbox">
                   <label>
-                     <input type="checkbox" name="stock" value="TRUE" checked="checked"/>
+                     <input type="checkbox" name="stock" value="TRUE" {if="$fsc->tipo=='factura'"}checked="checked" {/if}/>
                      Añadir al stock
                   </label>
                </div>
                <div class="checkbox">
                   <label>
-                     <input type="checkbox" name="costemedio" value="TRUE"{if="FS_COST_IS_AVERAGE"} checked="checked"{/if}/>
+                     <input type="checkbox" name="costemedio" value="TRUE" {if="FS_COST_IS_AVERAGE"} {if="$fsc->tipo=='factura'"} checked="checked" {/if} {/if}/>
                      Actualizar precio de coste de los artículos
                   </label>
                </div>

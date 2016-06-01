@@ -26,6 +26,7 @@ require_model('forma_pago.php');
 require_model('pedido_proveedor.php');
 require_model('proveedor.php');
 require_model('orden_compra_proveedor.php');
+require_model('cotizacion_proveedor.php');
 
 class nueva_compra extends fs_controller
 {
@@ -125,6 +126,8 @@ class nueva_compra extends fs_controller
                     $this->nueva_factura_proveedor();
                 } else if ($_POST['tipo'] == 'orden_compra') {
                     $this->nuevo_orden_compra_proveedor();;
+                } else if ($_POST['tipo'] == 'cotizacion') {
+                    $this->nueva_cotizacion_proveedor();;
                 }
             }
         }
@@ -152,6 +155,9 @@ class nueva_compra extends fs_controller
         }
         if ($this->user->have_access_to('ordenes_compra')) {
             $tipos[] = array('tipo' => 'orden_compra', 'nombre' => 'Orden de compra');
+        }
+        if ($this->user->have_access_to('compras_cotizaciones')) {
+            $tipos[] = array('tipo' => 'cotizacion', 'nombre' => 'Cotización de compra');
         }
 
 
@@ -281,6 +287,7 @@ class nueva_compra extends fs_controller
         $articulo = new articulo();
         $this->articulo = $articulo->get($_POST['referencia4precios']);
     }
+
 //nuevo_orden_compra_proveedor
     private function nuevo_orden_compra_proveedor()
     {
@@ -331,8 +338,8 @@ class nueva_compra extends fs_controller
 
         if ($this->duplicated_petition($_POST['petition_id'])) {
             $this->new_error_msg('Petición duplicada. Has hecho doble clic sobre el botón guardar
-               y se han enviado dos peticiones. Mira en <a href="' . $pedido->url() . '">' . FS_PEDIDOS . '</a>
-               para ver si el ' . FS_PEDIDO . ' se ha guardado correctamente.');
+               y se han enviado dos peticiones. Mira en <a href="' . $pedido->url() . '">Orden Compra</a>
+               para ver si el Orden de compra se ha guardado correctamente.');
             $continuar = FALSE;
         }
 
@@ -432,7 +439,7 @@ class nueva_compra extends fs_controller
                             $_POST['atotal'] . " frente a " . $pedido->total . "). Debes informar del error.");
                         $pedido->delete();
                     } else if ($pedido->save()) {
-                        $this->new_message("<a href='" . $pedido->url() . "'>" . ucfirst(FS_PEDIDO) . "</a> guardado correctamente.");
+                        $this->new_message("<a href='" . $pedido->url() . "'>Orden de Compra </a> guardado correctamente.");
                         $this->new_change(ucfirst(FS_PEDIDO) . ' Proveedor ' . $pedido->codigo, $pedido->url(), TRUE);
 
                         if ($_POST['redir'] == 'TRUE') {
@@ -441,13 +448,181 @@ class nueva_compra extends fs_controller
                     } else
                         $this->new_error_msg("¡Imposible actualizar el <a href='" . $pedido->url() . "'>" . FS_PEDIDO . "</a>!");
                 } else if ($pedido->delete()) {
-                    $this->new_message(ucfirst(FS_PEDIDO) . " eliminado correctamente.");
+                    $this->new_message("Orden de Compra eliminado correctamente.");
                 } else
-                    $this->new_error_msg("¡Imposible eliminar el <a href='" . $pedido->url() . "'>" . FS_PEDIDO . "</a>!");
+                    $this->new_error_msg("¡Imposible eliminar el <a href='" . $pedido->url() . "'>Orden de Compra</a>!");
             } else
-                $this->new_error_msg("¡Imposible guardar el " . FS_PEDIDO . "!");
+                $this->new_error_msg("¡Imposible guardar la orden de Compra!");
         }
     }
+//nueva cotizacion nuevo_cotizacion_proveedor
+    private function nueva_cotizacion_proveedor()
+    {
+        $continuar = TRUE;
+
+        $proveedor = $this->proveedor->get($_POST['proveedor']);
+        if (!$proveedor) {
+            $this->new_error_msg('Proveedor no encontrado.');
+            $continuar = FALSE;
+        }
+
+        $almacen = $this->almacen->get($_POST['almacen']);
+        if ($almacen) {
+            $this->save_codalmacen($_POST['almacen']);
+        } else {
+            $this->new_error_msg('Almacén no encontrado.');
+            $continuar = FALSE;
+        }
+
+        $eje0 = new ejercicio();
+        $ejercicio = $eje0->get_by_fecha($_POST['fecha']);
+        if (!$ejercicio) {
+            $this->new_error_msg('Ejercicio no encontrado.');
+            $continuar = FALSE;
+        }
+
+        $serie = $this->serie->get($_POST['serie']);
+        if (!$serie) {
+            $this->new_error_msg('Serie no encontrada.');
+            $continuar = FALSE;
+        }
+
+        $forma_pago = $this->forma_pago->get($_POST['forma_pago']);
+        if ($forma_pago) {
+            $this->save_codpago($_POST['forma_pago']);
+        } else {
+            $this->new_error_msg('Forma de pago no encontrada.');
+            $continuar = FALSE;
+        }
+
+        $divisa = $this->divisa->get($_POST['divisa']);
+        if (!$divisa) {
+            $this->new_error_msg('Divisa no encontrada.');
+            $continuar = FALSE;
+        }
+
+        $pedido = new cotizacion_proveedor();
+
+        if ($this->duplicated_petition($_POST['petition_id'])) {
+            $this->new_error_msg('Petición duplicada. Has hecho doble clic sobre el botón guardar
+               y se han enviado dos peticiones. Mira en <a href="' . $pedido->url() . '">Cotizacion</a>
+               para ver si la cotizacion se ha guardado correctamente.');
+            $continuar = FALSE;
+        }
+
+        if ($continuar) {
+            $pedido->fecha = $_POST['fecha'];
+            $pedido->hora = $_POST['hora'];
+            $pedido->codproveedor = $proveedor->codproveedor;
+            $pedido->nombre = $_POST['nombre'];
+            $pedido->cifnif = $_POST['cifnif'];
+            $pedido->codalmacen = $almacen->codalmacen;
+            $pedido->codejercicio = $ejercicio->codejercicio;
+            $pedido->codserie = $serie->codserie;
+            $pedido->codpago = $forma_pago->codpago;
+            $pedido->coddivisa = $divisa->coddivisa;
+            $pedido->tasaconv = $divisa->tasaconv_compra;
+
+            if ($_POST['tasaconv'] != '') {
+                $pedido->tasaconv = floatval($_POST['tasaconv']);
+            }
+
+            $pedido->codagente = $this->agente->codagente;
+            $pedido->numproveedor = $_POST['numproveedor'];
+            $pedido->observaciones = $_POST['observaciones'];
+            $pedido->irpf = $serie->irpf;
+
+            if ($pedido->save()) {
+                $art0 = new articulo();
+                $n = floatval($_POST['numlineas']);
+                for ($i = 0; $i < $n; $i++) {
+                    if (isset($_POST['referencia_' . $i])) {
+                        $linea = new linea_cotizacion_proveedor();
+                        $linea->idcotizacion = $pedido->idcotizacion;
+                        $linea->descripcion = $_POST['desc_' . $i];
+
+                        if (!$serie->siniva AND $proveedor->regimeniva != 'Exento') {
+                            $imp0 = $this->impuesto->get_by_iva($_POST['iva_' . $i]);
+                            if ($imp0) {
+                                $linea->codimpuesto = $imp0->codimpuesto;
+                                $linea->iva = floatval($_POST['iva_' . $i]);
+                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                            } else {
+                                $linea->iva = floatval($_POST['iva_' . $i]);
+                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                            }
+                        }
+
+                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
+                        $linea->cantidad = floatval($_POST['cantidad_' . $i]);
+                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
+                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
+
+                        $articulo = $art0->get($_POST['referencia_' . $i]);
+                        if ($articulo) {
+                            $linea->referencia = $articulo->referencia;
+                        }
+
+                        if ($linea->save()) {
+                            if ($articulo) {
+                                if (isset($_POST['costemedio'])) {
+                                    if ($articulo->costemedio == 0) {
+                                        $articulo->costemedio = $linea->pvptotal / $linea->cantidad;
+                                    } else {
+                                        $articulo->costemedio = $articulo->get_costemedio();
+                                        if ($articulo->costemedio == 0) {
+                                            $articulo->costemedio = $linea->pvptotal / $linea->cantidad;
+                                        }
+                                    }
+
+                                    $articulo->save();
+                                    $this->actualizar_precio_proveedor($pedido->codproveedor, $linea);
+                                }
+                            }
+
+                            $pedido->neto += $linea->pvptotal;
+                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $pedido->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
+                            $pedido->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
+                        } else {
+                            $this->new_error_msg("¡Imposible guardar la linea con referencia: " . $linea->referencia);
+                            $continuar = FALSE;
+                        }
+                    }
+                }
+
+                if ($continuar) {
+                    /// redondeamos
+                    $pedido->neto = round($pedido->neto, FS_NF0);
+                    $pedido->totaliva = round($pedido->totaliva, FS_NF0);
+                    $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
+                    $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
+                    $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+
+                    if (abs(floatval($_POST['atotal']) - $pedido->total) >= .02) {
+                        $this->new_error_msg("El total difiere entre la vista y el controlador (" .
+                            $_POST['atotal'] . " frente a " . $pedido->total . "). Debes informar del error.");
+                        $pedido->delete();
+                    } else if ($pedido->save()) {
+                        $this->new_message("<a href='" . $pedido->url() . "'>Cotizacion</a> guardada correctamente.");
+                        $this->new_change('Cotizacion Proveedor ' . $pedido->codigo, $pedido->url(), TRUE);
+
+                        if ($_POST['redir'] == 'TRUE') {
+                            header('Location: ' . $pedido->url());
+                        }
+                    } else
+                        $this->new_error_msg("¡Imposible actualizar el <a href='" . $pedido->url() . "'>Cotizacion</a>!");
+                } else if ($pedido->delete()) {
+                    $this->new_message("Cotizacion eliminado correctamente.");
+                } else
+                    $this->new_error_msg("¡Imposible eliminar el <a href='" . $pedido->url() . "'>Cotizacion</a>!");
+            } else
+                $this->new_error_msg("¡Imposible guardar el Cotizacion!");
+        }
+    }
+
     private function nuevo_pedido_proveedor()
     {
         $continuar = TRUE;

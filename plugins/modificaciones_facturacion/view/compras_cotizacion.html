@@ -1,15 +1,15 @@
 {include="header_modificado2"}
 
-{if="$fsc->albaran"}
-{if="$fsc->albaran->ptefactura"}
+{if="$fsc->cotizacion"}
+{if="$fsc->cotizacion->ptefactura"}
 <script type="text/javascript" src="{$fsc->get_js_location('nueva_compra.js')}"></script>
 <script type="text/javascript">
-   numlineas = {function="count($fsc->albaran->get_lineas())"};
+   numlineas = {function="count($fsc->cotizacion->get_lineas())"};
    fs_nf0 = {#FS_NF0#};
    all_impuestos = {function="json_encode($fsc->impuesto->all())"};
    all_series = {function="json_encode($fsc->serie->all())"};
    proveedor = {function="json_encode($fsc->proveedor_s)"};
-   nueva_compra_url = '{$fsc->nuevo_albaran_url}';
+   nueva_compra_url = '{$fsc->nueva_cotizacion_url}';
    kiwimaru_url = '{#FS_COMMUNITY_URL#}/index.php?page=kiwimaru';
    precio_compra = '{#FS_PRECIO_COMPRA#}';
    
@@ -27,9 +27,9 @@
          onSelect: function (suggestion) {
             if(suggestion)
             {
-               if(document.f_albaran.proveedor.value != suggestion.data && suggestion.data != '')
+               if(document.f_cotizacion.proveedor.value != suggestion.data && suggestion.data != '')
                {
-                  document.f_albaran.proveedor.value = suggestion.data;
+                  document.f_cotizacion.proveedor.value = suggestion.data;
                   usar_proveedor(suggestion.data);
                }
             }
@@ -40,10 +40,10 @@
 {else}
 <script type="text/javascript">
    $(document).ready(function() {
-      {if="$fsc->albaran->totalrecargo==0"}
+      {if="$fsc->cotizacion->totalrecargo==0"}
       $(".recargo").hide();
       {/if}
-      {if="$fsc->albaran->totalirpf==0"}
+      {if="$fsc->cotizacion->totalirpf==0"}
       $(".irpf").hide();
       {/if}
    });
@@ -53,7 +53,7 @@
    $(document).ready(function() {
       $("#b_imprimir").click(function(event) {
          event.preventDefault();
-         $("#modal_imprimir_albaran").modal('show');
+         $("#modal_imprimir_cotizacion").modal('show');
       });
       $("#b_enviar").click(function(event) {
          event.preventDefault();
@@ -67,9 +67,9 @@
    });
 </script>
 
-<form name="f_albaran" action="{$fsc->albaran->url()}" method="post" class="form">
-   <input type="hidden" name="idalbaran" value="{$fsc->albaran->idalbaran}"/>
-   <input type="hidden" name="proveedor" value="{$fsc->albaran->codproveedor}"/>
+<form name="f_cotizacion" action="{$fsc->cotizacion->url()}" method="post" class="form">
+   <input type="hidden" name="idcotizacion" value="{$fsc->cotizacion->idcotizacion}"/>
+   <input type="hidden" name="proveedor" value="{$fsc->cotizacion->codproveedor}"/>
    <input type="hidden" id="numlineas" name="numlineas" value="0"/>
    <div class="container-fluid">
       <div class="row" style="margin-top: 10px;">
@@ -90,19 +90,19 @@
                {/if}
                {loop="$fsc->extensions"}
                   {if="$value->type=='button'"}
-                  <a href="index.php?page={$value->from}&id={$fsc->albaran->idalbaran}{$value->params}" class="btn btn-sm btn-default">
+                  <a href="index.php?page={$value->from}&id={$fsc->cotizacion->idcotizacion}{$value->params}" class="btn btn-sm btn-default">
                      {$value->text}
                   </a>
                   {/if}
                {/loop}
             </div>
             
-            {if="$fsc->albaran->idfactura"}
-            <a class="btn btn-sm btn-info" href="{$fsc->albaran->factura_url()}">
+            {if="$fsc->cotizacion->idorden_compra"}
+            <a class="btn btn-sm btn-info" href="{$fsc->cotizacion->factura_url()}">
                <span class="glyphicon glyphicon-eye-open"></span>
-               <span class="hidden-xs">&nbsp; Ver Factura</span>
+               <span class="hidden-xs">&nbsp; Ver orden Cotizaciones</span>
             </a>
-            {elseif="$fsc->albaran->ptefactura"}
+            {elseif="$fsc->cotizacion->ptefactura"}
             <a class="btn btn-sm btn-default" href="{$fsc->url()}&facturar=TRUE&petid={$fsc->random_string()}">
                <span class="glyphicon glyphicon-paperclip"></span> &nbsp; Aprobar
             </a>
@@ -133,19 +133,19 @@
             <br/>
             <ol class="breadcrumb" style="margin-bottom: 5px;">
                <li><a href="{$fsc->ppage->url()}">Compras</a></li>
-               <li><a href="{$fsc->ppage->url()}">{#FS_ALBARANES#}</a></li>
+               <li><a href="{$fsc->ppage->url()}">Cotizaciones</a></li>
                <li>
                   {loop="$fsc->serie->all()"}
-                     {if="$value->codserie==$fsc->albaran->codserie"}
+                     {if="$value->codserie==$fsc->cotizacion->codserie"}
                      <a href="{$fsc->ppage->url()}&codserie={$value->codserie}" class="text-capitalize">{$value->descripcion}</a>
                      {/if}
                   {/loop}
                </li>
                <li>
-                  <a href="{$fsc->albaran->proveedor_url()}">{$fsc->albaran->nombre}</a>
+                  <a href="{$fsc->cotizacion->proveedor_url()}">{$fsc->cotizacion->nombre}</a>
                </li>
                {if="$fsc->proveedor_s"}
-                  {if="$fsc->proveedor_s->nombre!=$fsc->albaran->nombre"}
+                  {if="$fsc->proveedor_s->nombre!=$fsc->cotizacion->nombre"}
                   <li>
                      <a href="#" onclick="alert('Proveedor conocido como: {$fsc->proveedor_s->nombre}')">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -153,26 +153,26 @@
                   </li>
                   {/if}
                {/if}
-               <li class="active"><b>{$fsc->albaran->codigo}</b></li>
+               <li class="active"><b>{$fsc->cotizacion->codigo}</b></li>
             </ol>
             <p class="help-block">
                {if="$fsc->agente"}
-               <span class="text-capitalize">{#FS_ALBARAN#}</span> creado por <a href="{$fsc->agente->url()}">{$fsc->agente->get_fullname()}</a>.
+               <span class="text-capitalize">Cotizacion</span> creado por <a href="{$fsc->agente->url()}">{$fsc->agente->get_fullname()}</a>.
                {else}
-               Sin datos de qué empleado ha creado este {#FS_ALBARAN#}.
+               Sin datos de qué empleado ha creado este Cotizacion.
                {/if}
             </p>
          </div>
       </div>
       <div class="row">
-         {if="$fsc->albaran->ptefactura"}
+         {if="$fsc->cotizacion->ptefactura"}
          <div class="col-md-3 col-sm-12">
             <div class="form-group">
                Proveedor actual:
                <div class="input-group">
-                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->albaran->nombre}" placeholder="Buscar" autocomplete="off"/>
+                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->cotizacion->nombre}" placeholder="Buscar" autocomplete="off"/>
                   <span class="input-group-btn">
-                     <button class="btn btn-default" type="button" onclick="document.f_albaran.ac_proveedor.value=''; document.f_albaran.ac_proveedor.focus();">
+                     <button class="btn btn-default" type="button" onclick="document.f_cotizacion.ac_proveedor.value=''; document.f_cotizacion.ac_proveedor.focus();">
                         <span class="glyphicon glyphicon-edit"></span>
                      </button>
                   </span>
@@ -183,16 +183,16 @@
          <div class="col-md-3 col-sm-4">
             <div class="form-group">
                Núm. Proveedor:
-               <input class="form-control" type="text" name="numproveedor" value="{$fsc->albaran->numproveedor}"/>
+               <input class="form-control" type="text" name="numproveedor" value="{$fsc->cotizacion->numproveedor}"/>
             </div>
          </div>
-         {if="$fsc->albaran->ptefactura"}
+         {if="$fsc->cotizacion->ptefactura"}
          <div class="col-sm-2">
             <div class="form-group">
                <a href="{$fsc->serie->url()}">Serie</a>:
                <select class="form-control" name="serie" id="codserie" onchange="usar_serie();recalcular();">
                {loop="$fsc->serie->all()"}
-                  {if="$value->codserie==$fsc->albaran->codserie"}
+                  {if="$value->codserie==$fsc->cotizacion->codserie"}
                   <option value="{$value->codserie}" selected="">{$value->descripcion}</option>
                   {else}
                   <option value="{$value->codserie}">{$value->descripcion}</option>
@@ -205,20 +205,20 @@
          <div class="col-md-2 col-sm-3">
             <div class="form-group">
                Fecha:
-               {if="$fsc->albaran->ptefactura"}
-               <input class="form-control datepicker" type="text" name="fecha" value="{$fsc->albaran->fecha}" autocomplete="off"/>
+               {if="$fsc->cotizacion->ptefactura"}
+               <input class="form-control datepicker" type="text" name="fecha" value="{$fsc->cotizacion->fecha}" autocomplete="off"/>
                {else}
-               <div class="form-control">{$fsc->albaran->fecha}</div>
+               <div class="form-control">{$fsc->cotizacion->fecha}</div>
                {/if}
             </div>
          </div>
          <div class="col-md-2 col-sm-3">
             <div class="form-group">
                Hora:
-               {if="$fsc->albaran->ptefactura"}
-               <input class="form-control" type="text" name="hora" value="{$fsc->albaran->hora}" autocomplete="off"/>
+               {if="$fsc->cotizacion->ptefactura"}
+               <input class="form-control" type="text" name="hora" value="{$fsc->cotizacion->hora}" autocomplete="off"/>
                {else}
-               <div class="form-control">{$fsc->albaran->hora}</div>
+               <div class="form-control">{$fsc->cotizacion->hora}</div>
                {/if}
             </div>
          </div>
@@ -250,7 +250,7 @@
       <div class="tab-content">
          <div role="tabpanel" class="tab-pane active" id="lineas_a">
             <div class="table-responsive">
-               {if="$fsc->albaran->ptefactura"}
+               {if="$fsc->cotizacion->ptefactura"}
                <table class="table table-condensed">
                   <thead>
                      <tr>
@@ -268,7 +268,7 @@
                      </tr>
                   </thead>
                   <tbody id="lineas_albaran">
-                  {loop="$fsc->albaran->get_lineas()"}
+                  {loop="$fsc->cotizacion->get_lineas()"}
                      <tr id="linea_{$counter}">
                         <td>
                            <input type="hidden" name="idlinea_{$counter}" value="{$value->idlinea}"/>
@@ -341,8 +341,8 @@
                         <td colspan="2">
                            <div class="form-control text-right">
                               Totales
-                              {if="$fsc->albaran->coddivisa!=$fsc->empresa->coddivisa"}
-                              ({$fsc->albaran->coddivisa})
+                              {if="$fsc->cotizacion->coddivisa!=$fsc->empresa->coddivisa"}
+                              ({$fsc->cotizacion->coddivisa})
                               {/if}
                            </div>
                         </td>
@@ -362,11 +362,11 @@
                      {if="$fsc->user->admin"}
                      <tr>
                         <td colspan="6"></td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->neto, $fsc->albaran->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->totaliva, $fsc->albaran->coddivisa)}</td>
-                        <td class="recargo text-right">{$fsc->show_precio($fsc->albaran->totalrecargo, $fsc->albaran->coddivisa)}</td>
-                        <td class="irpf text-right">{$fsc->show_precio($fsc->albaran->totalirpf, $fsc->albaran->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->total, $fsc->albaran->coddivisa)}</td>
+                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->neto, $fsc->cotizacion->coddivisa)}</td>
+                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->totaliva, $fsc->cotizacion->coddivisa)}</td>
+                        <td class="recargo text-right">{$fsc->show_precio($fsc->cotizacion->totalrecargo, $fsc->cotizacion->coddivisa)}</td>
+                        <td class="irpf text-right">{$fsc->show_precio($fsc->cotizacion->totalirpf, $fsc->cotizacion->coddivisa)}</td>
+                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->total, $fsc->cotizacion->coddivisa)}</td>
                      </tr>
                      {/if}
                   </tbody>
@@ -386,7 +386,7 @@
                         <th class="text-right">Total</th>
                      </tr>
                   </thead>
-                  {loop="$fsc->albaran->get_lineas()"}
+                  {loop="$fsc->cotizacion->get_lineas()"}
                   <tr{if="$value->cantidad<=0"} class="warning"{/if}>
                      <td>
                         {if="$value->idlineapedido"}
@@ -397,13 +397,13 @@
                         <a href="{$value->articulo_url()}">{$value->referencia}</a> {$value->descripcion}
                      </td>
                      <td class="text-right">{$value->cantidad}</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->albaran->coddivisa)}</td>
+                     <td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->cotizacion->coddivisa)}</td>
                      <td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->albaran->coddivisa)}</td>
+                     <td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->cotizacion->coddivisa)}</td>
                      <td class="text-right">{$fsc->show_numero($value->iva, 2)} %</td>
                      <td class="text-right recargo">{$fsc->show_numero($value->recargo, 2)} %</td>
                      <td class="text-right irpf">{$fsc->show_numero($value->irpf, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->total_iva(), $fsc->albaran->coddivisa)}</td>
+                     <td class="text-right">{$fsc->show_precio($value->total_iva(), $fsc->cotizacion->coddivisa)}</td>
                   </tr>
                   {else}
                   <tr class="warning">
@@ -414,16 +414,16 @@
                   </tr>
                   {/loop}
                   <tr>
-                     {if="$fsc->albaran->coddivisa!=$fsc->empresa->coddivisa"}
-                     <td colspan="4" class="text-right warning"><b>{$fsc->albaran->coddivisa}:</b></td>
+                     {if="$fsc->cotizacion->coddivisa!=$fsc->empresa->coddivisa"}
+                     <td colspan="4" class="text-right warning"><b>{$fsc->cotizacion->coddivisa}:</b></td>
                      {else}
                      <td colspan="4"></td>
                      {/if}
-                     <td class="text-right"><b>{$fsc->show_precio($fsc->albaran->neto, $fsc->albaran->coddivisa)}</b></td>
-                     <td class="text-right"><b>{$fsc->show_precio($fsc->albaran->totaliva, $fsc->albaran->coddivisa)}</b></td>
-                     <td class="text-right recargo"><b>{$fsc->show_precio($fsc->albaran->totalrecargo, $fsc->albaran->coddivisa)}</b></td>
-                     <td class="text-right irpf"><b>-{$fsc->show_precio($fsc->albaran->totalirpf, $fsc->albaran->coddivisa)}</b></td>
-                     <td class="text-right"><b>{$fsc->show_precio($fsc->albaran->total, $fsc->albaran->coddivisa)}</b></td>
+                     <td class="text-right"><b>{$fsc->show_precio($fsc->cotizacion->neto, $fsc->cotizacion->coddivisa)}</b></td>
+                     <td class="text-right"><b>{$fsc->show_precio($fsc->cotizacion->totaliva, $fsc->cotizacion->coddivisa)}</b></td>
+                     <td class="text-right recargo"><b>{$fsc->show_precio($fsc->cotizacion->totalrecargo, $fsc->cotizacion->coddivisa)}</b></td>
+                     <td class="text-right irpf"><b>-{$fsc->show_precio($fsc->cotizacion->totalirpf, $fsc->cotizacion->coddivisa)}</b></td>
+                     <td class="text-right"><b>{$fsc->show_precio($fsc->cotizacion->total, $fsc->cotizacion->coddivisa)}</b></td>
                   </tr>
                </table>
                {/if}
@@ -434,7 +434,7 @@
                   <div class="col-sm-12">
                      <div class="form-group">
                         Observaciones:
-                        <textarea class="form-control" name="observaciones" rows="3">{$fsc->albaran->observaciones}</textarea>
+                        <textarea class="form-control" name="observaciones" rows="3">{$fsc->cotizacion->observaciones}</textarea>
                      </div>
                   </div>
                </div>
@@ -446,13 +446,13 @@
                   <div class="col-sm-3">
                      <div class="form-group">
                         Nombre del proveedor:
-                        <input class="form-control" type="text" name="nombre" value="{$fsc->albaran->nombre}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="nombre" value="{$fsc->cotizacion->nombre}" autocomplete="off"/>
                      </div>
                   </div>
                   <div class="col-sm-2">
                      <div class="form-group">
                         {#FS_CIFNIF#}:
-                        <input class="form-control" type="text" name="cifnif" value="{$fsc->albaran->cifnif}" autocomplete="off"/>
+                        <input class="form-control" type="text" name="cifnif" value="{$fsc->cotizacion->cifnif}" autocomplete="off"/>
                      </div>
                   </div>
                   <div class="col-sm-3">
@@ -460,7 +460,7 @@
                         <a href="{$fsc->forma_pago->url()}">Forma de pago</a>:
                         <select name="forma_pago" class="form-control">
                            {loop="$fsc->forma_pago->all()"}
-                           <option value="{$value->codpago}"{if="$value->codpago==$fsc->albaran->codpago"} selected=""{/if}>{$value->descripcion}</option>
+                           <option value="{$value->codpago}"{if="$value->codpago==$fsc->cotizacion->codpago"} selected=""{/if}>{$value->descripcion}</option>
                            {/loop}
                         </select>
                      </div>
@@ -470,7 +470,7 @@
                         <a href="{$fsc->divisa->url()}">Divisa</a>:
                         <select name="divisa" class="form-control">
                         {loop="$fsc->divisa->all()"}
-                           {if="$value->coddivisa==$fsc->albaran->coddivisa"}
+                           {if="$value->coddivisa==$fsc->cotizacion->coddivisa"}
                            <option value="{$value->coddivisa}" selected="">{$value->descripcion}</option>
                            {else}
                            <option value="{$value->coddivisa}">{$value->descripcion}</option>
@@ -482,7 +482,7 @@
                   <div class="col-sm-2">
                      <div class="form-group">
                         Tasa de conversión a Gs.
-                        <input type="text" name="tasaconv" class="form-control" placeholder="{$fsc->albaran->tasaconv}" autocomplete="off"/>
+                        <input type="text" name="tasaconv" class="form-control" placeholder="{$fsc->cotizacion->tasaconv}" autocomplete="off"/>
                      </div>
                   </div>
                </div>
@@ -491,7 +491,7 @@
          {loop="$fsc->extensions"}
             {if="$value->type=='tab'"}
             <div role="tabpanel" class="tab-pane" id="ext_{$value->name}">
-               <iframe src="index.php?page={$value->from}{$value->params}&id={$fsc->albaran->idalbaran}" width="100%" height="600" frameborder="0"></iframe>
+               <iframe src="index.php?page={$value->from}{$value->params}&id={$fsc->cotizacion->idcotizacion}" width="100%" height="600" frameborder="0"></iframe>
             </div>
             {/if}
          {/loop}
@@ -508,7 +508,7 @@
          </div>
          <div class="modal-body">
             <form id="f_buscar_articulos" name="f_buscar_articulos" action="{$fsc->url()}" method="post" class="form">
-               <input type="hidden" name="codproveedor" value="{$fsc->albaran->codproveedor}"/>
+               <input type="hidden" name="codproveedor" value="{$fsc->cotizacion->codproveedor}"/>
                <div class="container-fluid">
                   <div class="row">
                      <div class="col-sm-4">
@@ -670,17 +670,17 @@
    </div>
 </div>
 
-<div class="modal fade" id="modal_imprimir_albaran">
+<div class="modal fade" id="modal_imprimir_cotizacion">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Imprimir {#FS_ALBARAN#}</h4>
+            <h4 class="modal-title">Imprimir cotizacion</h4>
          </div>
          <div class="modal-body">
             {loop="$fsc->extensions"}
                {if="$value->type=='pdf'"}
-               <a href="index.php?page={$value->from}{$value->params}&id={$fsc->albaran->idalbaran}" target="_blank" class="btn btn-block btn-default">
+               <a href="index.php?page={$value->from}{$value->params}&id={$fsc->cotizacion->idcotizacion}" target="_blank" class="btn btn-block btn-default">
                   <span class="glyphicon glyphicon-print"></span> &nbsp; {$value->text}
                </a>
                {/if}
@@ -696,7 +696,7 @@
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title">Enviar {#FS_ALBARAN#}</h4>
+               <h4 class="modal-title">Enviar cotizacion</h4>
             </div>
             <div class="modal-body">
                <div class="form-group">
@@ -705,12 +705,12 @@
                </div>
                <div class="form-group">
                   Mensaje:
-                  <textarea class="form-control" name="mensaje" rows="6">Buenos días, le adjunto mi {#FS_ALBARAN#} {$fsc->albaran->codigo}.
+                  <textarea class="form-control" name="mensaje" rows="6">Buenos días, le adjunto mi cotizacion {$fsc->cotizacion->codigo}.
 {$fsc->empresa->email_firma}</textarea>
                </div>
                {loop="$fsc->extensions"}
                   {if="$value->type=='email'"}
-                  <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.action='index.php?page={$value->from}{$value->params}&id={$fsc->albaran->idalbaran}';this.form.submit();">
+                  <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.action='index.php?page={$value->from}{$value->params}&id={$fsc->cotizacion->idcotizacion}';this.form.submit();">
                      <span class="glyphicon glyphicon-send"></span> &nbsp; {$value->text}
                   </button>
                   {/if}
@@ -722,17 +722,17 @@
 </form>
 
 <form action="{$fsc->ppage->url()}" method="post">
-   <input type="hidden" name="delete" value="{$fsc->albaran->idalbaran}"/>
+   <input type="hidden" name="delete" value="{$fsc->cotizacion->idcotizacion}"/>
    <div class="modal fade" id="modal_eliminar">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title">¿Realmente desea eliminar este {#FS_ALBARAN#}?</h4>
+               <h4 class="modal-title">¿Realmente desea eliminar esta cotizacion?</h4>
             </div>
-            {if="$fsc->albaran->idfactura"}
+            {if="$fsc->cotizacion->idorden_compra"}
             <div class="modal-body bg-warning">
-               Hay una factura asociada que será eliminada junto con este {#FS_ALBARAN#}.
+               Hay una factura asociada que será eliminada junto con este cotizacion.
             </div>
             {/if}
             <div class="modal-footer">
