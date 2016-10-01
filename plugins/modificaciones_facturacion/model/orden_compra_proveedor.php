@@ -39,6 +39,7 @@ class orden_compra_proveedor extends fs_model
     * @var type 
     */
    public $codigo;
+   public $cod_cotizacion;
    /**
     * Serie relacionada.
     * @var type 
@@ -152,6 +153,7 @@ class orden_compra_proveedor extends fs_model
          $this->idpedido = $this->intval($p['idpedido']);
          $this->idalbaran = $this->intval($p['idalbaran']);
          $this->codigo = $p['codigo'];
+         $this->cod_cotizacion = $p['cod_cotizacion'];
          $this->codagente = $p['codagente'];
          $this->codpago = $p['codpago'];
          $this->codserie = $p['codserie'];
@@ -190,6 +192,7 @@ class orden_compra_proveedor extends fs_model
          $this->idpedido = NULL;
          $this->idalbaran = NULL;
          $this->codigo = NULL;
+         $this->cod_cotizacion= NULL;
          $this->codagente = NULL;
          $this->codpago = NULL;
          $this->codserie = NULL;
@@ -480,7 +483,7 @@ class orden_compra_proveedor extends fs_model
          {
             $this->new_codigo();
             $sql = "INSERT INTO ".$this->table_name." (cifnif,codagente,codalmacen,codproveedor,
-               coddivisa,codejercicio,codigo,codpago,codserie,editable,fecha,hora,idalbaran,irpf,
+               coddivisa,codejercicio,codigo, cod_cotizacion,codpago,codserie,editable,fecha,hora,idalbaran,irpf,
                neto,nombre,numero,observaciones,tasaconv,total,totaleuros,totalirpf,
                totaliva,totalrecargo,numproveedor) VALUES (" . $this->var2str($this->cifnif)
                     . "," . $this->var2str($this->codagente)
@@ -489,6 +492,7 @@ class orden_compra_proveedor extends fs_model
                     . "," . $this->var2str($this->coddivisa)
                     . "," . $this->var2str($this->codejercicio)
                     . "," . $this->var2str($this->codigo)
+                     . "," . $this->var2str($this->cod_cotizacion)
                     . "," . $this->var2str($this->codpago)
                     . "," . $this->var2str($this->codserie)
                     . "," . $this->var2str($this->editable)

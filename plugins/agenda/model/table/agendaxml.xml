@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : agenda_prueba.xml
+    Description:
+        Estructura de la tabla agenda_prueba.
+-->
+<tabla>
+    <columna>
+        <nombre>id</nombre>
+        <tipo>serial</tipo>
+        <nulo>NO</nulo>
+        <defecto>nextval('agenda_prueba_id_seq'::regclass)</defecto>
+    </columna>
+    <columna>
+        <nombre>asignado</nombre>
+        <tipo>varchar(50)</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>fecha_creacion</nombre>
+        <tipo>timestamp</tipo>
+        <nulo>NO</nulo>
+        <defecto>CURRENT_TIMESTAMP</defecto>
+    </columna>
+    <columna>
+        <nombre>fecha_culminacion</nombre>
+        <tipo>timestamp</tipo>
+        <nulo>NO</nulo>
+        <defecto>0000-00-00 00:00:00</defecto>
+    </columna>
+    <columna>
+        <nombre>creador</nombre>
+        <tipo>varchar(50)</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>detalle</nombre>
+        <tipo>text</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <restriccion>
+        <nombre>agenda_prueba_pkey</nombre>
+        <consulta>PRIMARY KEY (id)</consulta>
+    </restriccion>
+</tabla>

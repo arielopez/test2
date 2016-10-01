@@ -95,7 +95,7 @@
                {if="1>0"}
                {if="$fsc->pedido->idalbaran"}
                <a class="btn btn-sm btn-info text-capitalize" href="{$fsc->pedido->albaran_url()}">
-                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Ver {#FS_ALBARAN#}
+                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Ver Cotización
                </a>
                {elseif="$fsc->pedido->editable"}
                <a class="btn btn-sm btn-default" href="{$fsc->url()}&aprobar=TRUE&petid={$fsc->random_string()}">
@@ -249,7 +249,7 @@
                <table class="table table-condensed">
                   <thead>
                      <tr>
-                        <th class="text-left col-md-3" width="180">Referencia</th>
+                        <th class="text-left col-md-2" width="180">Referencia</th>
                         <th class="text-left col-md-4">Descripción</th>
                         <th class="text-right col-md-1" width="80">Cantidad</th>
                         <th width="50"></th>
@@ -361,8 +361,9 @@
                <table class="table table-hover">
                   <thead>
                      <tr>
-                        <th class="text-left col-md-4">Artículo</th>
-                        <th class="text-right col-md-4">Cantidad</th>
+                        <th class="text-left col-md-1">Artículo</th>
+                        <th class="text-left col-md-3">Descripción</th>
+                        <th class="text-left col-md-5">Cantidad</th>
                         <!--<th class="text-right">Precio</th>-->
                         <!--<th class="text-right">Dto</th>-->
                         <!--<th class="text-right">Neto</th>-->
@@ -375,9 +376,10 @@
                   {loop="$fsc->pedido->get_lineas()"}
                   <tr>
                      <td>
-                        <a target="_blank" href="{$value->articulo_url()}">{$value->referencia}</a> {$value->descripcion}
+                        <a target="_blank" href="{$value->articulo_url()}">{$value->referencia}</a>
                      </td>
-                     <td class="text-right">{$value->cantidad}</td>
+                     <td>{$value->descripcion}</td>
+                     <td class="text-left">{$value->cantidad}</td>
                      <!--<td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->pedido->coddivisa)}</td>-->
                      <!--<td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>-->
                      <!--<td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->pedido->coddivisa)}</td>-->

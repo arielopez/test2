@@ -153,25 +153,29 @@
          </div>
       </div>
       <div class="row">
-         {if="$fsc->pedido->editable"}
          <div class="col-md-3 col-sm-12">
             <div class="form-group">
                Proveedor actual:
-               <div class="input-group">
-                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->pedido->nombre}" placeholder="Buscar" autocomplete="off"/>
-                  <span class="input-group-btn">
+               <!--<div class="input-group">-->
+                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->pedido->nombre}" placeholder="Buscar" autocomplete="off " disabled/>
+                  <!--<span class="input-group-btn">
                      <button class="btn btn-default" type="button" onclick="document.f_pedido.ac_proveedor.value = '';document.f_pedido.ac_proveedor.focus();">
                         <span class="glyphicon glyphicon-edit"></span>
                      </button>
-                  </span>
-               </div>
+                  </span>-->
+               <!--</div>-->
             </div>
          </div>
-         {/if}
-         <div class="col-md-3 col-sm-4">
+         <div class="col-md-2 col-sm-4">
             <div class="form-group">
                Núm. Proveedor:
-               <input class="form-control" type="text" name="numproveedor" value="{$fsc->pedido->numproveedor}"/>
+               <input class="form-control" type="text" name="numproveedor" value="{$fsc->pedido->numproveedor}" disabled/>
+            </div>
+         </div>
+         <div class="col-md-2 col-sm-4">
+            <div class="form-group">
+               Cod. Cotizacion:
+               <input class="form-control" type="text" name="codcotizacion" value="{$fsc->pedido->cod_cotizacion}" disabled/>
             </div>
          </div>
          {if="$fsc->pedido->editable"}
@@ -190,7 +194,7 @@
             </div>
          </div>
          {/if}
-         <div class="col-md-2 col-sm-3">
+         <div class="col-md-1 col-sm-3">
             <div class="form-group">
                Fecha:
                {if="$fsc->pedido->editable"}
@@ -200,7 +204,7 @@
                {/if}
             </div>
          </div>
-         <div class="col-md-2 col-sm-3">
+         <div class="col-md-1 col-sm-3">
             <div class="form-group">
                Hora:
                {if="$fsc->pedido->editable"}

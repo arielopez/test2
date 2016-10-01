@@ -12,9 +12,9 @@
 define('FS_DB_TYPE', 'MYSQL'); /// MYSQL o POSTGRESQL
 define('FS_DB_HOST', 'localhost');
 define('FS_DB_PORT', '3306'); /// MYSQL -> 3306, POSTGRESQL -> 5432
-define('FS_DB_NAME', 'limpiamas');
-define('FS_DB_USER', 'root'); /// MYSQL -> root, POSTGRESQL -> postgres
-define('FS_DB_PASS', '');
+define('FS_DB_NAME', 'test_ambiente');
+define('FS_DB_USER', 'test01'); /// MYSQL -> root, POSTGRESQL -> postgres
+define('FS_DB_PASS', 'test01');
 
 /*
  * Un directorio de nombre aleatorio para mejorar la seguridad del directorio temporal.

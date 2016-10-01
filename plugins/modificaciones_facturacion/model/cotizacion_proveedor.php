@@ -45,6 +45,8 @@ class cotizacion_proveedor extends fs_model
     * @var type 
     */
    public $codigo;
+
+   public $cod_pedido;
    
    /**
     * Número del albarán.
@@ -187,6 +189,7 @@ class cotizacion_proveedor extends fs_model
          }
          
          $this->codigo = $a['codigo'];
+         $this->cod_pedido=$a['cod_pedido'];
          $this->numero = $a['numero'];
          $this->numproveedor = $a['numproveedor'];
          $this->codejercicio = $a['codejercicio'];
@@ -221,6 +224,7 @@ class cotizacion_proveedor extends fs_model
          $this->idcotizacion = NULL;
          $this->idorden_compra = NULL;
          $this->codigo = '';
+         $this->cod_pedido='';
          $this->numero = '';
          $this->numproveedor = '';
          $this->codejercicio = NULL;
@@ -286,7 +290,7 @@ class cotizacion_proveedor extends fs_model
          return '#';
       }
       else
-         return 'index.php?page=compras_factura&id='.$this->idorden_compra;
+         return 'index.php?page=orden_compra&id='.$this->idorden_compra;
    }
    
    public function agente_url()
@@ -477,10 +481,10 @@ class cotizacion_proveedor extends fs_model
                $status = FALSE;
             }
          }
-         else if( isset($this->idorden_compra) )
+         else if( isset($this->idorden_compra) && 1<0 )
          {
             $this->new_error_msg("Esta Cotizacion esta asociado a una <a href='".$this->factura_url()
-                    ."'>factura</a> que ya no existe. <b>Corregido</b>.");
+                    ."'>la orden de compra</a> que ya no existe. <b>Corregido</b>.");
             $this->idorden_compra = NULL;
             $this->save();
             
@@ -556,12 +560,13 @@ class cotizacion_proveedor extends fs_model
          else
          {
             $this->new_codigo();
-            $sql = "INSERT INTO ".$this->table_name." (codigo,numero,numproveedor,
+            $sql = "INSERT INTO ".$this->table_name." (codigo,cod_pedido,numero,numproveedor,
                codejercicio,codserie,coddivisa,codpago,codagente,codalmacen,fecha,codproveedor,
                nombre,cifnif,neto,total,totaliva,totaleuros,irpf,totalirpf,tasaconv,
                totalrecargo,observaciones,ptefactura,hora) VALUES
                       (".$this->var2str($this->codigo)
-                    .",".$this->var2str($this->numero)
+                     .",".$this->var2str($this->cod_pedido)
+                     .",".$this->var2str($this->numero)
                     .",".$this->var2str($this->numproveedor)
                     .",".$this->var2str($this->codejercicio)
                     .",".$this->var2str($this->codserie)

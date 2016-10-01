@@ -286,10 +286,10 @@ class pedido_proveedor extends fs_model
    {
       if( is_null($this->idalbaran) )
       {
-         return 'index.php?page=compras_albaranes';
+         return 'index.php?page=compras_cotizaciones';
       }
       else
-         return 'index.php?page=compras_albaran&id='.$this->idalbaran;
+         return 'index.php?page=compras_cotizacion&id='.$this->idalbaran;
    }
 
    public function agente_url()
@@ -455,7 +455,7 @@ class pedido_proveedor extends fs_model
       
       if($this->idalbaran)
       {
-         $alb0 = new albaran_proveedor();
+         $alb0 = new cotizacion_proveedor();
          $albaran = $alb0->get($this->idalbaran);
          if (!$albaran)
          {
@@ -663,6 +663,6 @@ class pedido_proveedor extends fs_model
    public function cron_job()
    {
       $this->db->exec("UPDATE ".$this->table_name." SET idalbaran = NULL, editable = TRUE"
-              . " WHERE idalbaran NOT IN (SELECT idalbaran FROM albaranesprov);");
+              . " WHERE idalbaran NOT IN (SELECT idcotizacion FROM cotizacion_prov)");
    }
 }

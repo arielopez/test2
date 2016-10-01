@@ -422,6 +422,7 @@ class compras_cotizacion extends fs_controller
       $orden_compra->irpf = $this->cotizacion->irpf;
       $orden_compra->neto = $this->cotizacion->neto;
       $orden_compra->nombre = $this->cotizacion->nombre;
+      $orden_compra->cod_cotizacion= $this->cotizacion->codigo;
       $orden_compra->numproveedor = $this->cotizacion->numproveedor;
       $orden_compra->observaciones = $this->cotizacion->observaciones;
       $orden_compra->total = $this->cotizacion->total;

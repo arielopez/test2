@@ -74,6 +74,9 @@
    <div class="container-fluid">
       <div class="row" style="margin-top: 10px;">
          <div class="col-xs-8">
+            <a class="btn btn-sm btn-default hidden-xs" href="index.php?page=compras_cotizaciones" title="Atras">
+               <span class="glyphicon glyphicon-arrow-left"></span>
+            </a>
             <a class="btn btn-sm btn-default hidden-xs" href="{$fsc->url()}" title="Recargar la página">
                <span class="glyphicon glyphicon-refresh"></span>
             </a>
@@ -100,7 +103,7 @@
             {if="$fsc->cotizacion->idorden_compra"}
             <a class="btn btn-sm btn-info" href="{$fsc->cotizacion->factura_url()}">
                <span class="glyphicon glyphicon-eye-open"></span>
-               <span class="hidden-xs">&nbsp; Ver orden Cotizaciones</span>
+               <span class="hidden-xs">&nbsp; Ver Orden de Compra</span>
             </a>
             {elseif="$fsc->cotizacion->ptefactura"}
             <a class="btn btn-sm btn-default" href="{$fsc->url()}&facturar=TRUE&petid={$fsc->random_string()}">
@@ -166,24 +169,30 @@
       </div>
       <div class="row">
          {if="$fsc->cotizacion->ptefactura"}
-         <div class="col-md-3 col-sm-12">
+         <div class="col-md-2 col-sm-12">
             <div class="form-group">
                Proveedor actual:
-               <div class="input-group">
-                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->cotizacion->nombre}" placeholder="Buscar" autocomplete="off"/>
-                  <span class="input-group-btn">
+               <!--<div class="input-group">-->
+                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" value="{$fsc->cotizacion->nombre}" disabled/>  <!--placeholder="Buscar" autocomplete="off"-->
+                  <!--<span class="input-group-btn">
                      <button class="btn btn-default" type="button" onclick="document.f_cotizacion.ac_proveedor.value=''; document.f_cotizacion.ac_proveedor.focus();">
                         <span class="glyphicon glyphicon-edit"></span>
                      </button>
-                  </span>
-               </div>
+                  </span>-->
+               <!--</div>-->
             </div>
          </div>
          {/if}
-         <div class="col-md-3 col-sm-4">
+         <div class="col-md-2 col-sm-4">
             <div class="form-group">
                Núm. Proveedor:
-               <input class="form-control" type="text" name="numproveedor" value="{$fsc->cotizacion->numproveedor}"/>
+               <input class="form-control" type="text" name="numproveedor" value="{$fsc->cotizacion->numproveedor}" disabled/>
+            </div>
+         </div>
+         <div class="col-md-2 col-sm-4">
+            <div class="form-group">
+               Cod Pedido:
+               <input class="form-control" type="text" name="numproveedor" value="{$fsc->cotizacion->cod_pedido}" placeholder="Sin pedido registrado" disabled/>
             </div>
          </div>
          {if="$fsc->cotizacion->ptefactura"}
@@ -202,7 +211,7 @@
             </div>
          </div>
          {/if}
-         <div class="col-md-2 col-sm-3">
+         <div class="col-md-1 col-sm-3">
             <div class="form-group">
                Fecha:
                {if="$fsc->cotizacion->ptefactura"}
@@ -212,7 +221,7 @@
                {/if}
             </div>
          </div>
-         <div class="col-md-2 col-sm-3">
+         <div class="col-md-1 col-sm-3">
             <div class="form-group">
                Hora:
                {if="$fsc->cotizacion->ptefactura"}

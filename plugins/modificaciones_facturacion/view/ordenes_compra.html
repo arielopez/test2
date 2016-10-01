@@ -120,11 +120,12 @@
          <tr>
             <th></th>
             <th class="text-left col-md-1">Fecha</th>
-            <th class="text-left col-md-2">Código </th>
-            <th class="text-left col-md-2"> Nro. doc. Proveedor</th>
-            <th class="text-left col-md-3">Proveedor</th>
-            <th class="text-left col-md-2">Total</th>
-            <th class="text-left col-md-2">Observaciones</th>
+            <th class="text-left col-md-1">Código </th>
+            <th class="text-left col-md-1">Cotizacion </th>
+            <th class="text-center col-md-2"> Nro. doc. Proveedor</th>
+            <th class="text-left col-md-2">Proveedor</th>
+            <th class="text-center col-md-1">Total</th>
+            <th class="text-right col-md-4">Observaciones</th>
          </tr>
       </thead>
       {loop="$fsc->resultados"}
@@ -140,13 +141,14 @@
             </span>
          </td>
          <td><a href="{$value->url()}">{$value->codigo}</a> </td>
-         <td> {$value->numproveedor}</td>
+         <td> {$value->cod_cotizacion}</td>
+         <td class="text-center"> {$value->numproveedor}</td>
          <td>
             {$value->nombre}
             <a href="{$fsc->url()}&codproveedor={$value->codproveedor}" class="cancel_clickable" title="Ver más Ordenes de {$value->nombre}">[+]</a>
          </td>
          <td class="text-left">{$fsc->show_precio($value->total, $value->coddivisa)}</td>
-         <td>{$value->observaciones_resume()}</td>
+         <td class="text-right">{$value->observaciones_resume()}</td>
       </tr>
       {else}
       <tr class="bg-warning">
