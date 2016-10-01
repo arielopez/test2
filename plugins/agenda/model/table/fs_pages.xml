@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : fs_pages.xml
+    Description:
+        Estructura de la tabla fs_pages.
+    -->
+    <tabla>
+    	<columna>
+    		<nombre>name</nombre>
+    		<tipo>varchar(30)</tipo>
+    		<nulo>NO</nulo>
+    	</columna>
+    	<columna>
+    		<nombre>title</nombre>
+    		<tipo>varchar(40)</tipo>
+    		<nulo>NO</nulo>
+    	</columna>
+    	<columna>
+    		<nombre>folder</nombre>
+    		<tipo>varchar(15)</tipo>
+    		<nulo>NO</nulo>
+    	</columna>
+    	<columna>
+    		<nombre>version</nombre>
+    		<tipo>varchar(10)</tipo>
+    		<nulo>YES</nulo>
+    	</columna>
+    	<columna>
+    		<nombre>show_on_menu</nombre>
+    		<tipo>tinyint(1)</tipo>
+    		<nulo>NO</nulo>
+    		<defecto>1</defecto>
+    	</columna>
+    	<columna>
+    		<nombre>important</nombre>
+    		<tipo>tinyint(1)</tipo>
+    		<nulo>NO</nulo>
+    		<defecto>0</defecto>
+    	</columna>
+    	<columna>
+    		<nombre>orden_importancia</nombre>
+    		<tipo>int(3)</tipo>
+    		<nulo>YES</nulo>
+    		<defecto>0</defecto>
+    	</columna>
+    	<restriccion>
+    		<nombre>fs_pages_pkey</nombre>
+    		<consulta>PRIMARY KEY (name)</consulta>
+    	</restriccion>
+    </tabla>
