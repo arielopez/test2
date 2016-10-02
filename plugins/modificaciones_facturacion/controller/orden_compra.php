@@ -369,6 +369,7 @@ class orden_compra extends fs_controller
    {
       $albaran = new albaran_proveedor();
       $albaran->cifnif = $this->pedido->cifnif;
+      $albaran->cod_orden_compra=$this->pedido->codigo;
       $albaran->codagente = $this->pedido->codagente;
       $albaran->codalmacen = $this->pedido->codalmacen;
       $albaran->codproveedor = $this->pedido->codproveedor;
