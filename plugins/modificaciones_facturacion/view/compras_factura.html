@@ -58,12 +58,41 @@
                </button>
                {/if}
                <ul class="dropdown-menu" role="menu">
+                  {if="$fsc->factura->pagada"}
+                  <li><a href="{$fsc->url()}&pagada=FALSE"><span class="glyphicon glyphicon-ok"></span> &nbsp; Ver pagos</a></li>
+                  {else}
+                  <li><span class="" data-toggle="modal" data-target="#myModal"> &nbsp; Ingresar pagos</span></li>
+                  {/if}
+               </ul>
+               <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  Ingresar pagos
+               </button>-->
+
+               <!-- Modal -->
+               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                           <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                           ...
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close </button>
+                           <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!--<ul class="dropdown-menu" role="menu">
                   {if="!$fsc->factura->pagada"}
                   <li><a href="{$fsc->url()}&pagada=TRUE"><span class="glyphicon glyphicon-ok"></span> &nbsp; Pagada</a></li>
                   {else}
                   <li><a href="{$fsc->url()}&pagada=FALSE"><span class="glyphicon glyphicon-remove"></span> &nbsp; Sin pagar</a></li>
                   {/if}
-               </ul>
+               </ul>-->
             </div>
             {elseif="$fsc->factura->pagada"}
             <a class="btn btn-sm btn-info" href="#">
