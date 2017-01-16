@@ -45,7 +45,7 @@
                </a-->
                {/if}
             </div>
-            
+
             {if="$fsc->mostrar_boton_pagada"}
             <div class="btn-group">
                {if="$fsc->factura->pagada"}
@@ -54,14 +54,14 @@
                </button>
                {else}
                <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown">
-                  <span class="glyphicon glyphicon-remove"></span> &nbsp; Sin pagar <span class="caret"></span>
+                  <span class="glyphicon glyphicon-remove"></span> &nbsp; Pendiente <span class="caret"></span>
                </button>
                {/if}
                <ul class="dropdown-menu" role="menu">
                   {if="$fsc->factura->pagada"}
                   <li><a href="{$fsc->url()}&pagada=FALSE"><span class="glyphicon glyphicon-ok"></span> &nbsp; Ver pagos</a></li>
                   {else}
-                  <li><span class="" data-toggle="modal" data-target="#myModal"> &nbsp; Ingresar pagos</span></li>
+                  <li class="hover-cyan" data-toggle="modal" data-target=".bs-example-modal-lg"><span > &nbsp; Pagos &nbsp; </span></li>
                   {/if}
                </ul>
                <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -69,19 +69,59 @@
                </button>-->
 
                <!-- Modal -->
-               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
+               <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                           <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                           <h4 class="modal-title" id="myModalLabel">Pagos</h4>
                         </div>
                         <div class="modal-body">
-                           ...
+                           <table class="table">
+                              <caption>Pagos realizados</caption>
+                              <thead>
+                              <tr>
+                                 <th>id</th>
+                                 <th>Fecha</th>
+                                 <th>Documento</th>
+                                 <th>Pago</th>
+                                 <th>Saldo</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                 <th scope="row">1</th>
+                                 <td>28/10/2016</td>
+                                 <td>ca33454</td>
+                                 <td>10000</td>
+                                 <td>50000</td>
+                              </tr>
+                              <tr>
+                                 <th scope="row">2</th>
+                                 <td>28/10/2016</td>
+                                 <td>ca33454</td>
+                                 <td>10000</td>
+                                 <td>50000</td>
+                              </tr>
+                              <form class="form" name="nuevo_pago" action="#" method="post"></form>
+                              <tr class="info">
+                                 <th scope="row" name="id_pago" value="3">3</th>
+                                 <td><input class="form-control" type="date" name="fecha" autocomplete="off" value=""></td>
+                                 <td><input class="form-control text-right" type="text" step="any" name="descripcion" autocomplete="off"></td>
+                                 <td><input class="form-control text-right" type="number" step="any" name="recargo" value="0" autocomplete="off"></td>
+                                 <td><input class="form-control" type="number" name="codsubcuentasop" placeholder="" autocomplete="off"></td>
+                                 <td class="text-right">
+                                    <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();" title="Guardar">
+                                       <span class="glyphicon glyphicon-floppy-disk"></span>
+                                    </button>
+                                 </td>
+                              </tr>
+                              </tbody>
+                           </table>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-default" data-dismiss="modal">Close </button>
-                           <button type="button" class="btn btn-primary">Save changes</button>
+                           <button type="button" class="btn btn-primary" onclick="this.disabled=true;this.form.submit();" >Save changes</button>
                         </div>
                      </div>
                   </div>
