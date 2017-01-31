@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-10-2016 a las 22:25:51
+-- Tiempo de generación: 31-01-2017 a las 18:45:16
 -- Versión del servidor: 5.6.25
 -- Versión de PHP: 5.6.11
 
@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `albaranesprov` (
   `coddivisa` varchar(3) COLLATE utf8_bin NOT NULL,
   `codejercicio` varchar(4) COLLATE utf8_bin NOT NULL,
   `codigo` varchar(20) COLLATE utf8_bin NOT NULL,
+  `cod_orden_compra` char(12) COLLATE utf8_bin DEFAULT NULL,
   `codpago` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `codproveedor` varchar(6) COLLATE utf8_bin DEFAULT NULL,
   `codserie` varchar(2) COLLATE utf8_bin NOT NULL,
@@ -210,30 +211,35 @@ CREATE TABLE IF NOT EXISTS `albaranesprov` (
   `totalirpf` double NOT NULL DEFAULT '0',
   `totaliva` double NOT NULL DEFAULT '0',
   `totalrecargo` double NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `albaranesprov`
 --
 
-INSERT INTO `albaranesprov` (`cifnif`, `codagente`, `codalmacen`, `coddivisa`, `codejercicio`, `codigo`, `codpago`, `codproveedor`, `codserie`, `fecha`, `hora`, `idalbaran`, `idfactura`, `irpf`, `neto`, `nombre`, `numero`, `numproveedor`, `observaciones`, `ptefactura`, `recfinanciero`, `tasaconv`, `total`, `totaleuros`, `totalirpf`, `totaliva`, `totalrecargo`) VALUES
-('80022458-2', '2', 'ALG', 'PRY', '2016', 'REM2016A1C', 'CONT', '000001', 'A', '2016-03-14', '14:40:15', 1, 9, 0, 29000, 'Proquitec S.A.', '1', '5555-333-888', '', 0, 0, 1, 31900, 31900, 0, 2900, 0),
-('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016B1C', 'CONT', '000001', 'B', '2016-03-14', '22:05:50', 2, NULL, 0, 2900, 'Proquitec S.A.', '1', '', '', 1, 0, 1, 3190, 3190, 0, 290, 0),
-('80022458-2', '2', 'ALG', 'PRY', '2016', 'REM2016A2C', 'CONT', '000001', 'A', '2016-03-14', '22:20:43', 3, 12, 0, 14500, 'Proquitec S.A.', '2', '', '', 0, 0, 1, 15950, 15950, 0, 1450, 0),
-('88888833-1', '4', 'ALG', 'PRY', '2016', 'REM2016A3C', 'CONT', '000003', 'A', '2016-03-15', '20:53:52', 4, NULL, 0, 201000, 'Quimanfla', '3', '0111-555-333', '', 1, 0, 1, 221100, 221100, 0, 20100, 0),
-('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016A4C', 'CONT', '000001', 'A', '2016-04-17', '19:39:28', 5, NULL, 0, 17400, 'PROQUITEC S.A.', '4', '', '', 1, 0, 1, 19140, 19140, 0, 1740, 0),
-('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016A7C', 'CONT', '000001', 'A', '2016-04-23', '09:14:32', 8, NULL, 0, 11600, 'PROQUITEC S.A.', '7', '', '', 1, 0, 1, 12760, 12760, 0, 1160, 0),
-('1175106-1', '4', 'ALG', 'PRY', '2016', 'REM2016A8C', 'CONT', '000002', 'A', '2016-04-30', '16:27:26', 9, NULL, 0, 8700, 'CASA EDUARDO', '8', '', '', 1, 0, 1, 9570, 9570, 0, 870, 0),
-('88888833-1', '2', 'ALG', 'PRY', '2016', 'REM2016A9C', 'CONT', '000003', 'A', '2016-05-17', '04:03:23', 10, NULL, 0, 9000, 'QUIMANFLA', '9', '', '', 1, 0, 1, 9900, 9900, 0, 900, 0),
-('1175106-1', '2', 'ALG', 'PRY', '2016', 'REM2016A16C', 'CONT', '000002', 'A', '2016-05-26', '06:15:13', 11, NULL, 0, 24000, 'CASA EDUARDO', '16', '', '', 1, 0, 1, 26400, 26400, 0, 2400, 0),
-('454', '2', 'ALG', 'PRY', '2016', 'REM2016A20C', 'CONT', '000012', 'A', '2016-05-29', '05:58:45', 13, 13, 0, 72000, 'PROVEEDOR-TEST', '20', '45612', '', 0, 0, 1, 79200, 79200, 0, 7200, 0),
-('80047137-7', '2', 'ALG', 'PRY', '2016', 'REM2016A21C', 'CONT', '000013', 'A', '2016-07-23', '15:26:31', 14, NULL, 0, 88656, 'LIMPAR S.A.', '21', '', '', 1, 0, 1, 97522, 97522, 0, 8866, 0),
-('1175106-1', '4', 'ALG', 'PRY', '2016', 'REM2016A23C', 'CONT', '000002', 'A', '2016-07-23', '22:34:49', 16, 18, 0, 10000, 'CASA EDUARDO', '23', '', '', 0, 0, 1, 11000, 11000, 0, 1000, 0),
-('555555-8', '2', 'ALG', 'PRY', '2016', 'REM2016A24C', 'CONT', '000005', 'A', '2016-07-30', '15:32:16', 17, 17, 0, 5000, 'COLORANTES SA', '24', '', '', 0, 0, 1, 5500, 5500, 0, 500, 0),
-('835421-4', '2', 'ALG', 'PRY', '2016', 'REM2016A25C', 'CONT', '000014', 'A', '2016-07-31', '08:34:33', 18, NULL, 0, 12000, 'CHEMICAL CENTER', '25', '12345678', '', 1, 0, 1, 13200, 13200, 0, 1200, 0),
-('835421-4', '2', 'ALG', 'PRY', '2016', 'REM2016A26C', 'CONT', '000014', 'A', '2016-09-03', '09:30:57', 19, 19, 0, 21600, 'CHEMICAL CENTER', '26', '', '', 0, 0, 1, 23760, 23760, 0, 2160, 0),
-('88888833-1', '2', 'ALG', 'PRY', '2016', 'REM2016A27C', 'CONT', '000003', 'A', '2016-09-03', '14:40:28', 20, NULL, 0, 9000, 'QUIMANFLA', '27', '', '', 1, 0, 1, 9900, 9900, 0, 900, 0),
-('1175106-1', '2', 'ALG', 'PRY', '2016', 'REM2016A28C', 'CONT', '000002', 'A', '2016-10-01', '14:06:07', 21, NULL, 0, 2900, 'CASA EDUARDO', '28', '', '', 1, 0, 1, 3190, 3190, 0, 290, 0);
+INSERT INTO `albaranesprov` (`cifnif`, `codagente`, `codalmacen`, `coddivisa`, `codejercicio`, `codigo`, `cod_orden_compra`, `codpago`, `codproveedor`, `codserie`, `fecha`, `hora`, `idalbaran`, `idfactura`, `irpf`, `neto`, `nombre`, `numero`, `numproveedor`, `observaciones`, `ptefactura`, `recfinanciero`, `tasaconv`, `total`, `totaleuros`, `totalirpf`, `totaliva`, `totalrecargo`) VALUES
+('80022458-2', '2', 'ALG', 'PRY', '2016', 'REM2016A1C', NULL, 'CONT', '000001', 'A', '2016-03-14', '14:40:15', 1, 9, 0, 29000, 'Proquitec S.A.', '1', '5555-333-888', '', 0, 0, 1, 31900, 31900, 0, 2900, 0),
+('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016B1C', NULL, 'CONT', '000001', 'B', '2016-03-14', '22:05:50', 2, NULL, 0, 2900, 'Proquitec S.A.', '1', '', '', 1, 0, 1, 3190, 3190, 0, 290, 0),
+('80022458-2', '2', 'ALG', 'PRY', '2016', 'REM2016A2C', NULL, 'CONT', '000001', 'A', '2016-03-14', '22:20:43', 3, 12, 0, 14500, 'Proquitec S.A.', '2', '', '', 0, 0, 1, 15950, 15950, 0, 1450, 0),
+('88888833-1', '4', 'ALG', 'PRY', '2016', 'REM2016A3C', NULL, 'CONT', '000003', 'A', '2016-03-15', '20:53:52', 4, 21, 0, 201000, 'Quimanfla', '3', '0111-555-333', '', 0, 0, 1, 221100, 221100, 0, 20100, 0),
+('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016A4C', NULL, 'CONT', '000001', 'A', '2016-04-17', '19:39:28', 5, NULL, 0, 17400, 'PROQUITEC S.A.', '4', '', '', 1, 0, 1, 19140, 19140, 0, 1740, 0),
+('80022458-2', '4', 'ALG', 'PRY', '2016', 'REM2016A7C', NULL, 'CONT', '000001', 'A', '2016-04-23', '09:14:32', 8, NULL, 0, 11600, 'PROQUITEC S.A.', '7', '', '', 1, 0, 1, 12760, 12760, 0, 1160, 0),
+('1175106-1', '4', 'ALG', 'PRY', '2016', 'REM2016A8C', NULL, 'CONT', '000002', 'A', '2016-04-30', '16:27:26', 9, 22, 0, 8700, 'CASA EDUARDO', '8', '', '', 0, 0, 1, 9570, 9570, 0, 870, 0),
+('88888833-1', '2', 'ALG', 'PRY', '2016', 'REM2016A9C', NULL, 'CONT', '000003', 'A', '2016-05-17', '04:03:23', 10, NULL, 0, 9000, 'QUIMANFLA', '9', '', '', 1, 0, 1, 9900, 9900, 0, 900, 0),
+('1175106-1', '2', 'ALG', 'PRY', '2016', 'REM2016A16C', NULL, 'CONT', '000002', 'A', '2016-05-26', '06:15:13', 11, NULL, 0, 24000, 'CASA EDUARDO', '16', '', '', 1, 0, 1, 26400, 26400, 0, 2400, 0),
+('454', '2', 'ALG', 'PRY', '2016', 'REM2016A20C', NULL, 'CONT', '000012', 'A', '2016-05-29', '05:58:45', 13, 13, 0, 72000, 'PROVEEDOR-TEST', '20', '45612', '', 0, 0, 1, 79200, 79200, 0, 7200, 0),
+('80047137-7', '2', 'ALG', 'PRY', '2016', 'REM2016A21C', NULL, 'CONT', '000013', 'A', '2016-07-23', '15:26:31', 14, NULL, 0, 88656, 'LIMPAR S.A.', '21', '', '', 1, 0, 1, 97522, 97522, 0, 8866, 0),
+('1175106-1', '4', 'ALG', 'PRY', '2016', 'REM2016A23C', NULL, 'CONT', '000002', 'A', '2016-07-23', '22:34:49', 16, 18, 0, 10000, 'CASA EDUARDO', '23', '', '', 0, 0, 1, 11000, 11000, 0, 1000, 0),
+('555555-8', '2', 'ALG', 'PRY', '2016', 'REM2016A24C', NULL, 'CONT', '000005', 'A', '2016-07-30', '15:32:16', 17, 17, 0, 5000, 'COLORANTES SA', '24', '', '', 0, 0, 1, 5500, 5500, 0, 500, 0),
+('835421-4', '2', 'ALG', 'PRY', '2016', 'REM2016A25C', NULL, 'CONT', '000014', 'A', '2016-07-31', '08:34:33', 18, NULL, 0, 12000, 'CHEMICAL CENTER', '25', '12345678', '', 1, 0, 1, 13200, 13200, 0, 1200, 0),
+('835421-4', '2', 'ALG', 'PRY', '2016', 'REM2016A26C', NULL, 'CONT', '000014', 'A', '2016-09-03', '09:30:57', 19, 19, 0, 21600, 'CHEMICAL CENTER', '26', '', '', 0, 0, 1, 23760, 23760, 0, 2160, 0),
+('88888833-1', '2', 'ALG', 'PRY', '2016', 'REM2016A27C', NULL, 'CONT', '000003', 'A', '2016-09-03', '14:40:28', 20, NULL, 0, 9000, 'QUIMANFLA', '27', '', '', 1, 0, 1, 9900, 9900, 0, 900, 0),
+('1175106-1', '2', 'ALG', 'PRY', '2016', 'REM2016A28C', '456465', 'CONT', '000002', 'A', '2016-10-01', '14:06:07', 21, NULL, 0, 2900, 'CASA EDUARDO', '28', '', '', 1, 0, 1, 3190, 3190, 0, 290, 0),
+('555555-8', '2', 'ALG', 'PRY', '2016', 'REM2016A29C', 'ORD2016A51C', 'CONT', '000005', 'A', '2016-10-02', '01:23:12', 22, NULL, 0, 5000, 'COLORANTES SA', '29', '', '', 1, 0, 1, 5500, 5500, 0, 500, 0),
+('454', '2', 'ALG', 'PRY', '2016', 'REM2016A30C', 'ORD2016A57C', 'PAGADA', '000012', 'A', '2016-10-03', '18:21:34', 23, 20, 0, 75000, 'PROVEEDOR-TEST', '30', '', '', 0, 0, 1, 82500, 82500, 0, 7500, 0),
+('555555-3', '2', 'ALG', 'PRY', '2016', 'REM2016A31C', 'ORD2016A60C', 'CONT', '000004', 'A', '2016-10-23', '19:02:35', 24, 23, 0, 726000, 'QUIMICOS S.A', '31', '', '', 0, 0, 1, 798600, 798600, 0, 72600, 0),
+('454', '2', 'ALG', 'PRY', '2016', 'REM2016A33C', '', 'CONT', '000012', 'A', '2016-10-23', '19:25:55', 26, 24, 0, 31500, 'PROVEEDOR-TEST', '33', '1313123231354', '', 0, 0, 1, 34650, 34650, 0, 3150, 0),
+('1175106-1', '2', 'ALG', 'PRY', '2017', 'REM2017A1C', 'ORD2016A53C', 'CONT', '000002', 'A', '2017-01-15', '22:33:13', 27, 25, 0, 2900, 'CASA EDUARDO', '1', '', '', 0, 0, 1, 3190, 3190, 0, 290, 0);
 
 -- --------------------------------------------------------
 
@@ -309,17 +315,17 @@ CREATE TABLE IF NOT EXISTS `articulos` (
 --
 
 INSERT INTO `articulos` (`factualizado`, `bloqueado`, `equivalencia`, `idsubcuentairpfcom`, `idsubcuentacom`, `stockmin`, `observaciones`, `codbarras`, `codimpuesto`, `stockfis`, `stockmax`, `costemedio`, `preciocoste`, `tipocodbarras`, `nostock`, `codsubcuentacom`, `descripcion`, `codsubcuentairpfcom`, `secompra`, `codfamilia`, `imagen`, `controlstock`, `referencia`, `tipo`, `pvp`, `sevende`, `publico`, `codfabricante`) VALUES
-('2016-05-30', 0, NULL, NULL, NULL, 3, '', '', 'IVA10', 1, 0, 171727.27272727, 2000, 'Code39', 0, NULL, 'ace tequila', NULL, 1, 'Mt', NULL, 1, 'ACE_TEQUILA', NULL, 0, 1, 0, 'PROV'),
 ('2016-04-08', 0, 'Ácido-sulfonico', NULL, NULL, 4, '', '', 'IVA10', 22, 500, 3000, 12150, 'Code39', 0, NULL, 'Ácido-sulfonico', NULL, 1, 'QUIM', NULL, 1, 'ACIDO-SULFONICO', NULL, 3000, 1, 0, 'PROV'),
-('2016-03-13', 0, NULL, NULL, NULL, 13, '', '', 'IVA10', 36, 0, 5000, 4000, 'Code39', 0, NULL, 'Anilina en polvo', NULL, 1, 'QUIM', NULL, 1, 'ANILINA-0001', NULL, 5000, 1, 0, 'PROV'),
+('2016-03-13', 0, NULL, NULL, NULL, 13, '', '', 'IVA10', 37, 0, 5000, 4000, 'Code39', 0, NULL, 'Anilina en polvo', NULL, 1, 'QUIM', NULL, 1, 'ANILINA-0001', NULL, 5000, 1, 0, 'PROV'),
 ('2016-03-14', 0, 'BASE-SUAVE001', NULL, NULL, 0, '', '', 'IVA10', 10, 0, 24000, 22000, 'Code39', 0, NULL, 'Base suave color 1', NULL, 1, 'Mt', NULL, 1, 'BASE-SUAVE', NULL, 24000, 1, 0, 'PROV'),
-('2016-03-05', 0, NULL, NULL, NULL, 16, '', '', 'IVA10', 39, 0, 2900, 0, 'Code39', 0, NULL, 'Bidon de 5Lts', NULL, 1, 'VARI', NULL, 1, 'BIDON-5L-001', NULL, 2900, 1, 0, 'PROV'),
+('2016-10-03', 0, NULL, NULL, NULL, 3, '', '', 'IVA10', 11, 0, 171727.27272727, 2000, 'Code39', 0, NULL, 'bicarbonato', NULL, 1, 'Mt', NULL, 1, 'BICARBONATO', NULL, 13636.36, 1, 0, 'PROV'),
+('2016-03-05', 0, NULL, NULL, NULL, 16, '', '', 'IVA10', 44, 0, 2720, 0, 'Code39', 0, NULL, 'Bidon de 5Lts', NULL, 1, 'VARI', NULL, 1, 'BIDON-5L-001', NULL, 2900, 1, 0, 'PROV'),
 ('2016-03-13', 0, NULL, NULL, NULL, 12, '', '', 'IVA10', 13, 0, 5000, 4000, 'Code39', 0, NULL, 'Carburante', NULL, 1, 'QUIM', NULL, 1, 'CARBUR-0014', NULL, 5000, 1, 0, 'PROV'),
-('2016-05-30', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 160, 0, 1818.1818181818, 2000, 'Code39', 0, NULL, 'Cloro 12%', NULL, 1, 'Mt', NULL, 1, 'CLORO 12%', NULL, 0, 1, 0, 'PROV'),
-('2016-05-30', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 1, 0, 9090.9090909091, 0, 'Code39', 0, NULL, 'color azul colanil para suavizante', NULL, 1, 'Mt', NULL, 1, 'COLOR AZUL', NULL, 0, 1, 0, 'PROV'),
-('2016-05-30', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 1.5, 0, 9090.9090909091, 0, 'Code39', 0, NULL, 'color verde para detergente', NULL, 1, 'Mt', NULL, 1, 'COLOR VERDE', NULL, 0, 1, 0, 'PROV'),
-('2016-03-14', 0, 'Colorante Fluoreceina Kg.', NULL, NULL, 0, '', '', 'IVA10', 3, 0, 242000, 0, 'Code39', 0, NULL, 'Colorante Fluoreceina Kg.', NULL, 1, 'Mt', NULL, 1, 'COLOR-FLUOR', NULL, 242000, 1, 0, 'PROV'),
+('2016-10-23', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 160, 0, 1818.1818181818, 2000, 'Code39', 0, NULL, 'Cloro 12%', NULL, 1, 'Mt', NULL, 1, 'CLORO 12%', NULL, 17272.73, 1, 0, 'PROV'),
+('2016-10-23', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 1.5, 0, 9090.9090909091, 0, 'Code39', 0, NULL, 'color verde para detergente', NULL, 1, 'Mt', NULL, 1, 'COLOR VERDE', NULL, 10000, 1, 0, 'PROV'),
+('2016-03-14', 0, 'Colorante Fluoreceina Kg.', NULL, NULL, 35, '', '', 'IVA10', 9, 0, 242000, 0, 'Code39', 0, NULL, 'Colorante Fluoreceina Kg.', NULL, 1, 'Mt', NULL, 1, 'COLOR-FLUOR', NULL, 242000, 1, 0, 'PROV'),
 ('2016-03-13', 0, 'colorante rojo', NULL, NULL, 0, '', '', 'IVA10', 2, 0, 201000, 201000, 'Code39', 0, NULL, 'colorante químico', NULL, 1, 'QUIM', NULL, 1, 'COLOR-ROJO', NULL, 201000, 1, 0, 'PROV'),
+('2016-10-23', 0, NULL, NULL, NULL, 2, '', '', 'IVA10', 3, 0, 9090.9090909091, 0, 'Code39', 0, NULL, 'color azul colanil para suavizante', NULL, 1, 'Mt', NULL, 1, 'COLOR_AZUL', NULL, 10500, 1, 0, 'PROV'),
 ('2015-12-11', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 92, 0, 0, 0, 'Code39', 0, NULL, 'Detergente Neutro sin tensan al 30%', NULL, 0, 'DETER', NULL, 1, 'DETER-0002', NULL, 2929, 1, 0, 'PROPIO'),
 ('2015-12-11', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 93, 0, 0, 0, 'Code39', 0, NULL, 'Detergente Neutro', NULL, 1, 'DETER', NULL, 1, 'DETER-0003', NULL, 864, 1, 0, 'PROPIO'),
 ('2015-12-11', 0, NULL, NULL, NULL, 0, '', '', 'IVA10', 297, 0, 0, 0, 'Code39', 0, NULL, 'Detergente Neutro sin tensan', NULL, 0, 'DETER', NULL, 1, 'DETER-0020', NULL, 864, 1, 0, 'PROPIO'),
@@ -348,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `articulosprov` (
   `nostock` tinyint(1) DEFAULT '1',
   `nombre` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `coddivisa` varchar(3) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `articulosprov`
@@ -381,7 +387,8 @@ INSERT INTO `articulosprov` (`id`, `referencia`, `codproveedor`, `refproveedor`,
 (24, 'ACE TEQUILA', '000013', 'ACE TEQUILA', 'ace tequila', 171727.27272727, 0, 'IVA10', 0, 1, NULL, NULL),
 (25, 'COLOR VERDE', '000013', 'COLOR VERDE', 'color verde para detergente', 9090.9090909091, 0, 'IVA10', 0, 1, NULL, NULL),
 (26, 'COLOR AZUL', '000013', 'COLOR AZUL', 'color azul colanil para suavizante', 9090.9090909091, 0, 'IVA10', 0, 1, NULL, NULL),
-(27, 'BIDON-5L-001', '000012', 'BIDON-5L-001', 'Bidon de 5Lts', 4545.4545454545, 0, 'IVA10', 0, 1, NULL, NULL);
+(27, 'BIDON-5L-001', '000012', 'BIDON-5L-001', 'Bidon de 5Lts', 4545.4545454545, 0, 'IVA10', 0, 1, NULL, NULL),
+(28, 'COLOR_AZUL', '000012', 'COLOR_AZUL', '', 0, 0, 'IVA10', 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -411,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `cajas` (
   `d_fin` double DEFAULT NULL,
   `tickets` int(11) DEFAULT NULL,
   `ip` varchar(40) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `cajas`
@@ -425,7 +432,8 @@ INSERT INTO `cajas` (`id`, `fs_id`, `codagente`, `f_inicio`, `d_inicio`, `f_fin`
 (5, 2, '2', '2016-02-27 23:00:03', 50000, '2016-02-27 23:03:30', 69597, 2, '127.0.0.1'),
 (6, 2, '2', '2016-02-27 23:03:39', 70000, '2016-02-27 23:03:56', 70000, 0, '127.0.0.1'),
 (7, 1, '2', '2016-02-28 23:03:46', 5000, '2016-02-28 23:08:07', 16981.2, 1, '127.0.0.1'),
-(8, 1, '4', '2016-03-05 15:35:40', 50000, NULL, 354725, 5, '::1');
+(8, 1, '4', '2016-03-05 15:35:40', 50000, '2017-01-31 13:13:51', 354725, 5, '::1'),
+(9, 1, '2', '2017-01-31 13:14:07', 50000, NULL, 50000, 0, '::1');
 
 -- --------------------------------------------------------
 
@@ -450,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `cajas_terminales` (
 --
 
 INSERT INTO `cajas_terminales` (`id`, `codalmacen`, `codserie`, `codcliente`, `tickets`, `anchopapel`, `comandocorte`, `comandoapertura`, `num_tickets`) VALUES
-(1, 'ALG', 'A', NULL, 'p0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A2\n13-12-2015 07:34\nCliente: Juan peres\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  4 2                              3 802\n  3 5                              7 333\n----------------------------------------\n   IVA: 1 012 PRY   Total: 11 134 PRY   \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A3\n13-12-2015 07:37\nCliente: Norma\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 2                              2 851\n  1 5                              2 444\n----------------------------------------\n     IVA: 481 PRY   Total: 5 295 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A4\n13-12-2015 07:40\nCliente: Juan peres\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  2 1                              7 093\n----------------------------------------\n     IVA: 645 PRY   Total: 7 093 PRY    \n\n\n\n\n\n\n\ni\np0\np0\np0\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 13-12-2015 07:32:56\nDinero inicial: 250 000 PRY\nFecha fin: 13-12-2015 07:40:33\nDinero fin: 273 522 PRY\nDiferencia: 23 522 PRY\nTickets: 3\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A1\n27-02-2016 19:48\nCliente: Norma\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 3                              3 222\n  1 5                              2 444\n----------------------------------------\n     IVA: 515 PRY   Total: 5 666 PRY    \n\n\n\n\n\n\n\ni\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 13-12-2015 07:40:48\nDinero inicial: 600 000 PRY\nFecha fin: 27-02-2016 19:48:28\nDinero fin: 605 666 PRY\nDiferencia: 5 666 PRY\nTickets: 1\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\n!8\nCIERRE DE CAJA:\n\n!Empleado: 4 Pedro Peralta\nCaja: 1\nFecha inicial: 27-02-2016 19:59:20\nDinero inicial: 50 000 PRY\nFecha fin: 27-02-2016 20:04:19\nDinero fin: 50 000 PRY\nDiferencia: 0 PRY\nTickets: 0\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A4\n28-02-2016 20:04\nCliente: Jose luis\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  2 1                           7 092.80\n  2 5                           4 888.40\n----------------------------------------\nIVA: 1 089.20 PRY   Total: 11 981.20 PRY\n\n\n\n\n\n\n\ni\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 28-02-2016 20:03:46\nDinero inicial: 5 000.00 PRY\nFecha fin: 28-02-2016 20:08:07\nDinero fin: 16 981.20 PRY\nDiferencia: 11 981.20 PRY\nTickets: 1\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A5\n05-03-2016 12:39\nCliente: Jose luis\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 1                             10 639\n----------------------------------------\n    IVA: 967 PRY   Total: 10 639 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A6\n12-03-2016 17:10\nCliente: Norma\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 1                              3 546\n  1 5                              2 444\n----------------------------------------\n     IVA: 545 PRY   Total: 5 991 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A8\n23-03-2016 23:26\nCliente: Jose luis\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 DETER-0002                     9.666\n  1 JABON-LIQM                       855\n----------------------------------------\n    IVA: 956 PRY   Total: 10.520 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A9\n31-03-2016 17:14\nCliente: IVO\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 DETER-0002                     9.666\n  2 JABON-LIQM                     1.709\n----------------------------------------\n   IVA: 1.034 PRY   Total: 11.375 PRY   \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A10\n09-04-2016 12:53\nCliente: IVO\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 COLOR-FLUOR                  266.200\n----------------------------------------\n  IVA: 24.200 PRY   Total: 266.200 PRY  \n\n\n\n\n\n\n\ni\n', 40, '27.105', '27.112.48', 1),
+(1, 'ALG', 'A', NULL, 'p0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A2\n13-12-2015 07:34\nCliente: Juan peres\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  4 2                              3 802\n  3 5                              7 333\n----------------------------------------\n   IVA: 1 012 PRY   Total: 11 134 PRY   \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A3\n13-12-2015 07:37\nCliente: Norma\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 2                              2 851\n  1 5                              2 444\n----------------------------------------\n     IVA: 481 PRY   Total: 5 295 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2015A4\n13-12-2015 07:40\nCliente: Juan peres\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  2 1                              7 093\n----------------------------------------\n     IVA: 645 PRY   Total: 7 093 PRY    \n\n\n\n\n\n\n\ni\np0\np0\np0\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 13-12-2015 07:32:56\nDinero inicial: 250 000 PRY\nFecha fin: 13-12-2015 07:40:33\nDinero fin: 273 522 PRY\nDiferencia: 23 522 PRY\nTickets: 3\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A1\n27-02-2016 19:48\nCliente: Norma\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 3                              3 222\n  1 5                              2 444\n----------------------------------------\n     IVA: 515 PRY   Total: 5 666 PRY    \n\n\n\n\n\n\n\ni\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 13-12-2015 07:40:48\nDinero inicial: 600 000 PRY\nFecha fin: 27-02-2016 19:48:28\nDinero fin: 605 666 PRY\nDiferencia: 5 666 PRY\nTickets: 1\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\n!8\nCIERRE DE CAJA:\n\n!Empleado: 4 Pedro Peralta\nCaja: 1\nFecha inicial: 27-02-2016 19:59:20\nDinero inicial: 50 000 PRY\nFecha fin: 27-02-2016 20:04:19\nDinero fin: 50 000 PRY\nDiferencia: 0 PRY\nTickets: 0\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A4\n28-02-2016 20:04\nCliente: Jose luis\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  2 1                           7 092.80\n  2 5                           4 888.40\n----------------------------------------\nIVA: 1 089.20 PRY   Total: 11 981.20 PRY\n\n\n\n\n\n\n\ni\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 1\nFecha inicial: 28-02-2016 20:03:46\nDinero inicial: 5 000.00 PRY\nFecha fin: 28-02-2016 20:08:07\nDinero fin: 16 981.20 PRY\nDiferencia: 11 981.20 PRY\nTickets: 1\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A5\n05-03-2016 12:39\nCliente: Jose luis\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 1                             10 639\n----------------------------------------\n    IVA: 967 PRY   Total: 10 639 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A6\n12-03-2016 17:10\nCliente: Norma\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 1                              3 546\n  1 5                              2 444\n----------------------------------------\n     IVA: 545 PRY   Total: 5 991 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A8\n23-03-2016 23:26\nCliente: Jose luis\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 DETER-0002                     9.666\n  1 JABON-LIQM                       855\n----------------------------------------\n    IVA: 956 PRY   Total: 10.520 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A9\n31-03-2016 17:14\nCliente: IVO\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  3 DETER-0002                     9.666\n  2 JABON-LIQM                     1.709\n----------------------------------------\n   IVA: 1.034 PRY   Total: 11.375 PRY   \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n      C/ Falsa, 123 - ENCARNACIÓN      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A10\n09-04-2016 12:53\nCliente: IVO\nEmpleado: 4\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  1 COLOR-FLUOR                  266.200\n----------------------------------------\n  IVA: 24.200 PRY   Total: 266.200 PRY  \n\n\n\n\n\n\n\ni\np0\n', 40, '27.105', '27.112.48', 1),
 (2, 'ALG', 'A', NULL, 'p0\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A2\n27-02-2016 20:01\nCliente: Jose luis\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  2 1                              7 093\n  1 3                              3 222\n----------------------------------------\n    IVA: 938 PRY   Total: 10 315 PRY    \n\n\n\n\n\n\n\ni\np0\n!8 Limpia Mas S.A.\n!\n       C/ Falsa, 123 - Encarnacion      \n              CIF: 00000014             \n\n\nFactura simplificada: FAC2016A3\n27-02-2016 20:03\nCliente: Jose luis\nEmpleado: 2\n\nUd. Articulo                       TOTAL\n--- ------------------------  ----------\n  8 6                              6 838\n  1 5                              2 444\n----------------------------------------\n     IVA: 844 PRY   Total: 9 282 PRY    \n\n\n\n\n\n\n\ni\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 2\nFecha inicial: 27-02-2016 20:00:03\nDinero inicial: 50 000 PRY\nFecha fin: 27-02-2016 20:03:30\nDinero fin: 69 597 PRY\nDiferencia: 19 597 PRY\nTickets: 2\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\n!8\nCIERRE DE CAJA:\n\n!Empleado: 2 Alberto Lopez\nCaja: 2\nFecha inicial: 27-02-2016 20:03:39\nDinero inicial: 70 000 PRY\nFecha fin: 27-02-2016 20:03:56\nDinero fin: 70 000 PRY\nDiferencia: 0 PRY\nTickets: 0\n\nDinero pesado:\n\n\nObservaciones:\n\n\n\nFirma:\n\n\n\n\n\n\n\n\n\ni\np0\np0\np0\n', 40, '27.105', '27.112.48', 1);
 
 -- --------------------------------------------------------
@@ -542,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `cotizacion_prov` (
   `totalirpf` double NOT NULL DEFAULT '0',
   `totaliva` double NOT NULL DEFAULT '0',
   `totalrecargo` double NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `cotizacion_prov`
@@ -558,7 +566,10 @@ INSERT INTO `cotizacion_prov` (`cifnif`, `codagente`, `codalmacen`, `coddivisa`,
 ('454', '2', 'ALG', 'PRY', '2016', 'COT2016A54C', '', 'CONT', '000012', 'A', '2016-09-03', '11:16:58', 38, NULL, 0, 72000, 'PROVEEDOR-TEST', '54', NULL, 'esto es la observacion', 0, 0, 1, 79200, 79200, 0, 7200, 0),
 ('80047137-7', '2', 'ALG', 'PRY', '2016', 'COT2016A55C', 'PED2016A35C', 'CONT', '000013', 'A', '2016-09-03', '19:49:32', 39, NULL, 0, 88656, 'LIMPAR S.A.', '55', '', '', 0, 0, 1, 97522, 97522, 0, 8866, 0),
 ('555555-8', '2', 'ALG', 'PRY', '2016', 'COT2016A56C', 'PED2016A21C', 'CONT', '000005', 'A', '2016-09-03', '20:29:51', 40, 33, 0, 5000, 'COLORANTES SA', '56', '', '', 0, 0, 1, 5500, 5500, 0, 500, 0),
-('1175106-1', '2', 'ALG', 'PRY', '2016', 'COT2016A58C', 'PED2016A52C', 'CONT', '000002', 'A', '2016-09-04', '08:49:03', 42, 35, 0, 2900, 'CASA EDUARDO', '58', '', '', 0, 0, 1, 3190, 3190, 0, 290, 0);
+('1175106-1', '2', 'ALG', 'PRY', '2016', 'COT2016A58C', 'PED2016A52C', 'CONT', '000002', 'A', '2016-09-04', '08:49:03', 42, 35, 0, 2900, 'CASA EDUARDO', '58', '', '', 0, 0, 1, 3190, 3190, 0, 290, 0),
+('1175106-1', '2', 'ALG', 'PRY', '2016', 'COT2016A59C', 'PED2016A55C', 'CONT', '000002', 'A', '2016-10-01', '23:20:30', 43, NULL, 0, 14500, 'CASA EDUARDO', '59', '', '', 1, 0, 1, 15950, 15950, 0, 1450, 0),
+('454', '2', 'ALG', 'PRY', '2016', 'COT2016A60C', 'PED2016A56C', 'PAGADA', '000012', 'A', '2016-10-03', '17:48:33', 44, 36, 0, 75000, 'PROVEEDOR-TEST', '60', '', '', 0, 0, 1, 82500, 82500, 0, 7500, 0),
+('555555-3', '2', 'ALG', 'PRY', '2016', 'COT2016A62C', 'PED2016A59C', 'CONT', '000004', 'A', '2016-10-23', '18:59:45', 46, 37, 0, 726000, 'QUIMICOS S.A', '62', '', '', 0, 0, 1, 798600, 798600, 0, 72600, 0);
 
 -- --------------------------------------------------------
 
@@ -716,6 +727,20 @@ CREATE TABLE IF NOT EXISTS `co_gruposepigrafes` (
   `codgrupo` varchar(6) COLLATE utf8_bin NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `idgrupo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_pagos`
+--
+
+CREATE TABLE IF NOT EXISTS `co_pagos` (
+  `id_pagos` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `id_factura` varchar(20) COLLATE utf8_bin NOT NULL,
+  `monto` double NOT NULL,
+  `saldo` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -928,7 +953,7 @@ CREATE TABLE IF NOT EXISTS `dirproveedores` (
   `direccionppal` tinyint(1) DEFAULT NULL,
   `descripcion` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `dirproveedores`
@@ -944,7 +969,8 @@ INSERT INTO `dirproveedores` (`codproveedor`, `codpais`, `apartado`, `idprovinci
 ('000012', 'PRY', '', NULL, 'ALTO PARANÁ', 'JUAN EMILIO O LEARY', '', '', 1, 'Principal', 12),
 ('000014', 'PRY', '', NULL, 'CENTRAL', 'SAN LORENZO', '', 'AV. DEL AGRONOMO ESQUINA CERRO CORA N 59', 1, 'Principal', 13),
 ('000015', 'PRY', '', NULL, 'CENTRAL', 'ASUNCIÓN', '', 'ZABALAS CUE', 1, 'Principal', 14),
-('000007', 'ARG', '', NULL, 'POSADAS', '', '', '12323', 1, 'Nueva dirección', 15);
+('000007', 'ARG', '', NULL, 'POSADAS', '', '', '12323', 1, 'Nueva dirección', 15),
+('000016', 'PRY', '', NULL, 'CENTRAL', 'SAN LORENZO', '', '1335', 1, 'Principal', 16);
 
 -- --------------------------------------------------------
 
@@ -999,7 +1025,8 @@ CREATE TABLE IF NOT EXISTS `ejercicios` (
 
 INSERT INTO `ejercicios` (`idasientocierre`, `idasientopyg`, `idasientoapertura`, `plancontable`, `longsubcuenta`, `estado`, `fechafin`, `fechainicio`, `nombre`, `codejercicio`) VALUES
 (NULL, NULL, NULL, '08', 10, 'ABIERTO', '2015-12-31', '2015-01-01', '2015', '2015'),
-(NULL, NULL, NULL, '08', 10, 'ABIERTO', '2016-12-31', '2016-01-01', '2016', '2016');
+(NULL, NULL, NULL, '08', 10, 'ABIERTO', '2016-12-31', '2016-01-01', '2016', '2016'),
+(NULL, NULL, NULL, '08', 10, 'ABIERTO', '2017-12-31', '2017-01-01', '2017', '2017');
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1074,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
 --
 
 INSERT INTO `empresa` (`administrador`, `apartado`, `cifnif`, `ciudad`, `codalmacen`, `codcuentarem`, `coddivisa`, `codedi`, `codejercicio`, `codpago`, `codpais`, `codpostal`, `codserie`, `contintegrada`, `direccion`, `email`, `email_firma`, `email_password`, `fax`, `horario`, `id`, `idprovincia`, `lema`, `logo`, `nombre`, `nombrecorto`, `pie_factura`, `provincia`, `recequivalencia`, `stockpedidos`, `telefono`, `web`) VALUES
-('', '', '00000014', 'ENCARNACIÓN', 'ALG', NULL, 'PRY', NULL, '2016', 'CONT', 'PRY', '', 'A', 0, 'C/ Falsa, 123', 'lopez.desarrollo@gmail.com', 'Saludos\r\nAL', 'tbtlnowakzrbrezk', '', '', 1, NULL, '', NULL, 'Limpia Mas S.A.', 'LIMPIA MAS', '', 'ITAPUA', 0, 0, '', 'desarrollo.lopez.com');
+('', '', '00000014', 'ENCARNACIÓN', 'ASU', NULL, 'PRY', NULL, '2016', 'CONT', 'PRY', '', 'A', 0, 'C/ Falsa, 123', 'lopez.desarrollo@gmail.com', 'Saludos\r\nAL', 'tbtlnowakzrbrezk', '', '', 1, NULL, '', NULL, 'Limpia Mas S.A.', 'LIMPIA MAS', '', 'ITAPUA', 0, 0, '', 'desarrollo.lopez.com');
 
 -- --------------------------------------------------------
 
@@ -1183,7 +1210,7 @@ CREATE TABLE IF NOT EXISTS `facturasprov` (
   `totalirpf` double DEFAULT NULL,
   `totaliva` double DEFAULT NULL,
   `totalrecargo` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `facturasprov`
@@ -1203,12 +1230,17 @@ INSERT INTO `facturasprov` (`automatica`, `cifnif`, `codagente`, `codalmacen`, `
 (NULL, '88888833-1', '2', 'ALG', 'PRY', '2016', 'FAC2016A10C', NULL, 'CONT', '000003', 'A', 0, 0, '2016-03-14', '22:15:30', NULL, 11, NULL, NULL, 0, 24000, NULL, 'Quimanfla', '10', '1032-456-00798', '', 0, NULL, 1, 26400, 26400, 0, 2400, 0),
 (NULL, '80022458-2', '2', 'ALG', 'PRY', '2016', 'FAC2016A11C', NULL, 'CONT', '000001', 'A', 0, 0, '2016-03-18', '21:37:31', NULL, 12, NULL, NULL, 0, 14500, NULL, 'Proquitec S.A.', '11', '', '', 0, NULL, 1, 15950, 15950, 0, 1450, 0),
 (NULL, '454', '2', 'ALG', 'PRY', '2016', 'FAC2016A12C', NULL, 'CONT', '000012', 'A', 0, 0, '2016-05-29', '05:59:10', NULL, 13, NULL, NULL, 0, 72000, NULL, 'PROVEEDOR-TEST', '12', '45612', '', 0, NULL, 1, 79200, 79200, 0, 7200, 0),
-(NULL, '80047137-7', '2', 'ALG', 'PRY', '2016', 'FAC2016A13C', NULL, 'CONT', '000013', 'A', 0, 0, '2016-05-30', '08:19:33', NULL, 14, NULL, NULL, 0, 485364, NULL, 'LIMPAR S.A.', '13', '001-001-0019070', '', 1, NULL, 1, 533900, 533900, 0, 48536, 0),
-(NULL, '454', '2', 'ALG', 'PRY', '2016', 'FAC2016A14C', NULL, 'CONT', '000012', 'A', 0, 0, '2016-05-30', '09:51:43', NULL, 15, NULL, NULL, 0, 4545, NULL, 'PROVEEDOR-TEST', '14', '426543', '', 1, NULL, 1, 5000, 5000, 0, 455, 0),
+(NULL, '80047137-7', '2', 'ALG', 'PRY', '2016', 'FAC2016A13C', NULL, 'CONT', '000013', 'A', 0, 0, '2016-05-30', '08:19:33', NULL, 14, NULL, NULL, 0, 485364, NULL, 'LIMPAR S.A.', '13', '001-001-0019070', '', 0, NULL, 1, 533900, 533900, 0, 48536, 0),
 (NULL, '454', '2', 'ALG', 'PRY', '2016', 'FAC2016A15C', NULL, 'CONT', '000012', 'A', 0, 0, '2016-05-30', '09:55:32', NULL, 16, NULL, NULL, 0, 4545, NULL, 'PROVEEDOR-TEST', '15', '111111', '', 0, NULL, 1, 5000, 5000, 0, 455, 0),
-(NULL, '555555-8', '2', 'ALG', 'PRY', '2016', 'FAC2016A16C', NULL, 'CONT', '000005', 'A', 0, 0, '2016-07-30', '15:32:28', NULL, 17, NULL, NULL, 0, 5000, NULL, 'COLORANTES SA', '16', '', '', 1, NULL, 1, 5500, 5500, 0, 500, 0),
+(NULL, '555555-8', '2', 'ALG', 'PRY', '2016', 'FAC2016A16C', NULL, 'CONT', '000005', 'A', 0, 0, '2016-07-30', '15:32:28', NULL, 17, NULL, NULL, 0, 5000, NULL, 'COLORANTES SA', '16', '', '', 0, NULL, 1, 5500, 5500, 0, 500, 0),
 (NULL, '1175106-1', '4', 'ALG', 'PRY', '2016', 'FAC2016A17C', NULL, 'CONT', '000002', 'A', 0, 0, '2016-07-30', '15:32:39', NULL, 18, NULL, NULL, 0, 10000, NULL, 'CASA EDUARDO', '17', '', '', 0, NULL, 1, 11000, 11000, 0, 1000, 0),
-(NULL, '835421-4', '2', 'ALG', 'PRY', '2016', 'FAC2016A18C', NULL, 'CONT', '000014', 'A', 0, 0, '2016-09-03', '09:31:20', NULL, 19, NULL, NULL, 0, 21600, NULL, 'CHEMICAL CENTER', '18', '', '', 0, NULL, 1, 23760, 23760, 0, 2160, 0);
+(NULL, '835421-4', '2', 'ALG', 'PRY', '2016', 'FAC2016A18C', NULL, 'CONT', '000014', 'A', 0, 0, '2016-09-03', '09:31:20', NULL, 19, NULL, NULL, 0, 21600, NULL, 'CHEMICAL CENTER', '18', '', '', 0, NULL, 1, 23760, 23760, 0, 2160, 0),
+(NULL, '454', '2', 'ALG', 'PRY', '2016', 'FAC2016A19C', NULL, 'PAGADA', '000012', 'A', 0, 0, '2016-10-03', '18:22:35', NULL, 20, NULL, NULL, 0, 75000, NULL, 'PROVEEDOR-TEST', '19', '', '', 0, NULL, 1, 82500, 82500, 0, 7500, 0),
+(NULL, '88888833-1', '4', 'ALG', 'PRY', '2016', 'FAC2016A14C', NULL, 'CONT', '000003', 'A', 0, 0, '2016-05-30', '15:29:43', NULL, 21, NULL, NULL, 0, 201000, NULL, 'Quimanfla', '14', '0111-555-333', '', 0, NULL, 1, 221100, 221100, 0, 20100, 0),
+(NULL, '1175106-1', '4', 'ALG', 'PRY', '2016', 'FAC2016A20C', NULL, 'CONT', '000002', 'A', 0, 0, '2016-10-23', '15:30:28', NULL, 22, NULL, NULL, 0, 8700, NULL, 'CASA EDUARDO', '20', '', '', 0, NULL, 1, 9570, 9570, 0, 870, 0),
+(NULL, '555555-3', '2', 'ALG', 'PRY', '2016', 'FAC2016A21C', NULL, 'CONT', '000004', 'A', 0, 0, '2016-10-23', '19:02:57', NULL, 23, NULL, NULL, 0, 726000, NULL, 'QUIMICOS S.A', '21', '', '', 0, NULL, 1, 798600, 798600, 0, 72600, 0),
+(NULL, '454', '2', 'ALG', 'PRY', '2016', 'FAC2016A22C', NULL, 'CONT', '000012', 'A', 0, 0, '2016-10-23', '19:27:36', NULL, 24, NULL, NULL, 0, 31500, NULL, 'PROVEEDOR-TEST', '22', '1313123231354', '', 0, NULL, 1, 34650, 34650, 0, 3150, 0),
+(NULL, '1175106-1', '2', 'ALG', 'PRY', '2017', 'FAC2017A1C', NULL, 'PAGADA', '000002', 'A', 0, 0, '2017-01-15', '22:34:08', NULL, 25, NULL, NULL, 0, 2900, NULL, 'CASA EDUARDO', '1', '', '', 0, NULL, 1, 3190, 3190, 0, 290, 0);
 
 -- --------------------------------------------------------
 
@@ -1385,7 +1417,7 @@ CREATE TABLE IF NOT EXISTS `fs_logs` (
   `usuario` varchar(12) COLLATE utf8_bin DEFAULT NULL,
   `ip` varchar(40) COLLATE utf8_bin DEFAULT NULL,
   `alerta` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1379 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1417 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `fs_logs`
@@ -2771,7 +2803,45 @@ INSERT INTO `fs_logs` (`id`, `tipo`, `detalle`, `fecha`, `usuario`, `ip`, `alert
 (1375, 'error', 'Familia no encontrada.', '2016-10-01 19:21:49', 'alberto', '::1', 0),
 (1376, 'error', 'Artículo no encontrado.', '2016-10-01 19:21:50', 'alberto', '::1', 0),
 (1377, 'error', '¡Pedido de cliente no encontrado!', '2016-10-01 19:21:50', 'alberto', '::1', 0),
-(1378, 'error', '¡Presupuesto de cliente no encontrado!', '2016-10-01 19:21:51', 'alberto', '::1', 0);
+(1378, 'error', '¡Presupuesto de cliente no encontrado!', '2016-10-01 19:21:51', 'alberto', '::1', 0),
+(1379, 'error', '¡Cotizacion de proveedor no encontrado!', '2016-10-02 01:19:26', 'alberto', '::1', 0),
+(1380, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-02 01:19:26', 'alberto', '::1', 0),
+(1381, 'error', 'Artículo no encontrado.', '2016-10-02 01:19:29', 'alberto', '::1', 0),
+(1382, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-02 01:19:29', 'alberto', '::1', 0),
+(1383, 'error', 'Artículo no encontrado.', '2016-10-02 01:19:29', 'alberto', '::1', 0),
+(1384, 'error', 'Fabricante no encontrado.', '2016-10-02 01:19:29', 'alberto', '::1', 0),
+(1385, 'error', 'Familia no encontrada.', '2016-10-02 01:19:30', 'alberto', '::1', 0),
+(1386, 'error', 'Artículo no encontrado.', '2016-10-02 01:19:30', 'alberto', '::1', 0),
+(1387, 'error', '¡Pedido de cliente no encontrado!', '2016-10-02 01:19:31', 'alberto', '::1', 0),
+(1388, 'error', '¡Presupuesto de cliente no encontrado!', '2016-10-02 01:19:31', 'alberto', '::1', 0),
+(1389, 'error', '¡Cotizacion de proveedor no encontrado!', '2016-10-02 01:25:09', 'alberto', '::1', 0),
+(1390, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-02 01:25:09', 'alberto', '::1', 0),
+(1391, 'error', 'Artículo no encontrado.', '2016-10-02 01:25:11', 'alberto', '::1', 0),
+(1392, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-02 01:25:11', 'alberto', '::1', 0),
+(1393, 'error', 'Artículo no encontrado.', '2016-10-02 01:25:12', 'alberto', '::1', 0),
+(1394, 'error', 'Fabricante no encontrado.', '2016-10-02 01:25:12', 'alberto', '::1', 0),
+(1395, 'error', 'Familia no encontrada.', '2016-10-02 01:25:12', 'alberto', '::1', 0),
+(1396, 'error', 'Artículo no encontrado.', '2016-10-02 01:25:12', 'alberto', '::1', 0),
+(1397, 'error', '¡Pedido de cliente no encontrado!', '2016-10-02 01:25:13', 'alberto', '::1', 0),
+(1398, 'error', '¡Presupuesto de cliente no encontrado!', '2016-10-02 01:25:14', 'alberto', '::1', 0),
+(1399, 'error', 'Artículo no encontrado.', '2016-10-03 23:53:23', 'alberto', '::1', 0),
+(1400, 'error', 'Empleado no encontrado.', '2016-10-22 22:09:13', 'alberto', '::1', 0),
+(1401, 'error', 'Empleado no encontrado.', '2016-10-23 16:07:23', 'alberto', '::1', 0),
+(1402, 'error', 'Impuesto no encontrado.', '2016-10-23 21:40:32', 'alberto', '::1', 0),
+(1403, 'error', 'Impuesto no encontrado.', '2016-10-23 21:41:20', 'alberto', '::1', 0),
+(1404, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:16:52', 'alberto', '::1', 0),
+(1405, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:17:03', 'alberto', '::1', 0),
+(1406, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:17:29', 'alberto', '::1', 0),
+(1407, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:18:06', 'alberto', '::1', 0),
+(1408, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:23:55', 'alberto', '::1', 0),
+(1409, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:24:24', 'alberto', '::1', 0),
+(1410, 'error', '¡Pedido de proveedor no encontrado!', '2016-10-23 22:25:10', 'alberto', '::1', 0),
+(1411, 'login', 'Login correcto.', '2017-01-16 01:31:01', 'alberto', '::1', 0),
+(1412, 'error', 'Empleado no encontrado.', '2017-01-16 01:31:01', 'alberto', '::1', 0),
+(1413, 'error', '¡Pedido de proveedor no encontrado!', '2017-01-16 01:32:50', 'alberto', '::1', 0),
+(1414, 'error', 'Empleado no encontrado.', '2017-01-31 12:42:14', 'alberto', '::1', 0),
+(1415, 'login', 'Login correcto.', '2017-01-31 14:08:23', 'admin', '127.0.0.1', 0),
+(1416, 'error', 'Empleado no encontrado.', '2017-01-31 14:08:23', 'admin', '127.0.0.1', 0);
 
 -- --------------------------------------------------------
 
@@ -2810,14 +2880,14 @@ INSERT INTO `fs_pages` (`name`, `title`, `folder`, `version`, `show_on_menu`, `i
 ('compras_actualiza_arts', 'Artículos documento', 'compras', '2015.044', 0, 0, 0),
 ('compras_agrupar_albaranes', 'Agrupar remisiones', 'compras', '2015.044', 0, 0, 0),
 ('compras_albaran', 'REMISION de proveedor', 'compras', '2015.044', 0, 0, 0),
-('compras_albaranes', 'Remisiones de compra', 'compras', '2015.044', 1, 1, 0),
+('compras_albaranes', 'Remisiones de compra', 'compras', '2015.044', 1, 1, 4),
 ('compras_cotizacion', 'Cotizacion de proveedor', 'compras', '2015.044', 0, 0, 0),
-('compras_cotizaciones', 'Cotizaciones de compra', 'compras', '2015.044', 1, 1, 0),
+('compras_cotizaciones', 'Cotizaciones de compra', 'compras', '2015.044', 1, 1, 2),
 ('compras_factura', 'Factura de proveedor', 'compras', '2015.044', 0, 0, 0),
-('compras_facturas', 'Facturas de compra', 'compras', '2015.044', 1, 0, 0),
+('compras_facturas', 'Facturas de compra', 'compras', '2015.044', 1, 0, 5),
 ('compras_imprimir', 'imprimir', 'compras', '2015.044', 0, 0, 0),
 ('compras_pedido', 'Pedido', 'compras', '2015.044', 0, 0, 0),
-('compras_pedidos', 'Pedidos de compra', 'compras', '2015.044', 1, 0, 0),
+('compras_pedidos', 'Pedidos de compra', 'compras', '2015.044', 1, 0, 1),
 ('compras_proveedor', 'Proveedor', 'compras', '2015.044', 0, 0, 0),
 ('compras_proveedores', 'Proveedores / Acreed', 'compras', '2015.044', 1, 0, 0),
 ('contabilidad_asiento', 'Asiento', 'admin', '2015.044', 0, 0, 0),
@@ -2844,7 +2914,7 @@ INSERT INTO `fs_pages` (`name`, `title`, `folder`, `version`, `show_on_menu`, `i
 ('nuevo_articulo', 'Nuevo artículo', 'Productos', '2015.044', 0, 0, 0),
 ('nuevo_pedido', 'nueva compra', 'compras', '2015.044', 0, 0, 0),
 ('orden_compra', 'Orden de compra', 'compras', '2015.044', 0, 0, 0),
-('ordenes_compra', 'Ordenes de compra', 'compras', '2015.044', 1, 0, 0),
+('ordenes_compra', 'Ordenes de compra', 'compras', '2015.044', 1, 0, 3),
 ('producto_articulo', 'Articulo', 'Productos', '2015.044', 0, 0, 0),
 ('producto_fabricante', 'Familia', 'Productos', '2015.044', 0, 0, 0),
 ('producto_familia', 'Familia', 'Productos', '2015.044', 0, 0, 0),
@@ -2870,7 +2940,8 @@ INSERT INTO `fs_pages` (`name`, `title`, `folder`, `version`, `show_on_menu`, `i
 ('ventas_pedido', 'Pedido', 'ventas', '2015.044', 0, 0, 0),
 ('ventas_pedidos', 'Pedidos de cliente', 'ventas', '2015.044', 1, 0, 0),
 ('ventas_presupuesto', 'Presupuesto', 'ventas', '2015.044', 0, 0, 0),
-('ventas_presupuestos', 'Presupuestos de cliente', 'ventas', '2015.044', 1, 1, 0);
+('ventas_presupuestos', 'Presupuestos de cliente', 'ventas', '2015.044', 1, 1, 0),
+('xml_import_export', 'Importar/exportar XML', 'admin', '2015.044', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2898,8 +2969,8 @@ CREATE TABLE IF NOT EXISTS `fs_users` (
 --
 
 INSERT INTO `fs_users` (`nick`, `password`, `log_key`, `admin`, `codagente`, `last_login`, `last_login_time`, `last_ip`, `last_browser`, `fs_page`, `css`, `email`) VALUES
-('admin', 'ab0b22ab421c001462af4a9f382dc9284747b43d', 'c0418ee544fd94bac5c72205e14496627a2ec2e3', 1, '4', '2016-05-02', '04:33:34', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.82 Chrome/48.0.2564.82 Safari/537.36', NULL, 'view/css/bootstrap.min.css', ''),
-('alberto', 'ab0b22ab421c001462af4a9f382dc9284747b43d', '100e2ee9b74ec9ff4ec909a7076a9462d4f46eea', 1, '2', '2016-10-01', '16:11:03', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/51.0.2704.79 Chrome/51.0.2704.79 Safari/537.36', NULL, 'view/css/bootstrap.min.css', ''),
+('admin', 'ab0b22ab421c001462af4a9f382dc9284747b43d', 'e337b06073a0ec48fd525bcaaa15e628aaa73c23', 1, '4', '2017-01-31', '12:10:21', '127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0', NULL, 'view/css/bootstrap.min.css', ''),
+('alberto', 'ab0b22ab421c001462af4a9f382dc9284747b43d', '437347859b4bf03b5b178c213d98898851cc42ff', 1, '2', '2017-01-31', '09:42:14', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36', NULL, 'view/css/bootstrap.min.css', ''),
 ('alder', '50a57090ab48524369ad81452e61f812912a1f5e', 'ba7b842daea52e1da4c2516514612c3b30f48174', 1, '5', '2016-10-01', '14:10:47', '192.168.1.8', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0', NULL, 'view/css/bootstrap.min.css', ''),
 ('test', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'e0f7a047a118337d54a5334485571b106e5d8d67', 0, '2', '2016-04-16', '08:02:36', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.82 Chrome/48.0.2564.82 Safari/537.36', NULL, 'view/css/bootstrap.min.css', '');
 
@@ -2920,7 +2991,7 @@ CREATE TABLE IF NOT EXISTS `fs_vars` (
 
 INSERT INTO `fs_vars` (`name`, `varchar`) VALUES
 ('install_step', '5'),
-('last_download_check', '2016-09-24'),
+('last_download_check', '2017-01-24'),
 ('mail_enc', 'ssl'),
 ('mail_host', 'smtp.gmail.com'),
 ('mail_port', '465'),
@@ -2929,8 +3000,7 @@ INSERT INTO `fs_vars` (`name`, `varchar`) VALUES
 ('numeracion_personalizada', '1'),
 ('print_alb', '0'),
 ('print_dto', '1'),
-('print_ref', '1'),
-('updates', 'true');
+('print_ref', '1');
 
 -- --------------------------------------------------------
 
@@ -2991,7 +3061,8 @@ INSERT INTO `impuestos` (`codimpuesto`, `codsubcuentaacr`, `codsubcuentadeu`, `c
 ('IVA0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 0%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
 ('IVA10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 10%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, 0),
 ('IVA21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 21%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 21, 0),
-('IVA4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 4%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 0);
+('IVA4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 4%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, 0),
+('IVA5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'IVA 5%', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -3049,7 +3120,7 @@ CREATE TABLE IF NOT EXISTS `lineasalbaranesprov` (
   `pvpunitario` double NOT NULL DEFAULT '0',
   `recargo` double DEFAULT '0',
   `referencia` varchar(18) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineasalbaranesprov`
@@ -3073,7 +3144,12 @@ INSERT INTO `lineasalbaranesprov` (`cantidad`, `codimpuesto`, `descripcion`, `dt
 (1, 'IVA10', 'Enturbiante', 0, 0, 19, 20, 17, 25, 0, 10, 10000, 10000, 10000, 0, 'ENTURBIANTE-001'),
 (4, 'IVA10', 'Bidon de 5Lts', 0, 0, 19, 21, 18, 25, 0, 10, 11600, 11600, 2900, 0, 'BIDON-5L-001'),
 (3, 'IVA10', 'Ácido-sulfonico', 0, 0, 20, 22, 24, 30, 0, 10, 9000, 9000, 3000, 0, 'ACIDO-SULFONICO'),
-(1, 'IVA10', 'Bidon de 5Lts', 0, 0, 21, 23, 29, 35, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001');
+(1, 'IVA10', 'Bidon de 5Lts', 0, 0, 21, 23, 29, 35, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001'),
+(1, 'IVA10', 'Anilina en polvo', 0, 0, 22, 24, 27, 33, 0, 10, 5000, 5000, 5000, 0, 'ANILINA-0001'),
+(5, 'IVA10', 'bicarbonato 10kl', 0, 0, 23, 25, 30, 36, 0, 10, 75000, 75000, 15000, 0, 'BICARBONATO'),
+(3, 'IVA10', 'Colorante Fluoreceina Kg.', 0, 0, 24, 26, 31, 37, 0, 10, 726000, 726000, 242000, 0, 'COLOR-FLUOR'),
+(3, 'IVA10', 'color azul colanil para suavizante', 0, 0, 26, 28, NULL, NULL, 0, 10, 31500, 31500, 10500, 0, 'COLOR_AZUL'),
+(1, 'IVA10', 'Bidon de 5Lts', 0, 0, 27, 29, 28, 34, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001');
 
 -- --------------------------------------------------------
 
@@ -3098,7 +3174,7 @@ CREATE TABLE IF NOT EXISTS `lineascotizacion_prov` (
   `pvpunitario` double NOT NULL DEFAULT '0',
   `recargo` double DEFAULT '0',
   `referencia` varchar(18) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineascotizacion_prov`
@@ -3116,7 +3192,10 @@ INSERT INTO `lineascotizacion_prov` (`cantidad`, `codimpuesto`, `descripcion`, `
 (3, 'IVA10', 'Base suave color 1', 0, 0, 38, 44, NULL, NULL, 0, 10, 72000, 72000, 24000, 0, 'BASE-SUAVE'),
 (6, 'IVA10', 'Trietanolamina TEA 85', 0, 0, 39, 45, 23, 13, 0, 10, 88656, 88656, 14776, 0, 'TRIETANOLAMI-TEA85'),
 (1, 'IVA10', 'Anilina en polvo', 0, 0, 40, 46, 17, 10, 0, 10, 5000, 5000, 5000, 0, 'ANILINA-0001'),
-(1, 'IVA10', 'Bidon de 5Lts', 0, 0, 42, 48, 31, 19, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001');
+(1, 'IVA10', 'Bidon de 5Lts', 0, 0, 42, 48, 31, 19, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001'),
+(5, 'IVA10', 'Bidon de 5Lts', 0, 0, 43, 49, 32, 20, 0, 10, 14500, 14500, 2900, 0, 'BIDON-5L-001'),
+(5, 'IVA10', 'bicarbonato 10kl', 0, 0, 44, 50, 33, 21, 0, 10, 75000, 75000, 15000, 0, 'BICARBONATO'),
+(3, 'IVA10', 'Colorante Fluoreceina Kg.', 0, 0, 46, 52, 35, 23, 0, 10, 726000, 726000, 242000, 0, 'COLOR-FLUOR');
 
 -- --------------------------------------------------------
 
@@ -3199,7 +3278,7 @@ CREATE TABLE IF NOT EXISTS `lineasfacturasprov` (
   `pvpunitario` double NOT NULL,
   `recargo` double DEFAULT NULL,
   `referencia` varchar(18) COLLATE utf8_bin DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineasfacturasprov`
@@ -3226,12 +3305,17 @@ INSERT INTO `lineasfacturasprov` (`cantidad`, `codimpuesto`, `codsubcuenta`, `de
 (1, 'IVA10', NULL, 'ace tequila', 0, 0, NULL, 14, 18, NULL, 0, 10, 171727.27272727, 171727.27272727, 171727.27272727, 0, 'ACE TEQUILA'),
 (1.5, 'IVA10', NULL, 'color verde para detergente', 0, 0, NULL, 14, 19, NULL, 0, 10, 13636.363636364, 13636.363636364, 9090.9090909091, 0, 'COLOR VERDE'),
 (1, 'IVA10', NULL, 'color azul colanil para suavizante', 0, 0, NULL, 14, 20, NULL, 0, 10, 9090.9090909091, 9090.9090909091, 9090.9090909091, 0, 'COLOR AZUL'),
-(1, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, NULL, 15, 21, NULL, 0, 10, 4545.4545454545, 4545.4545454545, 4545.4545454545, 0, 'BIDON-5L-001'),
 (1, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, NULL, 16, 22, NULL, 0, 10, 4545.4545454545, 4545.4545454545, 4545.4545454545, 0, 'BIDON-5L-001'),
 (1, 'IVA10', NULL, 'Anilina en polvo', 0, 0, 17, 17, 23, NULL, 0, 10, 5000, 5000, 5000, 0, 'ANILINA-0001'),
 (2, 'IVA10', NULL, 'Carburante', 0, 0, 16, 18, 24, NULL, 0, 10, 10000, 10000, 5000, 0, 'CARBUR-0014'),
 (1, 'IVA10', NULL, 'Enturbiante', 0, 0, 19, 19, 25, NULL, 0, 10, 10000, 10000, 10000, 0, 'ENTURBIANTE-001'),
-(4, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, 19, 19, 26, NULL, 0, 10, 11600, 11600, 2900, 0, 'BIDON-5L-001');
+(4, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, 19, 19, 26, NULL, 0, 10, 11600, 11600, 2900, 0, 'BIDON-5L-001'),
+(5, 'IVA10', NULL, 'bicarbonato 10kl', 0, 0, 23, 20, 27, NULL, 0, 10, 75000, 75000, 15000, 0, 'BICARBONATO'),
+(1, 'IVA10', NULL, 'colorante químico', 0, 0, 4, 21, 28, NULL, 0, 10, 201000, 201000, 201000, 0, 'COLOR-ROJO'),
+(3, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, 9, 22, 29, NULL, 0, 10, 8700, 8700, 2900, 0, 'BIDON-5L-001'),
+(3, 'IVA10', NULL, 'Colorante Fluoreceina Kg.', 0, 0, 24, 23, 30, NULL, 0, 10, 726000, 726000, 242000, 0, 'COLOR-FLUOR'),
+(3, 'IVA10', NULL, 'color azul colanil para suavizante', 0, 0, 26, 24, 31, NULL, 0, 10, 31500, 31500, 10500, 0, 'COLOR_AZUL'),
+(1, 'IVA10', NULL, 'Bidon de 5Lts', 0, 0, 27, 25, 32, NULL, 0, 10, 2900, 2900, 2900, 0, 'BIDON-5L-001');
 
 -- --------------------------------------------------------
 
@@ -3287,7 +3371,7 @@ CREATE TABLE IF NOT EXISTS `lineasivafactprov` (
   `totaliva` double NOT NULL DEFAULT '0',
   `totallinea` double NOT NULL DEFAULT '0',
   `totalrecargo` double NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineasivafactprov`
@@ -3308,11 +3392,16 @@ INSERT INTO `lineasivafactprov` (`codimpuesto`, `idfactura`, `idlinea`, `iva`, `
 ('IVA10', 12, 12, 10, 14500, 0, 1450, 15950, 0),
 ('IVA10', 13, 13, 10, 72000, 0, 7200, 79200, 0),
 ('IVA10', 14, 14, 10, 485364, 0, 48536, 533900, 0),
-('IVA10', 15, 15, 10, 4545, 0, 455, 5000, 0),
 ('IVA10', 18, 16, 10, 10000, 0, 1000, 11000, 0),
 ('IVA10', 17, 17, 10, 5000, 0, 500, 5500, 0),
 ('IVA10', 16, 18, 10, 4545, 0, 455, 5000, 0),
-('IVA10', 19, 19, 10, 21600, 0, 2160, 23760, 0);
+('IVA10', 19, 19, 10, 21600, 0, 2160, 23760, 0),
+('IVA10', 20, 20, 10, 75000, 0, 7500, 82500, 0),
+('IVA10', 21, 21, 10, 201000, 0, 20100, 221100, 0),
+('IVA10', 22, 22, 10, 8700, 0, 870, 9570, 0),
+('IVA10', 23, 23, 10, 726000, 0, 72600, 798600, 0),
+('IVA10', 24, 24, 10, 31500, 0, 3150, 34650, 0),
+('IVA10', 25, 25, 10, 2900, 0, 290, 3190, 0);
 
 -- --------------------------------------------------------
 
@@ -3337,7 +3426,7 @@ CREATE TABLE IF NOT EXISTS `lineaspedidosprov` (
   `pvpunitario` double NOT NULL,
   `referencia` varchar(18) COLLATE utf8_bin DEFAULT NULL,
   `totalenalbaran` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineaspedidosprov`
@@ -3353,7 +3442,10 @@ INSERT INTO `lineaspedidosprov` (`pvptotal`, `cantidad`, `irpf`, `recargo`, `dto
 (11600, 4, 0, 0, NULL, 'Bidon de 5Lts', 28, 16, 'IVA10', NULL, 10, 0, 11600, 2900, 'BIDON-5L-001', NULL),
 (2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 29, 17, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL),
 (11600, 4, 0, 0, NULL, 'Bidon de 5Lts', 30, 18, 'IVA10', NULL, 10, 0, 11600, 2900, 'BIDON-5L-001', NULL),
-(2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 31, 19, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL);
+(2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 31, 19, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL),
+(14500, 5, 0, 0, NULL, 'Bidon de 5Lts', 32, 20, 'IVA10', NULL, 10, 0, 14500, 2900, 'BIDON-5L-001', NULL),
+(0, 5, 0, 0, NULL, 'bicarbonato', 33, 21, 'IVA10', NULL, 10, 0, 0, 0, 'BICARBONATO', NULL),
+(726000, 3, 0, 0, NULL, 'Colorante Fluoreceina Kg.', 35, 23, 'IVA10', NULL, 10, 0, 726000, 242000, 'COLOR-FLUOR', NULL);
 
 -- --------------------------------------------------------
 
@@ -3411,7 +3503,7 @@ CREATE TABLE IF NOT EXISTS `lineas_ordenes_compra_prov` (
   `pvpunitario` double NOT NULL,
   `referencia` varchar(18) COLLATE utf8_bin DEFAULT NULL,
   `totalenalbaran` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `lineas_ordenes_compra_prov`
@@ -3446,7 +3538,10 @@ INSERT INTO `lineas_ordenes_compra_prov` (`pvptotal`, `cantidad`, `irpf`, `recar
 (88656, 6, 0, 0, NULL, 'Trietanolamina TEA 85', 26, 32, 'IVA10', NULL, 10, 0, 88656, 14776, 'TRIETANOLAMI-TEA85', NULL),
 (5000, 1, 0, 0, NULL, 'Anilina en polvo', 27, 33, 'IVA10', NULL, 10, 0, 5000, 5000, 'ANILINA-0001', NULL),
 (2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 28, 34, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL),
-(2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 29, 35, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL);
+(2900, 1, 0, 0, NULL, 'Bidon de 5Lts', 29, 35, 'IVA10', NULL, 10, 0, 2900, 2900, 'BIDON-5L-001', NULL),
+(75000, 5, 0, 0, NULL, 'bicarbonato 10kl', 30, 36, 'IVA10', NULL, 10, 0, 75000, 15000, 'BICARBONATO', NULL),
+(726000, 3, 0, 0, NULL, 'Colorante Fluoreceina Kg.', 31, 37, 'IVA10', NULL, 10, 0, 726000, 242000, 'COLOR-FLUOR', NULL),
+(0, 4, 0, 0, NULL, 'color azul colanil para suavizante', 32, 38, 'IVA10', NULL, 10, 0, 0, 0, 'COLOR_AZUL', NULL);
 
 -- --------------------------------------------------------
 
@@ -3485,7 +3580,7 @@ CREATE TABLE IF NOT EXISTS `orden_compra_prov` (
   `totaliva` double NOT NULL,
   `numero` varchar(12) COLLATE utf8_bin NOT NULL,
   `coddivisa` varchar(3) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `orden_compra_prov`
@@ -3513,9 +3608,12 @@ INSERT INTO `orden_compra_prov` (`codigo`, `cod_cotizacion`, `totaleuros`, `coda
 ('ORD2016A48C', 'COT2016A47C', 9900, '2', 'CONT', '2016', 1, 9900, 0, 30, 20, '', NULL, 0, 'ALG', '', '88888833-1', '000003', NULL, 0, NULL, 'QUIMANFLA', '2016-09-03', '14:12:24', 9000, 0, 'A', 900, '48', 'PRY'),
 ('ORD2016A49C', 'COT2016A54C', 79200, '2', 'CONT', '2016', 1, 79200, 0, 31, NULL, 'esto es la observacion', NULL, 1, 'ALG', NULL, '454', '000012', NULL, 0, NULL, 'PROVEEDOR-TEST', '2016-09-03', '17:18:06', 72000, 0, 'A', 7200, '49', 'PRY'),
 ('ORD2016A50C', 'COT2016A55C', 97522, '2', 'CONT', '2016', 1, 97522, 0, 32, NULL, '', NULL, 1, 'ALG', '', '80047137-7', '000013', NULL, 0, NULL, 'LIMPAR S.A.', '2016-09-03', '20:19:27', 88656, 0, 'A', 8866, '50', 'PRY'),
-('ORD2016A51C', 'COT2016A56C', 5500, '2', 'CONT', '2016', 1, 5500, 0, 33, NULL, '', NULL, 1, 'ALG', '', '555555-8', '000005', NULL, 0, NULL, 'COLORANTES SA', '2016-09-03', '20:30:04', 5000, 0, 'A', 500, '51', 'PRY'),
-('ORD2016A53C', 'COT2016A57C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 34, NULL, '', NULL, 1, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:45:46', 2900, 0, 'A', 290, '53', 'PRY'),
-('ORD2016A54C', 'COT2016A58C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 35, 21, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:49:09', 2900, 0, 'A', 290, '54', 'PRY');
+('ORD2016A51C', 'COT2016A56C', 5500, '2', 'CONT', '2016', 1, 5500, 0, 33, 22, '', NULL, 0, 'ALG', '', '555555-8', '000005', NULL, 0, NULL, 'COLORANTES SA', '2016-09-03', '20:30:04', 5000, 0, 'A', 500, '51', 'PRY'),
+('ORD2016A53C', 'COT2016A57C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 34, 27, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:45:46', 2900, 0, 'A', 290, '53', 'PRY'),
+('ORD2016A54C', 'COT2016A58C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 35, 21, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:49:09', 2900, 0, 'A', 290, '54', 'PRY'),
+('ORD2016A57C', 'COT2016A60C', 82500, '2', 'PAGADA', '2016', 1, 82500, 0, 36, 23, '', NULL, 0, 'ALG', '', '454', '000012', NULL, 0, NULL, 'PROVEEDOR-TEST', '2016-10-03', '18:21:11', 75000, 0, 'A', 7500, '57', 'PRY'),
+('ORD2016A60C', 'COT2016A62C', 798600, '2', 'CONT', '2016', 1, 798600, 0, 37, 24, '', NULL, 0, 'ALG', '', '555555-3', '000004', NULL, 0, NULL, 'QUIMICOS S.A', '2016-10-23', '19:02:15', 726000, 0, 'A', 72600, '60', 'PRY'),
+('ORD2016A61C', 'COT2016A63C', 0, '2', 'PAGADA', '2016', 1, 0, 0, 38, NULL, '', NULL, 1, 'ALG', '', '454', '000012', NULL, 0, NULL, 'PROVEEDOR-TEST', '2016-10-23', '19:13:03', 0, 0, 'A', 0, '61', 'PRY');
 
 -- --------------------------------------------------------
 
@@ -3626,7 +3724,7 @@ CREATE TABLE IF NOT EXISTS `pedidosprov` (
   `totaliva` double NOT NULL,
   `numero` varchar(12) COLLATE utf8_bin NOT NULL,
   `coddivisa` varchar(3) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `pedidosprov`
@@ -3640,7 +3738,10 @@ INSERT INTO `pedidosprov` (`codigo`, `totaleuros`, `codagente`, `codpago`, `code
 ('PED2016A39C', 23760, '2', 'CONT', '2016', 1, 23760, 0, 16, 35, '', NULL, 0, 'ALG', '', '835421-4', '000014', NULL, 0, NULL, 'CHEMICAL CENTER', '2016-07-31', '08:30:13', 21600, 0, 'A', 2160, '39', 'PRY'),
 ('PED2016A40C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 17, 36, '', NULL, 0, 'ALG', '12345678', '835421-4', '000014', NULL, 0, NULL, 'CHEMICAL CENTER', '2016-07-31', '08:31:02', 2900, 0, 'A', 290, '40', 'PRY'),
 ('PED2016A43C', 12760, '2', 'CONT', '2016', 1, 12760, 0, 18, 37, '', NULL, 0, 'ALG', '', '454', '000012', NULL, 0, NULL, 'PROVEEDOR-TEST', '2016-09-03', '10:35:21', 11600, 0, 'A', 1160, '43', 'PRY'),
-('PED2016A52C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 19, 42, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:43:06', 2900, 0, 'A', 290, '52', 'PRY');
+('PED2016A52C', 3190, '2', 'CONT', '2016', 1, 3190, 0, 19, 42, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-09-04', '08:43:06', 2900, 0, 'A', 290, '52', 'PRY'),
+('PED2016A55C', 15950, '2', 'CONT', '2016', 1, 15950, 0, 20, 43, '', NULL, 0, 'ALG', '', '1175106-1', '000002', NULL, 0, NULL, 'CASA EDUARDO', '2016-10-01', '23:19:39', 14500, 0, 'A', 1450, '55', 'PRY'),
+('PED2016A56C', 0, '2', 'PAGADA', '2016', 1, 0, 0, 21, 44, '', NULL, 0, 'ALG', '', '454', '000012', NULL, 0, NULL, 'PROVEEDOR-TEST', '2016-10-03', '17:36:45', 0, 0, 'A', 0, '56', 'PRY'),
+('PED2016A59C', 798600, '2', 'CONT', '2016', 1, 798600, 0, 23, 46, '', NULL, 0, 'ALG', '', '555555-3', '000004', NULL, 0, NULL, 'QUIMICOS S.A', '2016-10-23', '18:57:31', 726000, 0, 'A', 72600, '59', 'PRY');
 
 -- --------------------------------------------------------
 
@@ -3767,7 +3868,8 @@ INSERT INTO `proveedores` (`cifnif`, `codcontacto`, `codcuentadom`, `codcuentapa
 ('454', NULL, NULL, NULL, 'PRY', 'CONT', '000012', 'A', NULL, NULL, '', '', NULL, NULL, 'PROVEEDOR-TEST', 'PROVEEDOR-TEST', '', NULL, 'General', '', '', 'NIF', '', 0),
 ('80047137-7', NULL, NULL, NULL, 'PRY', 'CONT', '000013', 'A', NULL, NULL, '', '', NULL, NULL, 'LIMPAR S.A.', 'LIMPAR S.A.', '', NULL, 'General', '', '', 'NIF', '', 0),
 ('835421-4', NULL, NULL, NULL, 'PRY', 'CONT', '000014', 'A', NULL, NULL, '', '', NULL, NULL, 'CHEMICAL CENTER', 'CHEMICAL CENTER', '', NULL, 'General', '0985-116366', '0972-262950', 'NIF', 'WWW.CHEMICALCENTER.NET', 0),
-('123456', NULL, NULL, NULL, 'PRY', 'CONT', '000015', 'A', NULL, NULL, '', '', NULL, NULL, 'TEST01', 'TEST01', '', NULL, 'General', '', '', 'NIF', '', 0);
+('123456', NULL, NULL, NULL, 'PRY', 'CONT', '000015', 'A', NULL, NULL, '', '', NULL, NULL, 'TEST01', 'TEST01', '', NULL, 'General', '', '', 'NIF', '', 0),
+('111125875', NULL, NULL, NULL, 'PRY', 'PAGADA', '000016', 'A', NULL, NULL, '', '', NULL, NULL, 'JUAN JARA', 'JUAN JARA', '', NULL, 'General', '', '', 'NIF', '', 0);
 
 -- --------------------------------------------------------
 
@@ -3782,7 +3884,7 @@ CREATE TABLE IF NOT EXISTS `secuencias` (
   `nombre` varchar(50) COLLATE utf8_bin NOT NULL,
   `valor` int(11) DEFAULT NULL,
   `valorout` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `secuencias`
@@ -3792,12 +3894,14 @@ INSERT INTO `secuencias` (`descripcion`, `id`, `idsec`, `nombre`, `valor`, `valo
 ('Secuencia del ejercicio 2015 y la serie A', 1, 1, 'nfacturacli', 1, 5),
 ('Secuencia del ejercicio 2016 y la serie A', 2, 2, 'nfacturacli', 1, 11),
 ('Secuencia del ejercicio 2016 y la serie A', 2, 3, 'nalbarancli', 1, 2),
-('Secuencia del ejercicio 2016 y la serie A', 2, 4, 'nfacturaprov', 1, 20),
+('Secuencia del ejercicio 2016 y la serie A', 2, 4, 'nfacturaprov', 1, 23),
 ('Secuencia del ejercicio 2016 y la serie B', 3, 5, 'nfacturaprov', 1, 2),
-('Secuencia del ejercicio 2016 y la serie A', 2, 6, 'nalbaranprov', 1, 29),
+('Secuencia del ejercicio 2016 y la serie A', 2, 6, 'nalbaranprov', 1, 34),
 ('Secuencia del ejercicio 2016 y la serie B', 3, 7, 'nalbaranprov', 1, 2),
-('Secuencia del ejercicio 2016 y la serie A', 2, 8, 'npedidoprov', 1, 55),
-('Secuencia del ejercicio 2016 y la serie A', 2, 9, 'ncotizacionprov', 1, 59);
+('Secuencia del ejercicio 2016 y la serie A', 2, 8, 'npedidoprov', 1, 62),
+('Secuencia del ejercicio 2016 y la serie A', 2, 9, 'ncotizacionprov', 1, 64),
+('Secuencia del ejercicio 2017 y la serie A', 7, 10, 'nalbaranprov', 1, 2),
+('Secuencia del ejercicio 2017 y la serie A', 7, 11, 'nfacturaprov', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -3816,7 +3920,7 @@ CREATE TABLE IF NOT EXISTS `secuenciasejercicios` (
   `npedidocli` int(11) NOT NULL,
   `npedidoprov` int(11) NOT NULL,
   `npresupuestocli` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `secuenciasejercicios`
@@ -3828,7 +3932,10 @@ INSERT INTO `secuenciasejercicios` (`codejercicio`, `codserie`, `id`, `nalbaranc
 ('2016', 'B', 3, 1, 1, 1, 1, 1, 1, 1),
 ('2016', 'S', 4, 1, 1, 1, 1, 1, 1, 1),
 ('2015', 'B', 5, 1, 1, 1, 1, 1, 1, 1),
-('2015', 'S', 6, 1, 1, 1, 1, 1, 1, 1);
+('2015', 'S', 6, 1, 1, 1, 1, 1, 1, 1),
+('2017', 'A', 7, 1, 1, 1, 1, 1, 1, 1),
+('2017', 'B', 8, 1, 1, 1, 1, 1, 1, 1),
+('2017', 'S', 9, 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3891,19 +3998,19 @@ INSERT INTO `stocks` (`referencia`, `disponible`, `stockmin`, `reservada`, `hora
 ('JABON-LIQR', 188, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 5, 188, 0, ''),
 ('JABON-LIQM', 38, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 6, 38, 0, ''),
 ('TRIETANOLAMI-TEA85', 23, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 7, 23, 0, NULL),
-('BIDON-5L-001', 39, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 8, 39, 0, NULL),
-('ANILINA-0001', 36, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 9, 36, 0, NULL),
+('BIDON-5L-001', 44, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 8, 44, 0, NULL),
+('ANILINA-0001', 37, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 9, 37, 0, NULL),
 ('CARBUR-0014', 13, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 10, 13, 0, NULL),
 ('COLOR-ROJO', 2, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 11, 2, 0, NULL),
-('COLOR-FLUOR', 3, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 12, 3, 0, ''),
+('COLOR-FLUOR', 9, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 12, 9, 0, ''),
 ('ACIDO-SULFONICO', 22, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 13, 22, 0, ''),
 ('ENTURBIANTE-001', 8, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 14, 8, 0, NULL),
 ('BASE-SUAVE', 5, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 15, 5, 0, NULL),
 ('BASE-SUAVE', 5, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ASU', 0, 16, 5, 0, ''),
 ('CLORO 12%', 160, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 17, 160, 0, NULL),
-('ACE_TEQUILA', 1, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 18, 1, 0, NULL),
+('BICARBONATO', 11, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 18, 11, 0, NULL),
 ('COLOR VERDE', 1.5, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 19, 1.5, 0, NULL),
-('COLOR AZUL', 1, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 20, 1, 0, NULL);
+('COLOR_AZUL', 3, 0, 0, '00:00:00', '', 0, '0000-00-00', 'ALG', 0, 20, 3, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -4082,6 +4189,12 @@ ALTER TABLE `co_epigrafes`
 ALTER TABLE `co_gruposepigrafes`
   ADD PRIMARY KEY (`idgrupo`),
   ADD KEY `ca_co_gruposepigrafes_ejercicios` (`codejercicio`);
+
+--
+-- Indices de la tabla `co_pagos`
+--
+ALTER TABLE `co_pagos`
+  ADD PRIMARY KEY (`id_pagos`);
 
 --
 -- Indices de la tabla `co_regiva`
@@ -4451,17 +4564,17 @@ ALTER TABLE `albaranescli`
 -- AUTO_INCREMENT de la tabla `albaranesprov`
 --
 ALTER TABLE `albaranesprov`
-  MODIFY `idalbaran` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `idalbaran` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT de la tabla `articulosprov`
 --
 ALTER TABLE `articulosprov`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `cajas`
 --
 ALTER TABLE `cajas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `cajas_terminales`
 --
@@ -4471,7 +4584,7 @@ ALTER TABLE `cajas_terminales`
 -- AUTO_INCREMENT de la tabla `cotizacion_prov`
 --
 ALTER TABLE `cotizacion_prov`
-  MODIFY `idcotizacion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `idcotizacion` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT de la tabla `co_asientos`
 --
@@ -4497,6 +4610,11 @@ ALTER TABLE `co_epigrafes`
 --
 ALTER TABLE `co_gruposepigrafes`
   MODIFY `idgrupo` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `co_pagos`
+--
+ALTER TABLE `co_pagos`
+  MODIFY `id_pagos` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `co_regiva`
 --
@@ -4536,7 +4654,7 @@ ALTER TABLE `dirclientes`
 -- AUTO_INCREMENT de la tabla `dirproveedores`
 --
 ALTER TABLE `dirproveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `empresa`
 --
@@ -4551,12 +4669,12 @@ ALTER TABLE `facturascli`
 -- AUTO_INCREMENT de la tabla `facturasprov`
 --
 ALTER TABLE `facturasprov`
-  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `fs_logs`
 --
 ALTER TABLE `fs_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1379;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1417;
 --
 -- AUTO_INCREMENT de la tabla `lineasalbaranescli`
 --
@@ -4566,12 +4684,12 @@ ALTER TABLE `lineasalbaranescli`
 -- AUTO_INCREMENT de la tabla `lineasalbaranesprov`
 --
 ALTER TABLE `lineasalbaranesprov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `lineascotizacion_prov`
 --
 ALTER TABLE `lineascotizacion_prov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT de la tabla `lineasfacturascli`
 --
@@ -4581,7 +4699,7 @@ ALTER TABLE `lineasfacturascli`
 -- AUTO_INCREMENT de la tabla `lineasfacturasprov`
 --
 ALTER TABLE `lineasfacturasprov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `lineasivafactcli`
 --
@@ -4591,12 +4709,12 @@ ALTER TABLE `lineasivafactcli`
 -- AUTO_INCREMENT de la tabla `lineasivafactprov`
 --
 ALTER TABLE `lineasivafactprov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `lineaspedidosprov`
 --
 ALTER TABLE `lineaspedidosprov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT de la tabla `lineasregstocks`
 --
@@ -4606,12 +4724,12 @@ ALTER TABLE `lineasregstocks`
 -- AUTO_INCREMENT de la tabla `lineas_ordenes_compra_prov`
 --
 ALTER TABLE `lineas_ordenes_compra_prov`
-  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `idlinea` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `orden_compra_prov`
 --
 ALTER TABLE `orden_compra_prov`
-  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT de la tabla `pedidoscli`
 --
@@ -4621,7 +4739,7 @@ ALTER TABLE `pedidoscli`
 -- AUTO_INCREMENT de la tabla `pedidosprov`
 --
 ALTER TABLE `pedidosprov`
-  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `idpedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `pedido_proveedor`
 --
@@ -4636,12 +4754,12 @@ ALTER TABLE `presupuestoscli`
 -- AUTO_INCREMENT de la tabla `secuencias`
 --
 ALTER TABLE `secuencias`
-  MODIFY `idsec` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `idsec` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `secuenciasejercicios`
 --
 ALTER TABLE `secuenciasejercicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `stocks`
 --
