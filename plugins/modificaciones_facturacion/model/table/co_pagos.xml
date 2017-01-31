@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : co_pagos.xml
+    Description:
+        Estructura de la tabla co_pagos.
+-->
+<tabla>
+    <columna>
+        <nombre>id_pagos</nombre>
+        <tipo>serial</tipo>
+        <nulo>NO</nulo>
+        <defecto>nextval('co_pagos_id_pagos_seq'::regclass)</defecto>
+    </columna>
+    <columna>
+        <nombre>fecha</nombre>
+        <tipo>date</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>id_factura</nombre>
+        <tipo>varchar(20)</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>monto</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <columna>
+        <nombre>saldo</nombre>
+        <tipo>double</tipo>
+        <nulo>NO</nulo>
+    </columna>
+    <restriccion>
+        <nombre>co_pagos_pkey</nombre>
+        <consulta>PRIMARY KEY (id_pagos)</consulta>
+    </restriccion>
+</tabla>

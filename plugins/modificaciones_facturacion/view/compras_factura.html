@@ -74,7 +74,8 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                           <h4 class="modal-title" id="myModalLabel">Pagos</h4>
+                           <h4 class="modal-title" id="myModalLabel">Pagos factura   nro {$fsc->factura->codigo}<div style="float: right;color:black;padding-right:30px">
+                              <b>Total:  {$fsc->show_precio($fsc->factura->total)}</b></div></h4>
                         </div>
                         <div class="modal-body">
                            <table class="table">
