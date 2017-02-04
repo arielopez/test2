@@ -23,6 +23,7 @@ require_model('linea_iva_factura_proveedor.php');
 require_model('linea_factura_proveedor.php');
 require_model('secuencia.php');
 require_model('serie.php');
+require_model('m_compras_pagos.php');
 
 /**
  * Factura de un proveedor.
@@ -180,6 +181,8 @@ class factura_proveedor extends fs_model
     * @var type 
     */
    public $totalrecargo;
+
+   public $pagos;
    
    public function __construct($f=FALSE)
    {
@@ -320,6 +323,12 @@ class factura_proveedor extends fs_model
    {
       $linea = new linea_factura_proveedor();
       return $linea->all_from_factura($this->idfactura);
+   }
+
+   public function get_pagos()
+   {
+      $pagos = new m_compras_pagos();
+      return $pagos->all_from_pagos($this->codigo);
    }
    
    /**

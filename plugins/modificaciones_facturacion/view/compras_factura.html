@@ -90,6 +90,22 @@
                               </tr>
                               </thead>
                               <tbody>
+                              {loop="$fsc->factura->get_pagos()"}
+                              <tr{if="$value->id_pagos<=0"} class="warning"{/if}>
+                              <td class="">{$value->id_pagos}</td>
+                              <td class="">{$value->fecha}</td>
+                              <td class="">{$value->id_factura}</td>
+                              <td class="">{$fsc->show_precio($value->monto, $fsc->factura->coddivisa)}</td>
+                              <td class="">{$fsc->show_precio($value->saldo, $fsc->factura->coddivisa)}</td>
+                              </tr>
+                              {else}
+                              <tr class="warning">
+                                 <td colspan="10">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    &nbsp; No hay líneas.
+                                 </td>
+                              </tr>
+                              {/loop}
                               <tr>
                                  <th scope="row">1</th>
                                  <td>28/10/2016</td>

@@ -43,6 +43,7 @@ class compras_factura extends fs_controller
    public $rectificada;
    public $rectificativa;
    public $serie;
+
    
    public function __construct()
    {
@@ -65,7 +66,7 @@ class compras_factura extends fs_controller
       $this->rectificada = FALSE;
       $this->rectificativa = FALSE;
       $this->serie = new serie();
-      
+
       /**
        * Si hay alguna extensión de tipo config y texto no_button_pagada,
        * desactivamos el botón de pagada/sin pagar.

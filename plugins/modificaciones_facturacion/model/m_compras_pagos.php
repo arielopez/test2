@@ -21,15 +21,9 @@ class m_compras_pagos extends fs_model
         parent::__construct('co_pagos', 'plugins/modificaciones_facturacion/');
         if($a)
         {
-            $this->id_pagos = $a['idcotizacion'];
+            $this->id_pagos = $a['id_pagos'];
             $this->fecha = Date('d-m-Y', strtotime($a['fecha']));
             $this->id_factura = $a['id_factura'];
-            $this->fecha = Date('d-m-Y', strtotime($a['fecha']));
-            $this->hora = '00:00:00';
-            if( !is_null($a['hora']) )
-            {
-                $this->hora = date('H:i:s', strtotime($a['hora']));
-            }
             $this->monto = floatval($a['monto']);
             $this->saldo = floatval($a['saldo']);
         }
@@ -40,8 +34,21 @@ class m_compras_pagos extends fs_model
             $this->monto = '';
             $this->saldo='';
             $this->fecha = Date('d-m-Y');
-            $this->hora = Date('H:i:s');
         }
+    }
+
+    public function all_from_pagos($id)
+    {
+        $linlist = array();
+
+        $lineas = $this->db->select("SELECT * FROM ".$this->table_name." WHERE id_factura = ".$this->var2str($id)." ORDER BY id_pagos ASC;");
+        if($lineas)
+        {
+            foreach($lineas as $l)
+                $linlist[] = new m_compras_pagos($l);
+        }
+
+        return $linlist;
     }
 
     protected function install()
