@@ -18,8 +18,23 @@
       $(".irpf").hide();
       {/if}
    });
-</script>
+   function fun_saldo(){
+//      alert("ingresa saldo");
+      var pago=0;
+      var saldo= parseFloat($("#saldo").val());
+      var saldo_nuevo=0;
+      if( parseFloat( $("#pago").val() ) > 0 )
+      {
+         pago=parseFloat( $("#pago").val());
+         saldo_nuevo=saldo - pago;
+         $("#resultado").val( show_numero(saldo_nuevo) );
+      }
+      else {
+         $("#resultado").val( show_numero(saldo) );
+      }
 
+   }
+</script>
 <form action="{$fsc->factura->url()}" method="post" class="form">
    <input type="hidden" name="idfactura" value="{$fsc->factura->idfactura}"/>
    <div class="container-fluid">
@@ -94,7 +109,7 @@
                               <tr{if="$value->id_pagos<=0"} class="warning"{/if}>
                               <td class="">{$value->id_pagos}</td>
                               <td class="">{$value->fecha}</td>
-                              <td class="">{$value->id_factura}</td>
+                              <td class="">{$value->documento}</td>
                               <td class="">{$fsc->show_precio($value->monto, $fsc->factura->coddivisa)}</td>
                               <td class="">{$fsc->show_precio($value->saldo, $fsc->factura->coddivisa)}</td>
                               </tr>
@@ -106,32 +121,16 @@
                                  </td>
                               </tr>
                               {/loop}
-                              <tr>
-                                 <th scope="row">1</th>
-                                 <td>28/10/2016</td>
-                                 <td>ca33454</td>
-                                 <td>10000</td>
-                                 <td>50000</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row">2</th>
-                                 <td>28/10/2016</td>
-                                 <td>ca33454</td>
-                                 <td>10000</td>
-                                 <td>50000</td>
-                              </tr>
+
                               <form class="form" name="nuevo_pago" action="#" method="post"></form>
                               <tr class="info">
                                  <th scope="row" name="id_pago" value="3">3</th>
-                                 <td><input class="form-control" type="date" name="fecha" autocomplete="off" value=""></td>
-                                 <td><input class="form-control text-right" type="text" step="any" name="descripcion" autocomplete="off"></td>
-                                 <td><input class="form-control text-right" type="number" step="any" name="recargo" value="0" autocomplete="off"></td>
-                                 <td><input class="form-control" type="number" name="codsubcuentasop" placeholder="" autocomplete="off"></td>
-                                 <td class="text-right">
-                                    <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();" title="Guardar">
-                                       <span class="glyphicon glyphicon-floppy-disk"></span>
-                                    </button>
-                                 </td>
+                                 <td><input class="form-control datepicker" type="text" name="fecha_pago" autocomplete="on" value=""></td>
+                                 <td><input class="form-control text-right" type="text" step="any" name="documento_pago" autocomplete="off"></td>
+                                 <td><input class="form-control text-right" id="pago" type="number" step="any" name="pago" value="" autocomplete="off" onchange="fun_saldo()" onkeyup="fun_saldo()" ></td>
+                                 <input class="form-control" type="" name="saldo" placeholder="" autocomplete="off" id="saldo" value="{$fsc->factura->get_ultimo_pago()}" style="visibility: hidden">
+                                 <td><input class="form-control" type="" name="resultado" placeholder="" autocomplete="off" id="resultado" value="{$fsc->factura->get_ultimo_pago()}" disabled></td>
+
                               </tr>
                               </tbody>
                            </table>

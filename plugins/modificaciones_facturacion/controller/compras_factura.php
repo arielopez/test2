@@ -28,7 +28,7 @@ require_model('partida.php');
 require_model('proveedor.php');
 require_model('serie.php');
 require_model('subcuenta.php');
-require_model('compras_pagos.php');
+require_model('m_compras_pagos.php');
 
 class compras_factura extends fs_controller
 {
@@ -90,7 +90,15 @@ class compras_factura extends fs_controller
       {
          $this->factura = $factura->get($_GET['id']);
       }
-      
+
+      if( isset($_POST['pago'])){
+         if( is_numeric($_POST['pago']) && floatval($_POST['pago']) > 0) {
+         $resultado=floatval($this->factura->get_ultimo_pago()) - floatval($_POST['pago']);
+
+         $this->factura->ingresar_pagos($_POST['fecha_pago'], $_POST['documento_pago'], $this->factura->codigo, $_POST['pago'], $resultado );
+            $this->new_message("Nuevo pago ingresado");
+         }
+      }
       if($this->factura)
       {
          $this->page->title = $this->factura->codigo;

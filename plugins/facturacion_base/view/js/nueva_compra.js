@@ -30,6 +30,20 @@ var siniva = false;
 var irpf = 0;
 var tiene_recargo = false;
 
+
+
+function fun_saldo(){
+   var pago=0;
+   var saldo= parseFloat($("#saldo").val());
+   if( parseFloat( $("#pago").val() ) > 0 )
+   {
+      pago=parseFloat( $("#pago").val());
+      saldo= saldo - pago;
+      $("#saldo").html( show_numero(saldo) );
+   }
+
+}
+
 function usar_proveedor(codproveedor)
 {
    if(nueva_compra_url !== '')

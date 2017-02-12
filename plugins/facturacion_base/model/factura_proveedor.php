@@ -330,7 +330,21 @@ class factura_proveedor extends fs_model
       $pagos = new m_compras_pagos();
       return $pagos->all_from_pagos($this->codigo);
    }
-   
+
+   public function get_ultimo_pago(){
+      $pagos = new m_compras_pagos();
+      return $pagos->ultimo_pago($this->codigo);
+   }
+
+   public function ingresar_pagos($fecha,$documento,$id_factura,$monto,$saldo){
+      $pagos= new m_compras_pagos();
+      $pagos->fecha=$fecha;
+      $pagos->id_factura=$id_factura;
+      $pagos->documento=$documento;
+      $pagos->monto=$monto;
+      $pagos->saldo=$saldo;
+      return $pagos->save();
+   }
    /**
     * Devuelve las líneas de IVA de la factura.
     * Si no hay, las crea.

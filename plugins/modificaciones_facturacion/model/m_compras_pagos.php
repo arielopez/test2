@@ -11,6 +11,7 @@ class m_compras_pagos extends fs_model
 
     public $id_pagos;
     public $fecha;
+    public $documento;
     public $id_factura;
     public $monto;
     public $saldo;
@@ -26,11 +27,13 @@ class m_compras_pagos extends fs_model
             $this->id_factura = $a['id_factura'];
             $this->monto = floatval($a['monto']);
             $this->saldo = floatval($a['saldo']);
+            $this->documento= $a['documento'];
         }
         else
         {
             $this->id_pagos = NULL;
             $this->id_factura = NULL;
+            $this->documento=NULL;
             $this->monto = '';
             $this->saldo='';
             $this->fecha = Date('d-m-Y');
@@ -49,6 +52,21 @@ class m_compras_pagos extends fs_model
         }
 
         return $linlist;
+    }
+
+    public function ultimo_pago($id)
+    {
+
+        $linea = $this->db->select("SELECT saldo FROM ".$this->table_name." WHERE id_factura = ".$this->var2str($id)." ORDER BY fecha DESC,saldo ASC LIMIT 1;");
+        if($linea)
+        {
+            foreach($linea as $l)
+                return $l['saldo'];
+        }
+        else{
+            return 0;
+        }
+
     }
 
     protected function install()
@@ -92,8 +110,9 @@ class m_compras_pagos extends fs_model
         else
         {
 
-            $sql = "INSERT INTO ".$this->table_name." (fecha,id_factura,monto,saldo) VALUES
+            $sql = "INSERT INTO ".$this->table_name." (fecha,documento,id_factura,monto,saldo) VALUES
                       (".$this->var2str($this->fecha)
+                .",".$this->var2str($this->documento)
                 .",".$this->var2str($this->id_factura)
                 .",".$this->var2str($this->monto)
                 .",".$this->var2str($this->saldo).");";
