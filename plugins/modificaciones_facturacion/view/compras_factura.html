@@ -63,7 +63,7 @@
 
             {if="$fsc->mostrar_boton_pagada"}
             <div class="btn-group">
-               {if="$fsc->factura->pagada"}
+               {if="$fsc->factura->get_ultimo_pago()<=0"}
                <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
                   <span class="glyphicon glyphicon-ok"></span> &nbsp; Pagada <span class="caret"></span>
                </button>
@@ -74,7 +74,8 @@
                {/if}
                <ul class="dropdown-menu" role="menu">
                   {if="$fsc->factura->pagada"}
-                  <li><a href="{$fsc->url()}&pagada=FALSE"><span class="glyphicon glyphicon-ok"></span> &nbsp; Ver pagos</a></li>
+                  <!--<li><a href="{$fsc->url()}&pagada=FALSE"><span class="glyphicon glyphicon-ok"></span> &nbsp; Ver pagos</a></li>-->
+                  <li class="hover-cyan" data-toggle="modal" data-target=".bs-example-modal-lg"><span > &nbsp; Pagos &nbsp; </span></li>
                   {else}
                   <li class="hover-cyan" data-toggle="modal" data-target=".bs-example-modal-lg"><span > &nbsp; Pagos &nbsp; </span></li>
                   {/if}
@@ -121,10 +122,10 @@
                                  </td>
                               </tr>
                               {/loop}
-
+                              {if="$fsc->factura->get_ultimo_pago()>0"}
                               <form class="form" name="nuevo_pago" action="#" method="post"></form>
                               <tr class="info">
-                                 <th scope="row" name="id_pago" value="3">3</th>
+                                 <th scope="row" name="id_pago" value=""></th>
                                  <td><input class="form-control datepicker" type="text" name="fecha_pago" autocomplete="on" value=""></td>
                                  <td><input class="form-control text-right" type="text" step="any" name="documento_pago" autocomplete="off"></td>
                                  <td><input class="form-control text-right" id="pago" type="number" step="any" name="pago" value="" autocomplete="off" onchange="fun_saldo()" onkeyup="fun_saldo()" ></td>
@@ -132,12 +133,23 @@
                                  <td><input class="form-control" type="" name="resultado" placeholder="" autocomplete="off" id="resultado" value="{$fsc->factura->get_ultimo_pago()}" disabled></td>
 
                               </tr>
+                              {else}
+                              <tr class="info">
+                                 <td colspan="10">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    &nbsp; Factura Pagada.
+                                 </td>
+                              </tr>
+                              {/if}
+
                               </tbody>
                            </table>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-default" data-dismiss="modal">Close </button>
+                           {if="$fsc->factura->get_ultimo_pago()>0"}
                            <button type="button" class="btn btn-primary" onclick="this.disabled=true;this.form.submit();" >Save changes</button>
+                           {/if}
                         </div>
                      </div>
                   </div>

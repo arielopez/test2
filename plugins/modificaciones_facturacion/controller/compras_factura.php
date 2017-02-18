@@ -80,11 +80,11 @@ class compras_factura extends fs_controller
             break;
          }
       }
-      
+
       if( isset($_POST['idfactura']) )
       {
          $this->factura = $factura->get($_POST['idfactura']);
-         $this->modificar();
+//         $this->modificar();
       }
       else if( isset($_GET['id']) )
       {
@@ -94,11 +94,24 @@ class compras_factura extends fs_controller
       if( isset($_POST['pago'])){
          if( is_numeric($_POST['pago']) && floatval($_POST['pago']) > 0) {
          $resultado=floatval($this->factura->get_ultimo_pago()) - floatval($_POST['pago']);
-
+            if($resultado<=0){
+               $this->factura->pagada=TRUE;
+            }
          $this->factura->ingresar_pagos($_POST['fecha_pago'], $_POST['documento_pago'], $this->factura->codigo, $_POST['pago'], $resultado );
             $this->new_message("Nuevo pago ingresado");
          }
       }
+
+      if( isset($_POST['idfactura']) )
+      {
+         
+         $this->modificar();
+      }
+      else if( isset($_GET['id']) )
+      {
+         $this->factura = $factura->get($_GET['id']);
+      }
+
       if($this->factura)
       {
          $this->page->title = $this->factura->codigo;
@@ -127,7 +140,7 @@ class compras_factura extends fs_controller
          }
          else if( isset($_REQUEST['pagada']) )
          {
-            $this->factura->pagada = ($_REQUEST['pagada'] == 'TRUE');
+//            $this->factura->pagada = ($_REQUEST['pagada'] == 'TRUE');
             if( $this->factura->save() )
             {
                $this->new_message("Factura modificada correctamente.");

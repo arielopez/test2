@@ -333,10 +333,19 @@ class factura_proveedor extends fs_model
 
    public function get_ultimo_pago(){
       $pagos = new m_compras_pagos();
-      return $pagos->ultimo_pago($this->codigo);
+      if ($pagos->ultimo_pago($this->codigo) != NULL) {
+         return $pagos->ultimo_pago($this->codigo);
+      }
+      else{
+         return $this->total;
+      }
+
    }
 
    public function ingresar_pagos($fecha,$documento,$id_factura,$monto,$saldo){
+//      if($saldo<=0){
+//         $this->pagada=TRUE;
+//      }
       $pagos= new m_compras_pagos();
       $pagos->fecha=$fecha;
       $pagos->id_factura=$id_factura;
