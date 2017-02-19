@@ -151,7 +151,7 @@ class fs_user extends fs_model
          $this->last_browser = $a['last_browser'];
          $this->fs_page = $a['fs_page'];
          
-         $this->css = 'view/css/bootstrap-yeti.min.css';
+         $this->css = 'view/css/bootstrap.min.css';
          if( isset($a['css']) )
          {
             $this->css = $a['css'];
@@ -170,7 +170,7 @@ class fs_user extends fs_model
          $this->last_ip = NULL;
          $this->last_browser = NULL;
          $this->fs_page = NULL;
-         $this->css = 'view/css/bootstrap-yeti.min.css';
+         $this->css = 'view/css/bootstrap.min.css';
       }
       
       $this->logged_on = FALSE;
@@ -430,7 +430,7 @@ class fs_user extends fs_model
    
    public function get($n = '')
    {
-      $u = $this->db->select("SELECT * FROM ".$this->table_name." WHERE nick = ".$this->var2str($n).";");
+      $u = $this->db->select("SELECT * FROM ".$this->table_name." WHERE upper(nick) = upper(".$this->var2str($n).");");
       if($u)
       {
          return new fs_user($u[0]);
