@@ -371,11 +371,6 @@
                      {if="$fsc->user->admin"}
                      <tr>
                         <td colspan="6"></td>
-                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->neto, $fsc->cotizacion->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->totaliva, $fsc->cotizacion->coddivisa)}</td>
-                        <td class="recargo text-right">{$fsc->show_precio($fsc->cotizacion->totalrecargo, $fsc->cotizacion->coddivisa)}</td>
-                        <td class="irpf text-right">{$fsc->show_precio($fsc->cotizacion->totalirpf, $fsc->cotizacion->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->cotizacion->total, $fsc->cotizacion->coddivisa)}</td>
                      </tr>
                      {/if}
                   </tbody>
@@ -710,13 +705,16 @@
             <div class="modal-body">
                <div class="form-group">
                   Email del proveedor:
-                  <input class="form-control" type="text" name="email" value="{$fsc->proveedor_s->email}" autocomplete="off"/>
+                  <input class="form-personal" type="email" name="email" value="{$fsc->proveedor_s->email}" autocomplete="off"/>
                </div>
                <div class="form-group">
                   Mensaje:
-                  <textarea class="form-control" name="mensaje" rows="6">Buenos días, le adjunto mi cotizacion {$fsc->cotizacion->codigo}.
+                  <textarea class="form-control" name="mensaje" rows="6">Buenos días, le adjunto la cotizacion {$fsc->cotizacion->codigo}.
 {$fsc->empresa->email_firma}</textarea>
                </div>
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.form.submit();">Enviar
+                  <span class="glyphicon glyphicon-send"></span>
+               </button>
                {loop="$fsc->extensions"}
                   {if="$value->type=='email'"}
                   <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.action='index.php?page={$value->from}{$value->params}&id={$fsc->cotizacion->idcotizacion}';this.form.submit();">

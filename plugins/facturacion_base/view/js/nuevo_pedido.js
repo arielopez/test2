@@ -148,7 +148,7 @@ function recalcular()
    }
    else
    {
-      $(".recargo").show();
+      $(".recargo").hide();
    }
    
    if(total_irpf == 0 && irpf == 0)
@@ -157,7 +157,7 @@ function recalcular()
    }
    else
    {
-      $(".irpf").show();
+      $(".irpf").hide();
    }
 }
 
@@ -310,10 +310,10 @@ function aux_all_impuestos(num,codimpuesto)
    }
    html += "</select></td>";
    
-   html += "<td class=\"recargo\"><input type=\"text\" class=\"form-control text-right\" id=\"recargo_"+num+"\" name=\"recargo_"+num+
+   html += "<td class=\"recargo\"><input type=\"text\" class=\"form-control text-right\" style=\"visibility: hidden\" id=\"recargo_"+num+"\" name=\"recargo_"+num+
          "\" value=\""+recargo+"\" onclick=\"this.select()\" onkeyup=\"recalcular()\" autocomplete=\"off\"/></td>";
    
-   html += "<td class=\"irpf\"><input type=\"text\" class=\"form-control text-right\" id=\"irpf_"+num+"\" name=\"irpf_"+num+
+   html += "<td class=\"irpf\"><input type=\"text\" class=\"form-control text-right\" style=\"visibility: hidden\" id=\"irpf_"+num+"\" name=\"irpf_"+num+
          "\" value=\""+irpf+"\" onclick=\"this.select()\" onkeyup=\"recalcular()\" autocomplete=\"off\"/></td>";
    
    return html;

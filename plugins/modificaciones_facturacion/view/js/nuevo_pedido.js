@@ -148,7 +148,7 @@ function recalcular()
    }
    else
    {
-      $(".recargo").show();
+      $(".recargo").hide();
    }
    
    if(total_irpf == 0 && irpf == 0)
@@ -157,7 +157,7 @@ function recalcular()
    }
    else
    {
-      $(".irpf").show();
+      $(".irpf").hide();
    }
 }
 
