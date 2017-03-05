@@ -365,14 +365,7 @@
                         </td>
                      </tr>
                      {if="$fsc->user->admin"}
-                     <tr>
-                        <td colspan="6"></td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->neto, $fsc->albaran->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->totaliva, $fsc->albaran->coddivisa)}</td>
-                        <td class="recargo text-right">{$fsc->show_precio($fsc->albaran->totalrecargo, $fsc->albaran->coddivisa)}</td>
-                        <td class="irpf text-right">{$fsc->show_precio($fsc->albaran->totalirpf, $fsc->albaran->coddivisa)}</td>
-                        <td class="text-right">{$fsc->show_precio($fsc->albaran->total, $fsc->albaran->coddivisa)}</td>
-                     </tr>
+
                      {/if}
                   </tbody>
                </table>
