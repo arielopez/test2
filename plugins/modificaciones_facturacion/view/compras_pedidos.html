@@ -71,26 +71,24 @@
             {/loop}
          </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-4 text-right">
+      <div class="col-md-4 col-sm-4 col-xs-8 text-right">
          <div class="btn-group">
-            <a id="b_buscar_lineas" class="btn btn-sm btn-info" title="Buscar articulos en pedidos">
+            <a id="b_buscar_lineas" class="btn btn-sm btn-info col-sm-5" title="Buscar articulos en pedidos"  style="margin-right: 3px; padding-bottom: 6px;">
                <span class="glyphicon glyphicon-search"></span> &nbsp; Buscar Articulos
             </a>
-         </div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-12">
-         <div class="visible-xs"><br/></div>
-         <form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
-            <div class="input-group">
-               <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Codigo Pedidos">
+            <form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
+               <div class="input-group">
+                  <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Codigo Pedidos" style="height: 32px;">
                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="submit">
+                  <button class="btn btn-primary" type="submit"  style="font-size: 10px;">
                      <span class="glyphicon glyphicon-search"></span>
                   </button>
                </span>
-            </div>
-         </form>
+               </div>
+            </form>
+         </div>
       </div>
+
    </div>
 </div>
 
