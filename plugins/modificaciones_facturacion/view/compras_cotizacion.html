@@ -267,13 +267,10 @@
                         <th class="text-left">Descripción</th>
                         <th class="text-right" width="80">Cantidad</th>
                         <th width="50"></th>
-                        <th class="text-right" width="110">Precio</th>
+                        <th class="text-right" width="110">Precio + IVA</th>
                         <th class="text-right" width="90">Dto. %</th>
-                        <th class="text-right" width="130">Neto</th>
-                        <th class="text-right" width="115">{#FS_IVA#}</th>
-                        <th class="text-right recargo" width="115">RE %</th>
-                        <th class="text-right irpf" width="115">{#FS_IRPF#} %</th>
-                        <th class="text-right" width="140">Total</th>
+                        <th class="text-right" width="130">Sub Total</th>
+
                      </tr>
                   </thead>
                   <tbody id="lineas_albaran">
@@ -324,7 +321,7 @@
                            {/loop}
                            </select>
                         </td>
-                        <td class="recargo">
+                        <!--<td class="recargo">
                            <input type="text" class="form-control text-right" id="recargo_{$counter}" name="recargo_{$counter}" value="{$value->recargo}"
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
@@ -335,7 +332,7 @@
                         <td>
                            <input type="text" class="form-control text-right" id="total_{$counter}" name="total_{$counter}"
                                   onchange="ajustar_total()" onclick="this.select()" autocomplete="off"/>
-                        </td>
+                        </td>-->
                      </tr>
                      {/loop}
                   </tbody>
