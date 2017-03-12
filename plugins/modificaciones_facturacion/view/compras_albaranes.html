@@ -162,14 +162,7 @@
          <span class="hidden-xs badge">{$fsc->total_pendientes()}</span>
       </a>
    </li>
-   <li{if="$fsc->mostrar=='buscar'"} class="active"{/if}>
-      <a href="{$fsc->url()}&mostrar=buscar" title="Buscar">
-         <span class="glyphicon glyphicon-search"></span>
-         {if="$fsc->num_resultados!==''"}
-         <span class="hidden-xs badge">{$fsc->num_resultados}</span>
-         {/if}
-      </a>
-   </li>
+
 </ul>
 
 {if="$fsc->mostrar=='buscar'"}
