@@ -45,7 +45,7 @@ class ventas_presupuestos extends fs_controller
 
    public function __construct()
    {
-      parent::__construct(__CLASS__, ucfirst(FS_PRESUPUESTOS).' de cliente', 'ventas', FALSE, TRUE, TRUE);
+      parent::__construct(__CLASS__, ucfirst(FS_PRESUPUESTOS).' de ventas', 'ventas', FALSE, TRUE, TRUE);
    }
 
    protected function private_core()

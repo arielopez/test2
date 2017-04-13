@@ -260,7 +260,7 @@
                   <th class="text-left">Referencia + Descripción</th>
                   <th class="text-left">Familia</th>
                   <th class="text-left">Fabricante</th>
-                  <th class="text-right">Precio</th>
+                  <th class="text-right">Precio IVA incluido</th>
                   <th class="text-right">Precio+{#FS_IVA#}</th>
                   <th class="text-right">Stock</th>
                   <th class="text-right"></th>
@@ -285,7 +285,7 @@
                      <a href="index.php?page=ventas_fabricante&cod={$value->codfabricante}" class="cancel_clickable" title="Ver más artículos de este fabricante">[+]</a>
                      {/if}
                   </td>
-                  <td class="text-right"><span title="actualizado el {$value->factualizado}">{$fsc->show_precio($value->pvp)}</span></td>
+                  <td class="text-right"><span title="actualizado el {$value->factualizado}">{$fsc->show_precio($value->precio_con_iva)}</span></td>
                   <td class="text-right"><span title="actualizado el {$value->factualizado}">{$fsc->show_precio($value->pvp_iva())}</span></td>
                   <td class="text-right">
                      {if="$value->nostock"}-{else}{$value->stockfis}{/if}

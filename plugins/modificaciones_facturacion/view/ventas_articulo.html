@@ -365,7 +365,7 @@
                         Precio:
                         <div class="input-group">
                            <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvp" name="pvp" value="{$fsc->articulo->pvp}" autocomplete="off" onkeyup="cambiar_pvp()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="pvp_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off" onkeyup="cambiar_pvp()" onclick="this.select()"/>
                         </div>
                         <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
                      </div>
@@ -386,10 +386,10 @@
                   </div>
                   <div class="col-sm-4">
                      <div class="form-group">
-                        Precio+{#FS_IVA#}:
+                        Precio sin {#FS_IVA#}:
                         <div class="input-group">
                            <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvpi" name="pvpiva" value="{$fsc->articulo->pvp_iva()}" autocomplete="off" onkeyup="cambiar_pvpi()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp" value="{$fsc->articulo->costemedio}" autocomplete="off" onkeyup="cambiar_pvpi()" onclick="this.select()"/>
                         </div>
                      </div>
                   </div>
