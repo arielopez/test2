@@ -186,7 +186,7 @@ class articulo extends fs_model
 
    public function __construct($a=FALSE)
    {
-      parent::__construct('articulos', 'plugins/facturacion_base/');
+      parent::__construct('articulos', 'plugins/modificaciones_facturacion/');
       
       if( !isset(self::$impuestos) )
       {
