@@ -581,6 +581,12 @@ class articulo extends fs_model
       else
          return $coste;
    }
+
+    public function get_precio_sin_iva(){
+        $precio_sin_iva=round($this->precio_con_iva*100/(100+$this->iva),FS_NF0+0);
+
+      return $precio_sin_iva;
+   }
    
    public function imagen_url()
    {
@@ -642,6 +648,16 @@ class articulo extends fs_model
          $this->pvp = round($p, FS_NF0+2);
       }
    }
+
+    public function set_precio_con_iva($p)
+    {
+        if( !$this->floatcmp($this->precio_con_iva, $p, FS_NF0+2) )
+        {
+            $this->pvp_ant = $this->precio_con_iva;
+            $this->factualizado = Date('d-m-Y');
+            $this->precio_con_iva = round($p, FS_NF0+2);
+        }
+    }
    
    public function set_pvp_iva($p)
    {

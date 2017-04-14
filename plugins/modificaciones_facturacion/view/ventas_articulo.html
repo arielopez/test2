@@ -1,5 +1,39 @@
 {include="header_modificado2"}
+<script type="text/javascript">
+   function fun_precio_sin_iva(){
+      var iva=0;
+      var precio_con_iva= parseFloat($("#precio_con_iva").val());
+//      alert("ingresa saldo");
+      var precio_sin_iva=0;
+      iva=parseFloat({$fsc->articulo->get_iva()});
+      if( parseFloat( $("#precio_con_iva").val() ) > 0 )
+      {
+         precio_sin_iva=precio_con_iva*100/(100+iva);
+         $("#pvp_sin_iva").val( show_numero(precio_sin_iva) );
+      }
+      else {
+         $("#pvp_sin_iva").val( show_numero(precio_sin_iva) );
+      }
 
+   }
+</script>
+<script type="text/javascript">
+   $(document).ready(function () {
+
+      $('#b_eliminar').click(function (event) {
+         event.preventDefault();
+
+         if( confirm("¿Estas seguro de que deseas eliminar este articulo?") )
+            alert("hijo de puta");
+            //window.location.href = {$fsc->url()}"/"({$fsc->articulo->referencia})
+      });
+
+   });
+
+
+
+
+</script>
 {if="$fsc->articulo"}
 <script type="text/javascript">
    function cambiar_pvp()
@@ -8,13 +42,13 @@
       var iva = parseFloat( $("#iva").val() );
       var pvp = parseFloat( $("#pvp").val() );
       $("#pvpi").val( pvp * (100 + iva)/100 );
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
    function cambiar_pvpi()
@@ -22,16 +56,16 @@
       var coste = parseFloat( $("#coste").val() );
       var iva = parseFloat( $("#iva").val() );
       var pvpi = parseFloat( $("#pvpi").val() );
-      
+
       var pvp = (100 * pvpi) / (100 + iva);
       $("#pvp").val(pvp);
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
    function cambiar_margen()
@@ -39,7 +73,7 @@
       var iva = parseFloat( $("#iva").val() );
       var coste = parseFloat( $("#coste").val() );
       var margen = parseFloat( $("#margen").val() );
-      
+
       if( !isNaN(margen) && isFinite(margen) )
       {
          var pvp = coste*(100 + margen)/100;
@@ -51,18 +85,18 @@
    {
       var coste = parseFloat( $("#coste").val() );
       var pvp = parseFloat( $("#pvp").val() );
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
    $(document).ready(function() {
       calcular_margen();
-      
+
       if(window.location.hash.substring(1) == 'precios')
       {
          $('#tab_articulo a[href="#precios"]').tab('show');
@@ -71,8 +105,8 @@
       {
          $('#tab_articulo a[href="#stock"]').tab('show');
       }
-      
-      $("#b_eliminar_articulo").click(function(event) {
+
+      $("#b_eliminar").click(function(event) {
          event.preventDefault();
          {if="$fsc->articulo->publico"}
          alert('Este artículo es público. Si estas seguro de que quieres eliminarlo, desmarcalo como público, guarda y pulsa eliminar.');
@@ -126,7 +160,7 @@
       </div>
       <div class="col-xs-2 text-right">
          {if="$fsc->allow_delete"}
-         <a href="#" id="b_eliminar_articulo" class="btn btn-sm btn-danger">
+         <a href="index.php?page=articulos&delete={$fsc->articulo->referencia}" id="b_eliminar" class="btn btn-sm btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
             <span class="hidden-xs">&nbsp; Eliminar</span>
          </a>
@@ -167,13 +201,7 @@
          </a>
       </li>
       {/if}
-      {loop="$fsc->extensions"}
-         {if="$value->type=='tab'"}
-         <li role="presentation">
-            <a href="#ext_{$value->name}" aria-controls="ext_{$value->name}" role="tab" data-toggle="tab">{$value->text}</a>
-         </li>
-         {/if}
-      {/loop}
+
       <li class="dropdown">
          <a class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -365,7 +393,7 @@
                         Precio:
                         <div class="input-group">
                            <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvp_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off" onkeyup="cambiar_pvp()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onchange="fun_precio_sin_iva()" onkeyup="fun_precio_sin_iva()"/>
                         </div>
                         <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
                      </div>
@@ -389,7 +417,7 @@
                         Precio sin {#FS_IVA#}:
                         <div class="input-group">
                            <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp" value="{$fsc->articulo->costemedio}" autocomplete="off" onkeyup="cambiar_pvpi()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp_sin_iva" value="{$fsc->articulo->get_precio_sin_iva()}" autocomplete="off" disabled/>
                         </div>
                      </div>
                   </div>

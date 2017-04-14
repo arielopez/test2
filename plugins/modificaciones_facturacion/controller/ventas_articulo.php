@@ -396,6 +396,7 @@ class ventas_articulo extends fs_controller
          $this->calcular_stock_real();
       }
    }
+
    
    public function get_tarifas()
    {
