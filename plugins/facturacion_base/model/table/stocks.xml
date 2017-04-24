@@ -7,7 +7,7 @@
 <tabla>
    <columna>
       <nombre>referencia</nombre>
-      <tipo>character varying(18)</tipo>
+      <tipo>character varying(25)</tipo>
       <nulo>NO</nulo>
    </columna>
    <columna>

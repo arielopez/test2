@@ -1,11 +1,12 @@
 {include="header_modificado2"}
 <script type="text/javascript">
    function fun_precio_sin_iva(){
-      var iva=0;
+      var iva=10;
       var precio_con_iva= parseFloat($("#precio_con_iva").val());
 //      alert("ingresa saldo");
       var precio_sin_iva=0;
       iva=parseFloat({$fsc->articulo->get_iva()});
+
       if( parseFloat( $("#precio_con_iva").val() ) > 0 )
       {
          precio_sin_iva=precio_con_iva*100/(100+iva);
@@ -230,7 +231,7 @@
                   <div class="col-sm-3">
                      <div class="form-group">
                         Referencia:
-                        <input class="form-control" type="text" name="nreferencia" value="{$fsc->articulo->referencia}" maxlength="18" autocomplete="off"/>
+                        <input class="form-control" type="text" name="nreferencia" value="{$fsc->articulo->referencia}" maxlength="25" autocomplete="off"/>
                      </div>
                      <div class="form-group">
                         Tipo:
@@ -247,7 +248,7 @@
                   <div class="col-sm-9">
                      <div class="form-group">
                         Descripción:
-                        <textarea name="descripcion" class="form-control" rows="4">{$fsc->articulo->descripcion}</textarea>
+                        <textarea name="descripcion" type="text" class="form-control" rows="4">{$fsc->articulo->descripcion}</textarea>
                      </div>
                   </div>
                </div>

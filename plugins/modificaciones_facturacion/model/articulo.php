@@ -30,7 +30,7 @@ require_model('stock.php');
 class articulo extends fs_model
 {
    /**
-    * Clave primaria. Varchar (18).
+    * Clave primaria. Varchar (18)//25.
     * @var type 
     */
    public $referencia;
@@ -119,7 +119,7 @@ class articulo extends fs_model
    public $publico;
    
    /**
-    * Código de equivalencia. Varchar (18).
+    * Código de equivalencia. Varchar (18)//25.
     * Dos artículos o más son equivalentes si tienen el mismo código de equivalencia.
     * @var type 
     */
@@ -673,9 +673,9 @@ class articulo extends fs_model
    public function set_referencia($ref)
    {
       $ref = str_replace(' ', '_', trim($ref));
-      if( is_null($ref) OR strlen($ref) < 1 OR strlen($ref) > 18 )
+      if( is_null($ref) OR strlen($ref) < 1 OR strlen($ref) > 25 )
       {
-         $this->new_error_msg("¡Referencia de artículo no válida! Debe tener entre 1 y 18 caracteres.");
+         $this->new_error_msg("¡Referencia de artículo no válida! Debe tener entre 1 y 25 caracteres.");
       }
       else if( $ref != $this->referencia AND !is_null($this->referencia) )
       {
@@ -905,9 +905,9 @@ class articulo extends fs_model
          $this->controlstock = TRUE;
       }
       
-      if( is_null($this->referencia) OR strlen($this->referencia) < 1 OR strlen($this->referencia) > 18 )
+      if( is_null($this->referencia) OR strlen($this->referencia) < 1 OR strlen($this->referencia) > 25 )
       {
-         $this->new_error_msg("Referencia de artículo no válida: ".$this->referencia.". Debe tener entre 1 y 18 caracteres.");
+         $this->new_error_msg("Referencia de artículo no válida: ".$this->referencia.". Debe tener entre 1 y 25 caracteres.");
       }
       else if( isset($this->equivalencia) AND strlen($this->equivalencia) > 25 )
       {
