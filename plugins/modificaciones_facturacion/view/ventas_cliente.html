@@ -3,6 +3,14 @@
 {if="$fsc->cliente"}
 <script type="text/javascript" src="{$fsc->get_js_location('provincias.js')}"></script>
 <script type="text/javascript">
+   $(function() {
+      $('input.phone').keyup(function() {
+//         alert(this.value);
+         this.value=this.value.replace(/[^\- 0-9.]+/g,'')
+      });
+   });
+</script>
+<script type="text/javascript">
    function comprobar_url()
    {
       if(window.location.hash.substring(1) == 'cuentasb')
@@ -98,6 +106,7 @@
    });
 </script>
 
+
 <div class="container-fluid" style="margin-top: 10px; margin-bottom: 10px;">
    <div class="row">
       <div class="col-sm-3 col-xs-3">
@@ -174,13 +183,13 @@
             <a id="b_generales" href="#" class="list-group-item active" onclick="mostrar_seccion('')">
                <span class="glyphicon glyphicon-dashboard"></span> &nbsp; Datos generales
             </a>
-            <a id="b_cuentasb" href="#cuentasb" class="list-group-item" onclick="mostrar_seccion('cuentasb')">
+            <a id="b_cuentasb" href="#cuentasb" class="list-group-item" onclick="mostrar_seccion('cuentasb')" style="display: none">
                <span class="glyphicon glyphicon-credit-card"></span> &nbsp; Cuentas bancarias
             </a>
             <a id="b_direcciones" href="#direcciones" class="list-group-item" onclick="mostrar_seccion('direcciones')">
                <span class="glyphicon glyphicon-road"></span> &nbsp; Direcciones
             </a>
-            <a id="b_subcuentas" href="#subcuentas" class="list-group-item" onclick="mostrar_seccion('subcuentas')">
+            <a id="b_subcuentas" href="#subcuentas" class="list-group-item" onclick="mostrar_seccion('subcuentas')" style="display: none">
                <span class="glyphicon glyphicon-credit-card"></span> &nbsp; Subcuentas
             </a>
             {loop="$fsc->extensions"}
@@ -213,21 +222,21 @@
                         <div class="col-sm-4">
                            <div class="form-group">
                               Nombre:
-                              <input class="form-control" type="text" name="nombre" value="{$fsc->cliente->nombre}" autocomplete="off"/>
+                              <input class="form-control" type="text" name="nombre" value="{$fsc->cliente->nombre}" autocomplete="off" maxlength="50"/>
                               <p class="help-block">Nombre por el que se conoce al cliente. Para uso interno.</p>
                            </div>
                         </div>
                         <div class="col-sm-5">
                            <div class="form-group">
                               Razón social:
-                              <input class="form-control" type="text" name="razonsocial" value="{$fsc->cliente->razonsocial}" autocomplete="off"/>
+                              <input class="form-control" type="text" name="razonsocial" value="{$fsc->cliente->razonsocial}" autocomplete="off" maxlength="80"/>
                               <p class="help-block">Nombre oficial del cliente, para las facturas y otros documentos.</p>
                            </div>
                         </div>
                         <div class="col-sm-3">
                            <div class="form-group">
                               {#FS_CIFNIF#}:
-                              <input class="form-control" type="text" name="cifnif" value="{$fsc->cliente->cifnif}" autocomplete="off"/>
+                              <input class="form-control" type="text" name="cifnif" value="{$fsc->cliente->cifnif}" autocomplete="off" maxlength="20"/>
                            </div>
                         </div>
                      </div>
@@ -235,31 +244,31 @@
                         <div class="col-sm-2">
                            <div class="form-group">
                               Teléfono 1:
-                              <input class="form-control" type="text" name="telefono1" value="{$fsc->cliente->telefono1}" autocomplete="off"/>
+                              <input class="form-control phone" type="text" name="telefono1" value="{$fsc->cliente->telefono1}" autocomplete="off" maxlength="15"/>
                            </div>
                         </div>
                         <div class="col-sm-2">
                            <div class="form-group">
                               Teléfono 2:
-                              <input class="form-control" type="text" name="telefono2" value="{$fsc->cliente->telefono2}" autocomplete="off"/>
+                              <input class="form-control phone" type="text" name="telefono2" value="{$fsc->cliente->telefono2}" autocomplete="off" maxlength="15"/>
                            </div>
                         </div>
                         <div class="col-sm-2">
                            <div class="form-group">
                               Fax:
-                              <input class="form-control" type="text" name="fax" value="{$fsc->cliente->fax}" autocomplete="off"/>
+                              <input class="form-control phone" type="text" name="fax" value="{$fsc->cliente->fax}" autocomplete="off"  maxlength="15"/>
                            </div>
                         </div>
                         <div class="col-sm-3">
                            <div class="form-group">
                               Email:
-                              <input class="form-personal" type="email" name="email" value="{$fsc->cliente->email}" autocomplete="off"/>
+                              <input class="form-personal" type="email" name="email" value="{$fsc->cliente->email}" autocomplete="off"  maxlength="50"/>
                            </div>
                         </div>
                         <div class="col-sm-3">
                            <div class="form-group">
                               Web:
-                              <input class="form-personal" type="" name="web" value="{$fsc->cliente->web}" autocomplete="off"/>
+                              <input class="form-personal" type="" name="web" value="{$fsc->cliente->web}" autocomplete="off" maxlength="80"/>
                            </div>
                         </div>
                      </div>
@@ -320,10 +329,10 @@
                                  <option value="{$value}"{if="$value==$fsc->cliente->regimeniva"} selected=""{/if}>{$value}</option>
                                  {/loop}
                               </select>
-                              <label>
+                              <label style="visibility: hidden">
                                  <input type="checkbox" name="recargo" value="TRUE"{if="$fsc->cliente->recargo"} checked="checked"{/if}/>
                                  Aplicar recargo de equivalencia
-                              </label>
+                              </label >
                            </div>
                         </div>
                         <div class="col-sm-4">
