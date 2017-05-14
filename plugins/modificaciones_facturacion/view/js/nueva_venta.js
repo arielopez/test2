@@ -144,7 +144,7 @@ function recalcular()
    $("#aiva").html( show_numero(total_iva) );
    $("#are").html( show_numero(total_recargo) );
    $("#airpf").html( show_numero(total_irpf) );
-   $("#atotal").val( neto + total_iva - total_irpf + total_recargo );
+   $("#atotal").val( neto  - total_irpf + total_recargo );
    
    if(total_recargo == 0 && !cliente.recargo)
    {
@@ -330,7 +330,7 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto,cantidad)
       <td><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
          <input type=\"hidden\" name=\"referencia_"+numlineas+"\" value=\""+ref+"\"/>\n\
          <div class=\"form-control\"><a target=\"_blank\" href=\"index.php?page=ventas_articulo&ref="+ref+"\">"+ref+"</a></div></td>\n\
-      <td><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\">"+desc+"</textarea></td>\n\
+      <td><div class=\"form-control\" onclick=\"this.select()\" >"+desc+"</div><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\" style='display: none'>"+desc+"</textarea></td>\n\
       <td><input type=\"number\" step=\"any\" id=\"cantidad_"+numlineas+"\" class=\"form-control text-right\" name=\"cantidad_"+numlineas+
          "\" onchange=\"recalcular()\" onkeyup=\"recalcular()\" autocomplete=\"off\" value=\""+cantidad+"\"/></td>\n\
       <td><button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"$('#linea_"+numlineas+"').remove();recalcular();\">\n\
@@ -339,11 +339,10 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto,cantidad)
          "\" onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\""+dto+
          "\" class=\"form-control text-right\" onkeyup=\"recalcular()\" onchange=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
+         "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
       <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
          "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
-      "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
-         "\" onchange=\"ajustar_total()\" onclick=\"this.select()\" autocomplete=\"off\"/></td></tr>");
+      </tr>");
    numlineas += 1;
    $("#numlineas").val(numlineas);
    recalcular();
@@ -380,10 +379,10 @@ function add_linea_libre()
           onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\"0\" class=\"form-control text-right\"\n\
           onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
-         "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
+      <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
+       "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
+    <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
          "\" onchange=\"ajustar_total()\" onclick=\"this.select()\" autocomplete=\"off\"/></td></tr>");
    numlineas += 1;
    $("#numlineas").val(numlineas);
@@ -430,7 +429,7 @@ function new_articulo()
             $("#kiwimaru_results").hide();
             $("#nuevo_articulo").hide();
             
-            add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].pvp, 0, datos[0].codimpuesto, 1);
+            add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].precio_con_iva, 0, datos[0].codimpuesto, 1);
          }
       });
    }
@@ -484,20 +483,20 @@ function buscar_articulos()
                
                if( val.sevende && (val.stockalm > 0 || val.controlstock) )
                {
-                  var funcion = "add_articulo('"+val.referencia+"','"+descripcion+"','"+val.pvp+"','"
+                  var funcion = "add_articulo('"+val.referencia+"','"+descripcion+"','"+val.precio_con_iva+"','"
                           +val.dtopor+"','"+val.codimpuesto+"','"+val.cantidad+"')";
                   
                   if(val.tipo)
                   {
                      funcion = "add_articulo_"+val.tipo+"('"+val.referencia+"','"+descripcion+"','"
-                             +val.pvp+"','"+val.dtopor+"','"+val.codimpuesto+"','"+val.cantidad+"')";
+                             +val.precio_con_iva+"','"+val.dtopor+"','"+val.codimpuesto+"','"+val.cantidad+"')";
                   }
                   
                   items.push(tr_aux+"<td><a href=\"#\" onclick=\"get_precios('"+val.referencia+"')\" title=\"más detalles\">\n\
                      <span class=\"glyphicon glyphicon-eye-open\"></span></a>\n\
                      &nbsp; <a href=\"#\" onclick=\"return "+funcion+"\">"+val.referencia+'</a> '+val.descripcion+"</td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_precio(val.pvp*(100-val.dtopor)/100)+"</a></td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_pvp_iva(val.pvp*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
+                     <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_precio(val.precio_con_iva*(100-val.dtopor)/100)+"</a></td>\n\
+                     <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_pvp_iva(val.precio_con_iva*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
                      <td class=\"text-right\">"+stock+"</td></tr>");
                }
                else if(val.sevende)
@@ -505,8 +504,8 @@ function buscar_articulos()
                   items.push(tr_aux+"<td><a href=\"#\" onclick=\"get_precios('"+val.referencia+"')\" title=\"más detalles\">\n\
                      <span class=\"glyphicon glyphicon-eye-open\"></span></a>\n\
                      &nbsp; <a href=\"#\" onclick=\"alert('Sin stock.')\">"+val.referencia+'</a> '+val.descripcion+"</td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"alert('Sin stock.')\">"+show_precio(val.pvp*(100-val.dtopor)/100)+"</a></td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"alert('Sin stock.')\">"+show_pvp_iva(val.pvp*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
+                     <td class=\"text-right\"><a href=\"#\" onclick=\"alert('Sin stock.')\">"+show_precio(val.precio_con_iva*(100-val.dtopor)/100)+"</a></td>\n\
+                     <td class=\"text-right\"><a href=\"#\" onclick=\"alert('Sin stock.')\">"+show_pvp_iva(val.precio_con_iva*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
                      <td class=\"text-right\">"+stock+"</td></tr>");
                }
                
@@ -528,7 +527,7 @@ function buscar_articulos()
             if(insertar)
             {
                $("#search_results").html("<div class=\"table-responsive\"><table class=\"table table-hover\"><thead><tr>\n\
-                  <th class=\"text-left\">Referencia + descripción</th><th class=\"text-right\">Precio</th>\n\
+                  <th class=\"text-left\">Referencia + descripción</th><th class=\"text-right\">Precio con IVA</th>\n\
                   <th class=\"text-right\">Precio+IVA</th><th class=\"text-right\">Stock</th></tr></thead>"
                        +items.join('')+"</table></div>");
             }

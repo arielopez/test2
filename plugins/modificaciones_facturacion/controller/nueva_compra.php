@@ -263,7 +263,7 @@ class nueva_compra extends fs_controller
         /// completamos los datos
         foreach ($this->results as $i => $value) {
             $this->results[$i]->query = $this->query;
-            $this->results[$i]->coste = $value->preciocoste();
+            $this->results[$i]->coste = $value->get_precio_con_iva();
             $this->results[$i]->dtopor = 0;
 
             if (isset($_REQUEST['codproveedor'])) {

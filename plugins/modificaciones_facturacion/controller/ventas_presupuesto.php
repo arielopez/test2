@@ -336,7 +336,7 @@ class ventas_presupuesto extends fs_controller {
                         $lineas[$k]->dtopor = floatval($_POST['dto_' . $num]);
                         $lineas[$k]->pvpsindto = ($value->cantidad * $value->pvpunitario);
                         $lineas[$k]->pvptotal = ($value->cantidad * $value->pvpunitario * (100 - $value->dtopor) / 100);
-                        $lineas[$k]->descripcion = $_POST['desc_' . $num];
+//                        $lineas[$k]->descripcion = $_POST['desc_' . $num];
 
                         $lineas[$k]->codimpuesto = NULL;
                         $lineas[$k]->iva = 0;

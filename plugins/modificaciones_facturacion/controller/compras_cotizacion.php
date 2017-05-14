@@ -279,7 +279,7 @@ class compras_cotizacion extends fs_controller
                         $lineas[$k]->codimpuesto = NULL;
                         $lineas[$k]->iva = 0;
                         $lineas[$k]->recargo = 0;
-                        $lineas[$k]->irpf = floatval($_POST['irpf_'.$num]);
+                        $lineas[$k]->irpf = floatval(0);
                         if( !$serie->siniva AND $proveedor->regimeniva != 'Exento' )
                         {
                            $imp0 = $this->impuesto->get_by_iva($_POST['iva_'.$num]);
@@ -287,7 +287,7 @@ class compras_cotizacion extends fs_controller
                               $lineas[$k]->codimpuesto = $imp0->codimpuesto;
                            
                            $lineas[$k]->iva = floatval($_POST['iva_'.$num]);
-                           $lineas[$k]->recargo = floatval($_POST['recargo_'.$num]);
+                           $lineas[$k]->recargo = floatval(0);
                         }
                         
                         if( $lineas[$k]->save() )
@@ -325,10 +325,10 @@ class compras_cotizacion extends fs_controller
                            $linea->codimpuesto = $imp0->codimpuesto;
                         
                         $linea->iva = floatval($_POST['iva_'.$num]);
-                        $linea->recargo = floatval($_POST['recargo_'.$num]);
+                        $linea->recargo = floatval(0);
                      }
                      
-                     $linea->irpf = floatval($_POST['irpf_'.$num]);
+                     $linea->irpf = floatval(0);
                      $linea->cantidad = floatval($_POST['cantidad_'.$num]);
                      $linea->pvpunitario = floatval($_POST['pvp_'.$num]);
                      $linea->dtopor = floatval($_POST['dto_'.$num]);

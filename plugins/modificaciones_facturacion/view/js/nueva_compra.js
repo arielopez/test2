@@ -112,10 +112,19 @@ function recalcular()
    {
       if($("#linea_"+i).length > 0)
       {
+
+
          l_uds = parseFloat( $("#cantidad_"+i).val() );
          l_pvp = parseFloat( $("#pvp_"+i).val() );
          l_dto = parseFloat( $("#dto_"+i).val() );
-         l_neto = l_uds*l_pvp*(100-l_dto)/100;
+         if(l_uds.valueOf()){
+
+            l_neto = l_uds*l_pvp*(100-l_dto)/100;
+         }
+         else {
+            l_neto=0;
+            l_uds=0;
+         }
          l_iva = parseFloat( $("#iva_"+i).val() );
          l_irpf = parseFloat( $("#irpf_"+i).val() );
          
@@ -324,11 +333,7 @@ function aux_all_impuestos(num,codimpuesto)
    }
    html += "</select></td>";
    
-   html += "<td class=\"recargo\"><input type=\"text\" class=\"form-control text-right\" id=\"recargo_"+num+"\" name=\"recargo_"+num+
-         "\" value=\""+recargo+"\" onclick=\"this.select()\" onkeyup=\"recalcular()\" autocomplete=\"off\"/></td>";
-   
-   html += "<td class=\"irpf\"><input type=\"text\" class=\"form-control text-right\" id=\"irpf_"+num+"\" name=\"irpf_"+num+
-         "\" value=\""+irpf+"\" onclick=\"this.select()\" onkeyup=\"recalcular()\" autocomplete=\"off\"/></td>";
+
    
    return html;
 }
@@ -352,8 +357,7 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto)
       <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
          "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
-         "\" onchange=\"ajustar_total()\" onclick=\"this.select()\" autocomplete=\"off\"/></td></tr>");
+      </tr>");
    numlineas += 1;
    $("#numlineas").val(numlineas);
    recalcular();
@@ -455,11 +459,11 @@ function new_articulo()
                
                if(precio_compra == 'coste')
                {
-                  add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].coste, 0, datos[0].codimpuesto);
+                  add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].pvp_ivaincluido, 0, datos[0].codimpuesto);
                }
                else
                {
-                  add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].pvp, 0, datos[0].codimpuesto);
+                  add_articulo(datos[0].referencia, Base64.encode(datos[0].descripcion), datos[0].pvp_ivaincluido, 0, datos[0].codimpuesto);
                }
             }
          }
@@ -519,14 +523,14 @@ function buscar_articulos()
                   items.push(tr_aux+"<td><a href=\"#\" onclick=\"get_precios('"+val.referencia+"')\" title=\"más detalles\">\n\
                      <span class=\"glyphicon glyphicon-eye-open\"></span></a>\n\
                      &nbsp; <a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+precio+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
+                          +val.referencia+"','"+descripcion+"','"+val.precio_con_iva+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
                           +val.referencia+'</a> '+val.descripcion+"</td>\n\
                      <td class=\"text-right\"><a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+val.coste+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
+                          +val.referencia+"','"+descripcion+"','"+val.pvp_ivaincluido+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
                           +show_precio(val.coste)+"</a></td>\n\
                      <td class=\"text-right\"><a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+val.pvp+"','0','"+val.codimpuesto+"')\">"
-                          +show_precio(val.pvp)+"</a></td>\n\
+                          +val.referencia+"','"+descripcion+"','"+val.pvp_ivaincluido+"','0','"+val.codimpuesto+"')\">"
+                          +show_precio(val.pvp_ivaincluido)+"</a></td>\n\
                      <td class=\"text-right\">"+val.stockfis+"</td></tr>");
                }
                
@@ -548,8 +552,8 @@ function buscar_articulos()
             if(insertar)
             {
                $("#search_results").html("<div class=\"table-responsive\"><table class=\"table table-hover\"><thead><tr>\n\
-                  <th class=\"text-left\">Referencia + descripción</th><th class=\"text-right\">Coste</th>\n\
-                  <th class=\"text-right\">Precio</th><th class=\"text-right\">Stock</th></tr></thead>"
+                  <th class=\"text-left\">Referencia + descripción</th><th class=\"text-right\">Precio c/ IVA \"Anterior\"</th>\n\
+                  <th class=\"text-right\">Stock</th></tr></thead>"
                        +items.join('')+"</table></div>");
             }
          });

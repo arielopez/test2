@@ -46,7 +46,7 @@ class ventas_pedidos extends fs_controller
 
    public function __construct()
    {
-      parent::__construct(__CLASS__, ucfirst(FS_PEDIDOS) , 'ventas');
+      parent::__construct(__CLASS__, "Ordenes de ventas" , 'ventas');
       $stringSql="UPDATE fs_pages SET orden_importancia = '5' WHERE fs_pages.name = 'ventas_facturas'";
       $this->db->exec($stringSql);
       $stringSql="UPDATE fs_pages SET orden_importancia = '4' WHERE fs_pages.name = 'ventas_albaranes'";

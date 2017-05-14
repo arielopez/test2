@@ -35,6 +35,22 @@
 
 
 </script>
+
+<script type="text/javascript">
+    function cambiar_margen()
+    {
+        var iva = parseFloat( $("#iva").val() );
+        var coste = parseFloat( $("#coste").val() );
+        var margen = parseFloat( $("#margen").val() );
+
+        if( !isNaN(margen) && isFinite(margen) )
+        {
+            var pvp = coste*(100 + margen)/100;
+            $("#precio_con_iva").val(pvp);
+//         $("#precio_con_ivai").val( pvp * (100 + iva)/100 );
+        }
+    }
+</script>
 {if="$fsc->articulo"}
 <script type="text/javascript">
    function cambiar_pvp()
@@ -69,19 +85,7 @@
 
       $("#margen").val(margen);
    }
-   function cambiar_margen()
-   {
-      var iva = parseFloat( $("#iva").val() );
-      var coste = parseFloat( $("#coste").val() );
-      var margen = parseFloat( $("#margen").val() );
 
-      if( !isNaN(margen) && isFinite(margen) )
-      {
-         var pvp = coste*(100 + margen)/100;
-         $("#pvp").val(pvp);
-         $("#pvpi").val( pvp * (100 + iva)/100 );
-      }
-   }
    function calcular_margen()
    {
       var coste = parseFloat( $("#coste").val() );
@@ -388,49 +392,21 @@
             <input type="hidden" name="referencia" value="{$fsc->articulo->referencia}"/>
             <input type="hidden" id="iva" name="iva" value="{$fsc->articulo->get_iva()}"/>
             <div class="container-fluid" style="margin-top: 10px;">
+
                <div class="row">
                   <div class="col-sm-4">
                      <div class="form-group">
-                        Precio:
-                        <div class="input-group">
-                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onchange="fun_precio_sin_iva()" onkeyup="fun_precio_sin_iva()"/>
-                        </div>
-                        <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
-                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        <a href="{$fsc->impuesto->url()}">{#FS_IVA#}</a>:
-                        <select class="form-control" name="codimpuesto" onchange="this.form.submit()">
-                        {loop="$fsc->impuesto->all()"}
-                           {if="$value->codimpuesto==$fsc->articulo->codimpuesto"}
-                           <option value="{$value->codimpuesto}" selected="">{$value->descripcion}</option>
-                           {else}
-                           <option value="{$value->codimpuesto}">{$value->descripcion}</option>
-                           {/if}
-                        {/loop}
-                        </select>
-                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        Precio sin {#FS_IVA#}:
-                        <div class="input-group">
-                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp_sin_iva" value="{$fsc->articulo->get_precio_sin_iva()}" autocomplete="off" disabled/>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        Precio de Coste:
+                        Precio de Compra:
                         {if="$fsc->articulo->secompra AND FS_COST_IS_AVERAGE"}
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
                         <input type="text" name="coste" id="coste" class="form-control" value="{$fsc->articulo->preciocoste()}" disabled="disabled">
+                        </div>
                         {else}
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
                         <input type="text" name="preciocoste" id="coste" class="form-control" value="{$fsc->articulo->preciocoste()}" onclick="this.select()" autocomplete="off">
+                          </div>
                         {/if}
                         <p class="help-block">
                            Puede cambiar la configuración de precio de coste desde
@@ -443,7 +419,7 @@
                         Margen sobre precio de coste
                         <div class="input-group">
                            <span class="input-group-addon">%</span>
-                           <input type="text" class="form-control" id="margen" name="margen" value="0" autocomplete="off" onkeyup="cambiar_margen()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="margen" name="margen" value="0" autocomplete="off"  onkeyup="cambiar_margen()" onchange="fun_precio_sin_iva()" onclick="this.select()" />
                         </div>
                         <p class="help-block">Sirve para calcular el Precio, pero no se almacena (todavía).</p>
                      </div>
@@ -454,6 +430,41 @@
                         <span class="glyphicon glyphicon-floppy-disk"></span> &nbsp; Guardar
                      </button>
                      <div class="visible-xs"><br/></div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        Precio venta IVA incluido:
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
+                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onchange="fun_precio_sin_iva()" onkeyup="fun_precio_sin_iva()"/>
+                        </div>
+                        <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        <a href="{$fsc->impuesto->url()}">{#FS_IVA#}</a>:
+                        <select class="form-control" name="codimpuesto" onchange="this.form.submit()">
+                           {loop="$fsc->impuesto->all()"}
+                           {if="$value->codimpuesto==$fsc->articulo->codimpuesto"}
+                           <option value="{$value->codimpuesto}" selected="">{$value->descripcion}</option>
+                           {else}
+                           <option value="{$value->codimpuesto}">{$value->descripcion}</option>
+                           {/if}
+                           {/loop}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        Precio sin {#FS_IVA#}:
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
+                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp_sin_iva" value="{$fsc->articulo->get_precio_sin_iva()}" autocomplete="off" disabled/>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>

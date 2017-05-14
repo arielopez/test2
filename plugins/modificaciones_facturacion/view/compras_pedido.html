@@ -642,14 +642,14 @@
                   <div class="row">
                      <div class="col-sm-4">
                         <div class="form-group">
-                           Precio compra:
-                           <input type="text" name="coste" value="0" class="form-control" autocomplete="off"/>
+                           <!--Precio compra:-->
+                           <input type="text" name="coste" value="0" class="form-control" autocomplete="off" style="visibility: hidden"/>
                         </div>
                      </div>
                      <div class="col-sm-4">
                         <div class="form-group">
-                           Precio venta:
-                           <input type="text" name="pvp" value="0" class="form-control" autocomplete="off"/>
+                           <!--Precio venta:-->
+                           <input type="text" name="pvp" value="0" class="form-control" autocomplete="off" style="visibility: hidden"/>
                            <div class="checkbox-inline" style="visibility: hidden;">
                               <label>
                                  <input type="checkbox" name="publico" value="TRUE"/> Público
@@ -712,7 +712,7 @@
                {loop="$fsc->extensions"}
                   {if="$value->type=='email'"}
                   <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.action='index.php?page={$value->from}{$value->params}&id={$fsc->pedido->idpedido}';this.form.submit();">
-                     <span class="glyphicon glyphicon-send"></span> &nbsp; {$value->text}
+                     <span class="glyphicon glyphicon-send"></span> &nbsp; Enviar
                   </button>
                   {/if}
                {/loop}

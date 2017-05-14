@@ -84,6 +84,12 @@
         <defecto>0</defecto>
     </columna>
     <columna>
+        <nombre>pvp_ivaincluido</nombre>
+        <tipo>double</tipo>
+        <nulo>YES</nulo>
+        <defecto>0</defecto>
+    </columna>
+    <columna>
         <nombre>recargo</nombre>
         <tipo>double</tipo>
         <nulo>YES</nulo>

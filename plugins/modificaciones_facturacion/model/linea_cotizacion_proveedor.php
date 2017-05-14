@@ -1,3 +1,4 @@
+
 <?php
 /*
  * This file is part of FacturaSctipts
@@ -92,6 +93,7 @@ class linea_cotizacion_proveedor extends fs_model
     * @var type 
     */
    public $pvpunitario;
+   public $pvp_ivaincluido;
    
    /**
     * % de IRPF de la línea.
@@ -132,6 +134,7 @@ class linea_cotizacion_proveedor extends fs_model
          $this->pvptotal = floatval($l['pvptotal']);
          $this->pvpsindto = floatval($l['pvpsindto']);
          $this->pvpunitario = floatval($l['pvpunitario']);
+         $this->pvp_ivaincluido = floatval($l['pvp_ivaincluido']);
          $this->irpf = floatval($l['irpf']);
          $this->recargo = floatval($l['recargo']);
       }
@@ -150,6 +153,7 @@ class linea_cotizacion_proveedor extends fs_model
          $this->pvptotal = 0;
          $this->pvpsindto = 0;
          $this->pvpunitario = 0;
+         $this->pvp_ivaincluido = 0;
          $this->irpf = 0;
          $this->recargo = 0;
       }
@@ -302,6 +306,7 @@ class linea_cotizacion_proveedor extends fs_model
                     .", pvptotal = ".$this->var2str($this->pvptotal)
                     .", pvpsindto = ".$this->var2str($this->pvpsindto)
                     .", pvpunitario = ".$this->var2str($this->pvpunitario)
+                    .", pvp_ivaincluido = ".$this->var2str($this->pvp_ivaincluido)
                     .", irpf = ".$this->var2str($this->irpf)
                     .", recargo = ".$this->var2str($this->recargo)
                     ."  WHERE idlinea = ".$this->var2str($this->idlinea).";";
@@ -311,7 +316,7 @@ class linea_cotizacion_proveedor extends fs_model
          else
          {
             $sql = "INSERT INTO ".$this->table_name." (idlineapedido,idcotizacion,idpedido,referencia,descripcion,
-               cantidad,dtopor,codimpuesto,iva,pvptotal,pvpsindto,pvpunitario,irpf,recargo) VALUES
+               cantidad,dtopor,codimpuesto,iva,pvptotal,pvpsindto,pvpunitario,pvp_ivaincluido, irpf,recargo) VALUES
                      (".$this->var2str($this->idlineapedido).
                     ",".$this->var2str($this->idcotizacion).
                     ",".$this->var2str($this->idpedido).
@@ -324,6 +329,7 @@ class linea_cotizacion_proveedor extends fs_model
                     ",".$this->var2str($this->pvptotal).
                     ",".$this->var2str($this->pvpsindto).
                     ",".$this->var2str($this->pvpunitario).
+                    ",".$this->var2str($this->pvp_ivaincluido).
                     ",".$this->var2str($this->irpf).
                     ",".$this->var2str($this->recargo).");";
             
