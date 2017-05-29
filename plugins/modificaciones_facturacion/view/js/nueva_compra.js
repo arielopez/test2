@@ -94,6 +94,51 @@ function usar_serie()
    }
 }
 
+/*
+* funcion para habilitar descuentos
+* */
+function destoEvent(){
+   if(document.getElementById("destoEnabled").checked){
+      document.getElementById("descuento").disabled = false;
+      $("#descuento").val(0);
+      for(var i=0; i<numlineas; i++)
+      {
+         if($("#linea_"+i).length > 0) {
+            $("#dto_" + i).val(0);
+            document.getElementById("dto_" + i).disabled = true;
+         }
+      }
+      recalcular();
+      $("#descuento").val('');
+      document.getElementById("descuento").focus();
+   }
+   else{
+      document.getElementById("descuento").disabled = true;
+      $("#descuento").val(0);
+      for(var i=0; i<numlineas; i++)
+      {
+         if($("#linea_"+i).length > 0) {
+            document.getElementById("dto_" + i).disabled = false;
+         }
+      }
+      recalcular();
+   }
+   //alert("hijo de puta");
+}
+
+function total_con_descuento(){
+
+   var neto = 0;
+   var total_dto= 0;
+
+   neto=document.getElementById("aneto").innerHTML.replace('.','');
+   total_dto=$("#descuento").val();
+   if(total_dto<0 || !total_dto.valueOf()){
+      total_dto=0;
+   }
+   //alert(neto+' total '+total_dto);
+   $("#aneto2").html( show_numero(neto-total_dto) );
+}
 function recalcular()
 {
    var l_uds = 0;
@@ -104,10 +149,17 @@ function recalcular()
    var l_irpf = 0;
    var l_recargo = 0;
    var neto = 0;
+   var l_neto_desto=0;
    var total_iva = 0;
    var total_irpf = 0;
    var total_recargo = 0;
-   
+   var l_descuento = 0;
+   var total_dto= 0;
+
+   $('.numeric').keyup(function() {
+      this.value = this.value.replace(/\D/g, '');
+   });
+
    for(var i=0; i<numlineas; i++)
    {
       if($("#linea_"+i).length > 0)
@@ -117,9 +169,16 @@ function recalcular()
          l_uds = parseFloat( $("#cantidad_"+i).val() );
          l_pvp = parseFloat( $("#pvp_"+i).val() );
          l_dto = parseFloat( $("#dto_"+i).val() );
+
+         if(l_dto<0 || !l_dto.valueOf()){
+            l_dto=0;
+         }
+
          if(l_uds.valueOf()){
 
-            l_neto = l_uds*l_pvp*(100-l_dto)/100;
+            l_neto = l_uds*l_pvp; // *(100-l_dto)/100;
+            l_neto_desto=l_uds*l_pvp*(100-l_dto)/100
+            l_descuento=l_neto-l_neto_desto;
          }
          else {
             l_neto=0;
@@ -139,6 +198,7 @@ function recalcular()
          }
          
          $("#neto_"+i).val( l_neto );
+         $("#div_neto_"+i).html( show_numero(l_neto) );
          if(numlineas == 1)
          {
             $("#total_"+i).val( fs_round(l_neto, fs_nf0) + fs_round(l_neto*(l_iva-l_irpf+l_recargo)/100, fs_nf0) );
@@ -149,7 +209,8 @@ function recalcular()
          }
          
          neto += l_neto;
-         total_iva += l_neto * l_iva/100;
+         total_dto+=l_descuento;
+         total_iva += (l_neto_desto*l_iva)/(100 + l_iva);
          total_irpf += l_neto * l_irpf/100;
          total_recargo += l_neto * l_recargo/100;
       }
@@ -160,7 +221,9 @@ function recalcular()
    total_irpf = fs_round(total_irpf, fs_nf0);
    total_recargo = fs_round(total_recargo, fs_nf0);
    $("#aneto").html( show_numero(neto) );
+   $("#descuento").val(total_dto);
    $("#aiva").html( show_numero(total_iva) );
+   $("#aneto2").html( show_numero(neto-total_dto) );
    $("#are").html( show_numero(total_recargo) );
    $("#airpf").html( show_numero(total_irpf) );
    $("#atotal").val( neto + total_iva - total_irpf + total_recargo );
@@ -171,7 +234,7 @@ function recalcular()
    }
    else
    {
-      $(".recargo").show();
+      $(".recargo").hide();
    }
    
    if(total_irpf == 0 && irpf == 0)
@@ -345,19 +408,20 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto)
       <td><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
          <input type=\"hidden\" name=\"referencia_"+numlineas+"\" value=\""+ref+"\"/>\n\
          <div class=\"form-control\"><a target=\"_blank\" href=\"index.php?page=ventas_articulo&ref="+ref+"\">"+ref+"</a></div></td>\n\
-      <td><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\">"+desc+"</textarea></td>\n\
-      <td><input type=\"number\" step=\"any\" id=\"cantidad_"+numlineas+"\" class=\"form-control text-right\" name=\"cantidad_"+numlineas+
-         "\" onchange=\"recalcular()\" onkeyup=\"recalcular()\" autocomplete=\"off\" value=\"1\"/></td>\n\
+      <td colspan='3'><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\">"+desc+"</textarea></td>\n\
+      <td><input type=\"number\" step=\"any\" id=\"cantidad_"+numlineas+"\" class=\"form-control text-right numeric\" name=\"cantidad_"+numlineas+
+         "\" onchange=\"recalcular()\" onkeyup=\"recalcular()\" autocomplete=\"off\" value=\"\" /></td>\n\
       <td><button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"$('#linea_"+numlineas+"').remove();recalcular();\">\n\
          <span class=\"glyphicon glyphicon-trash\"></span></button></td>\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"pvp_"+numlineas+"\" name=\"pvp_"+numlineas+"\" value=\""+pvp+
+      <td><input type=\"text\" class=\"form-control text-right  numeric\" id=\"pvp_"+numlineas+"\" name=\"pvp_"+numlineas+"\" value=\""+pvp+
          "\" onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\""+dto+
-         "\" class=\"form-control text-right\" onkeyup=\"recalcular()\" onchange=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
-         "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
+         "\" class=\"form-control text-right numeric\" onkeyup=\"recalcular()\" onchange=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
-      </tr>");
+      <td><input type=\"text\" class=\"form-control text-right numeric\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
+       "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\" style='display: none'>\n\
+       <div class='form-control text-right' id=\"div_neto_"+numlineas+"\"></div></td>\n\
+    </tr>");
    numlineas += 1;
    $("#numlineas").val(numlineas);
    recalcular();
@@ -368,7 +432,7 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto)
    $("#nuevo_articulo").hide();
    $("#modal_articulos").modal('hide');
    
-   $("#desc_"+(numlineas-1)).select();
+   $("#cantidad_"+(numlineas-1)).select();
    return false;
 }
 
@@ -385,7 +449,7 @@ function add_linea_libre()
       <td><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
          <input type=\"hidden\" name=\"referencia_"+numlineas+"\"/>\n\
          <div class=\"form-control\"></div></td>\n\
-      <td><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\"></textarea></td>\n\
+      <td colspan='3'><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\"></textarea></td>\n\
       <td><input type=\"number\" step=\"any\" id=\"cantidad_"+numlineas+"\" class=\"form-control text-right\" name=\"cantidad_"+numlineas+
          "\" onchange=\"recalcular()\" onkeyup=\"recalcular()\" autocomplete=\"off\" value=\"1\"/></td>\n\
       <td><button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"$('#linea_"+numlineas+"').remove();recalcular();\">\n\
@@ -394,10 +458,10 @@ function add_linea_libre()
           onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\"0\" class=\"form-control text-right\"\n\
           onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
-         "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
-      <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
+      <td><input type=\"text\" class=\"form-control text-right\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+
+       "\" onchange=\"ajustar_neto()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
+    <td><input type=\"text\" class=\"form-control text-right\" id=\"total_"+numlineas+"\" name=\"total_"+numlineas+
          "\" onchange=\"ajustar_total()\" onclick=\"this.select()\" autocomplete=\"off\"/></td></tr>");
    numlineas += 1;
    $("#numlineas").val(numlineas);
@@ -523,14 +587,11 @@ function buscar_articulos()
                   items.push(tr_aux+"<td><a href=\"#\" onclick=\"get_precios('"+val.referencia+"')\" title=\"más detalles\">\n\
                      <span class=\"glyphicon glyphicon-eye-open\"></span></a>\n\
                      &nbsp; <a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+val.precio_con_iva+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
+                          +val.referencia+"','"+descripcion+"','"+val.preciocoste+"','"+val.dtopor+"','"+val.codimpuesto+"')\" tabindex='2'>"
                           +val.referencia+'</a> '+val.descripcion+"</td>\n\
                      <td class=\"text-right\"><a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+val.pvp_ivaincluido+"','"+val.dtopor+"','"+val.codimpuesto+"')\">"
-                          +show_precio(val.coste)+"</a></td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"return add_articulo('"
-                          +val.referencia+"','"+descripcion+"','"+val.pvp_ivaincluido+"','0','"+val.codimpuesto+"')\">"
-                          +show_precio(val.pvp_ivaincluido)+"</a></td>\n\
+                          +val.referencia+"','"+descripcion+"','"+val.preciocoste+"','0','"+val.codimpuesto+"')\">"
+                          +show_precio(val.preciocoste)+"</a></td>\n\
                      <td class=\"text-right\">"+val.stockfis+"</td></tr>");
                }
                

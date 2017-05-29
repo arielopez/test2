@@ -85,6 +85,12 @@
       <defecto>0</defecto>
    </columna>
    <columna>
+      <nombre>margen_calculado</nombre>
+      <tipo>integer</tipo>
+      <nulo>YES</nulo>
+      <defecto>NULL</defecto>
+   </columna>
+   <columna>
       <nombre>tipocodbarras</nombre>
       <tipo>character varying(8)</tipo>
       <nulo>YES</nulo>

@@ -194,6 +194,10 @@ class ventas_articulo extends fs_controller
          {
             $this->articulo->precio_con_iva = floatval($_POST['precio_con_iva']);
          }
+         if($_POST['margen'] != '' && intval($_POST['margen']))
+         {
+            $this->articulo->margen_calculado= intval($_POST['margen']);
+         }
          if( isset($_POST['preciocoste']) )
          {
             $this->articulo->costemedio = $this->articulo->preciocoste = floatval($_POST['preciocoste']);

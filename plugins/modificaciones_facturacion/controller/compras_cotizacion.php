@@ -367,11 +367,11 @@ class compras_cotizacion extends fs_controller
             $this->cotizacion->totalrecargo = round($this->cotizacion->totalrecargo, FS_NF0);
             $this->cotizacion->total = $this->cotizacion->neto + $this->cotizacion->totaliva - $this->cotizacion->totalirpf + $this->cotizacion->totalrecargo;
             
-            if( abs(floatval($_POST['atotal']) - $this->cotizacion->total) >= .02 )
-            {
-               $this->new_error_msg("El total difiere entre el controlador y la vista (".$this->cotizacion->total.
-                       " frente a ".$_POST['atotal']."). Debes informar del error.");
-            }
+//            if( abs(floatval($_POST['atotal']) - $this->cotizacion->total) >= .02 )
+//            {
+//               $this->new_error_msg("El total difiere entre el controlador y la vista (".$this->cotizacion->total.
+//                       " frente a ".$_POST['atotal']."). Debes informar del error.");
+//            }
          }
       }
       

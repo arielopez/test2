@@ -98,6 +98,13 @@ class articulo extends fs_model
     * Precio venta al  publico mas iva incluido
     */
    public $precio_con_iva;
+
+
+
+   /**
+    * Margen de ganancia sobre el costo
+    * */
+   public $margen_calculado;
    /**
     * Impuesto asignado. Clase impuesto.
     * @var type 
@@ -196,7 +203,7 @@ class articulo extends fs_model
       if( !isset(self::$column_list) )
       {
          self::$column_list = 'referencia,codfamilia,codfabricante,descripcion,pvp,factualizado,costemedio,'.
-                 'preciocoste,precio_con_iva,codimpuesto,stockfis,stockmin,stockmax,controlstock,nostock,bloqueado,'.
+                 'preciocoste,precio_con_iva,margen_calculado,codimpuesto,stockfis,stockmin,stockmax,controlstock,nostock,bloqueado,'.
                  'secompra,sevende,equivalencia,codbarras,observaciones,imagen,publico,tipo,'.
                  'codsubcuentacom,codsubcuentairpfcom';
       }
@@ -213,6 +220,7 @@ class articulo extends fs_model
          $this->costemedio = floatval($a['costemedio']);
          $this->preciocoste = floatval($a['preciocoste']);
          $this->precio_con_iva=floatval($a['precio_con_iva']);
+         $this->margen_calculado=intval($a['margen_calculado']);
          $this->codimpuesto = $a['codimpuesto'];
          $this->stockfis = floatval($a['stockfis']);
          $this->stockmin = floatval($a['stockmin']);
@@ -297,6 +305,7 @@ class articulo extends fs_model
          $this->costemedio = 0;
          $this->preciocoste = 0;
          $this->precio_con_iva=0;
+         $this->margen_calculado=0;
          $this->codimpuesto = NULL;
          $this->stockfis = 0;
          $this->stockmin = 0;
@@ -940,6 +949,7 @@ class articulo extends fs_model
                     ", costemedio = ".$this->var2str($this->costemedio).
                     ", preciocoste = ".$this->var2str($this->preciocoste).
                     ", precio_con_iva = ".$this->var2str($this->precio_con_iva).
+                    ", margen_calculado = ".$this->var2str($this->margen_calculado).
                     ", codimpuesto = ".$this->var2str($this->codimpuesto).
                     ", stockfis = ".$this->var2str($this->stockfis).
                     ", stockmin = ".$this->var2str($this->stockmin).
@@ -979,6 +989,7 @@ class articulo extends fs_model
                     $this->var2str($this->costemedio).",".
                     $this->var2str($this->preciocoste).",".
                     $this->var2str($this->precio_con_iva).",".
+                    $this->var2str($this->margen_calculado).",".
                     $this->var2str($this->codimpuesto).",".
                     $this->var2str($this->stockfis).",".
                     $this->var2str($this->stockmin).",".

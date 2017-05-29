@@ -49,7 +49,28 @@
             $("#precio_con_iva").val(pvp);
 //         $("#precio_con_ivai").val( pvp * (100 + iva)/100 );
         }
+       fun_precio_sin_iva();
     }
+
+    function cambiar_margen2()
+    {
+       var iva = parseFloat( $("#iva").val() );
+       var coste = parseFloat( $("#coste").val() );
+       var margen = parseFloat( $("#margen").val() );
+       var precio_con_iva = parseFloat( $("#precio_con_iva").val() );
+//         alert("jodeputa");
+       if( !isNaN(precio_con_iva) && isFinite(precio_con_iva) )
+       {
+          var margen = (precio_con_iva*100)/coste - 100;
+          $("#margen").val(margen.toFixed(2));
+//         $("#precio_con_ivai").val( pvp * (100 + iva)/100 );
+       }
+    }
+
+   function cambia(){
+      cambiar_margen2();
+      fun_precio_sin_iva();
+   }
 </script>
 {if="$fsc->articulo"}
 <script type="text/javascript">
@@ -419,7 +440,7 @@
                         Margen sobre precio de coste
                         <div class="input-group">
                            <span class="input-group-addon">%</span>
-                           <input type="text" class="form-control" id="margen" name="margen" value="0" autocomplete="off"  onkeyup="cambiar_margen()" onchange="fun_precio_sin_iva()" onclick="this.select()" />
+                           <input type="text" class="form-control" id="margen" name="margen" value="{$fsc->articulo->margen_calculado}" autocomplete="off"  onkeyup="cambiar_margen()" onchange="fun_precio_sin_iva()" onclick="this.select()" />
                         </div>
                         <p class="help-block">Sirve para calcular el Precio, pero no se almacena (todavía).</p>
                      </div>
@@ -438,7 +459,7 @@
                         Precio venta IVA incluido:
                         <div class="input-group">
                            <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onchange="fun_precio_sin_iva()" onkeyup="fun_precio_sin_iva()"/>
+                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onkeyup="cambia()" onchange="fun_precio_sin_iva()" />
                         </div>
                         <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
                      </div>

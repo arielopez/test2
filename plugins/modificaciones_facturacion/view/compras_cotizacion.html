@@ -291,7 +291,7 @@
                         </td>
                         <td colspan="3"><textarea class="form-control" name="desc_{$counter}" rows="1" onclick="this.select()">{$value->descripcion}</textarea></td>
                         <td>
-                           <input type="number" min="1" max="250" maxlength="3" step="any" id="cantidad_{$counter}" class="form-control text-right" name="cantidad_{$counter}"
+                           <input type="number" min="1" max="250" maxlength="3" step="any" id="cantidad_{$counter}" class="form-control text-right numeric" name="cantidad_{$counter}"
                                   value="{$value->cantidad}" onchange="recalcular()" onkeyup="recalcular()" autocomplete="off" value="1"/>
                         </td>
                         <td>
@@ -300,11 +300,11 @@
                            </button>
                         </td>
                         <td>
-                           <input type="text" class="form-control text-right" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
+                           <input type="text" class="form-control text-right numeric" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <input type="text" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right"
+                           <input type="text" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right numeric"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
@@ -320,7 +320,8 @@
                         </td>
                         <td>
                            <input type="text" class="form-control text-right" id="neto_{$counter}" name="neto_{$counter}"
-                                  onchange="ajustar_neto()" onclick="this.select()" autocomplete="off"/>
+                                  onchange="ajustar_neto()" onclick="this.select()" autocomplete="off" style="display: none"/>
+                           <div class="form-control text-right" id="div_neto_{$counter}"></div>
                         </td>
 
                         <!--<td class="recargo">
@@ -346,10 +347,10 @@
                         </td>
 
                      </tr>
-                     <tr>
 
-                        <td colspan="1"></td>
-                        <td colspan="1">
+                     <tr>
+                        <td></td>
+                        <td colspan="">
                            <h4 class="text-right">Sub total</h4>
                            {if="$fsc->cotizacion->coddivisa!=$fsc->empresa->coddivisa"}
                            ({$fsc->cotizacion->coddivisa})
@@ -357,14 +358,14 @@
                         </td>
                         <td colspan="1" width="150"><div id="aneto" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
                         <td colspan="1" style="padding: 0px" width="100">
-                           <h4 class="text-right">Desto.</h4>
+                           <h4 class="text-right">Desto: </h4>
                            {if="$fsc->cotizacion->coddivisa!=$fsc->empresa->coddivisa"}
                            ({$fsc->cotizacion->coddivisa})
                            {/if}
                         </td>
 
                         <td colspan="2">
-                           <div id="aneto" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div>
+                           <input id="descuento" name="descuento" class="form-control text-right numeric" style="font-weight: bold;" value="{$fsc->show_numero(0)}"   onkeyup="total_con_descuento()"  disabled/>
                         </td>
                         <td colspan="" class="text-right"><h4>Total iva</h4></td>
                         <td>
@@ -386,9 +387,16 @@
                                   value="0" onchange="recalcular()" autocomplete="off"/>
                         </td>-->
                      </tr>
+                     <tr>
+                        <td colspan="4"></td>
+                        <td colspan="8">
+
+                           <label class="checkbox-inline"><input type="checkbox" value="true" id="destoEnabled" name="destoEnabled" onclick="destoEvent()">Desea ingresar el descuento de manera manual</label>
+                        </td>
+                     </tr>
                      {if="$fsc->user->admin"}
                      <tr>
-                        <td colspan="6"></td>
+                        <td colspan="12"></td>
                      </tr>
                      {/if}
                   </tbody>
@@ -535,7 +543,7 @@
                   <div class="row">
                      <div class="col-sm-4">
                         <div class="input-group">
-                           <input class="form-control" type="text" name="query" autocomplete="off"/>
+                           <input class="form-control" type="text" name="query" autocomplete="off" tabindex="1"/>
                            <span class="input-group-btn">
                               <button class="btn btn-primary" type="submit">
                                  <span class="glyphicon glyphicon-search"></span>
