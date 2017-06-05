@@ -1,5 +1,18 @@
 {include="header_modificado2"}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".consulta_historico").click(function(){
+            $.getJSON("index.php?page=compras_cotizacion", 'his_referencia='+$(this).val(),function(result){
+                $.each(result, function(i, field){
+                    $("div").append(field + " ");
+                });
+            });
+            result="<tr><th scope='row'>1</th><td>11/05/2017</td><td>15000</td><td>"+$(this).val()+"</td><td>FFFFF55</td></tr>";
+            $(".resultado_precios").html(result);
 
+        });
+    });
+</script>
 {if="$fsc->cotizacion"}
 {if="$fsc->cotizacion->ptefactura"}
 <script type="text/javascript" src="{$fsc->get_js_location('nueva_compra.js')}"></script>
@@ -12,11 +25,11 @@
    nueva_compra_url = '{$fsc->nueva_cotizacion_url}';
    kiwimaru_url = '{#FS_COMMUNITY_URL#}/index.php?page=kiwimaru';
    precio_compra = '{#FS_PRECIO_COMPRA#}';
-   
+
    {if="$fsc->empresa->recequivalencia"}
    tiene_recargo = true;
    {/if}
-   
+
    $(document).ready(function() {
       $("#numlineas").val(numlineas);
       usar_serie();
@@ -99,7 +112,7 @@
                   {/if}
                {/loop}
             </div>
-            
+
             {if="$fsc->cotizacion->idorden_compra"}
             <a class="btn btn-sm btn-info" href="{$fsc->cotizacion->factura_url()}">
                <span class="glyphicon glyphicon-eye-open"></span>
@@ -233,7 +246,7 @@
          </div>
       </div>
    </div>
-   
+
    <div role="tabpanel">
       <ul class="nav nav-tabs" role="tablist">
          <li role="presentation" class="active">
@@ -267,7 +280,8 @@
                         <th class="text-left" colspan="3">Descripción</th>
                         <th class="text-right" width="110">Cantidad</th>
                         <th width="50"></th>
-                        <th class="text-right" width="130">Costo + IVA</th>
+                        <th class="text-center" width="130">Costo + IVA</th>
+                        <th class="text-right" width="60">Historico</th>
                         <th class="text-right" width="90">Dto. %</th>
                         <th class="text-right" width="120">IVA</th>
                         <th class="text-right" width="150">Sub Total</th>
@@ -302,6 +316,12 @@
                         <td>
                            <input type="text" class="form-control text-right numeric" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
+                        </td>
+
+                        <td class="text-center" >
+                           <button type="button" class="btn btn-sm btn-default consulta_historico"  data-toggle="modal" data-target="#precios" title="Historico de Precios" value="{$value->referencia}">
+                              <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                           </button>
                         </td>
                         <td>
                            <input type="text" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right numeric"
@@ -367,8 +387,8 @@
                         <td colspan="2">
                            <input id="descuento" name="descuento" class="form-control text-right numeric" style="font-weight: bold;" value="{$fsc->show_numero(0)}"   onkeyup="total_con_descuento()"  disabled/>
                         </td>
-                        <td colspan="" class="text-right"><h4>Total iva</h4></td>
-                        <td>
+                        <td colspan="1" class="text-right"><h4>Total iva</h4></td>
+                        <td colspan="2">
                            <div id="aiva" class="form-control text-right" style="font-weight: bold;">{$fsc->show_numero(0)}</div></td>
 
                         <td width="30">
@@ -401,6 +421,40 @@
                      {/if}
                   </tbody>
                </table>
+
+               <div class="modal fade" id="precios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog" role="document" style="width: 50%!important;">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                           <h4 class="modal-title" id="myModalLabel">Historico de Precios</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50">#</th>
+                                        <th colspan="" width="180">Fecha de compra</th>
+                                        <th class="text-left">Precio</th>
+                                        <th colspan="" class="text-left">Proveedor</th>
+                                        <th colspan="" class="text-left">Ultima Factura</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="resultado_precios">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
                {else}
                <table class="table table-hover">
                   <thead>
@@ -458,7 +512,7 @@
                </table>
                {/if}
             </div>
-            
+
             <div class="container-fluid">
                <div class="row">
                   <div class="col-sm-12">
