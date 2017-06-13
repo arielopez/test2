@@ -415,7 +415,10 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto)
          <span class=\"glyphicon glyphicon-trash\"></span></button></td>\n\
       <td><input type=\"text\" class=\"form-control text-right  numeric\" id=\"pvp_"+numlineas+"\" name=\"pvp_"+numlineas+"\" value=\""+pvp+
          "\" onkeyup=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
-      <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\""+dto+
+      <td class='text-center'><button type='button' class='btn btn-sm btn-default consulta_historico' data-toggle='modal' data-target='#precios' \
+      title='Historico de Precios' value='"+ref+"'>\n\
+<span class='glyphicon glyphicon-align-justify' aria-hidden='true'></span></button></td>\n\
+    <td><input type=\"text\" id=\"dto_"+numlineas+"\" name=\"dto_"+numlineas+"\" value=\""+dto+
          "\" class=\"form-control text-right numeric\" onkeyup=\"recalcular()\" onchange=\"recalcular()\" onclick=\"this.select()\" autocomplete=\"off\"/></td>\n\
       "+aux_all_impuestos(numlineas,codimpuesto)+"\n\
       <td><input type=\"text\" class=\"form-control text-right numeric\" id=\"neto_"+numlineas+"\" name=\"neto_"+numlineas+

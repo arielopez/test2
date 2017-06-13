@@ -390,7 +390,7 @@ class cotizacion_proveedor extends fs_model
          $this->ptefactura = FALSE;
       }
       
-      if( $this->floatcmp($this->total, $this->neto+$this->totaliva-$this->totalirpf+$this->totalrecargo, FS_NF0, TRUE) )
+      if( $this->floatcmp($this->total, $this->neto-$this->totalirpf+$this->totalrecargo, FS_NF0, TRUE) )
       {
          return TRUE;
       }
@@ -416,7 +416,7 @@ class cotizacion_proveedor extends fs_model
             $status = FALSE;
          
          $neto += $l->pvptotal;
-         $iva += $l->pvptotal * $l->iva / 100;
+         $iva += $l->pvptotal * $l->iva / (100+$l->iva );
          $irpf += $l->pvptotal * $l->irpf/ 100;
          $recargo += $l->pvptotal * $l->recargo/ 100;
       }
@@ -425,8 +425,9 @@ class cotizacion_proveedor extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
-      
+      $total = $neto - $irpf + $recargo;
+
+
       if( !$this->floatcmp($this->neto, $neto, FS_NF0, TRUE) )
       {
          $this->new_error_msg("Valor neto de "."Cotizacion"." incorrecto. Valor correcto: ".$neto);
@@ -458,7 +459,6 @@ class cotizacion_proveedor extends fs_model
             Valor correcto: ".round($this->total * $this->tasaconv, FS_NF0));
          $status = FALSE;
       }
-      
       if($this->total != 0)
       {
          /// comprobamos las ordenes asociadas
@@ -772,5 +772,7 @@ class cotizacion_proveedor extends fs_model
        * Ponemos a NULL todos los idorden_compra = 0
        */
       $this->db->exec("UPDATE ".$this->table_name." SET idorden_compra = NULL WHERE idorden_compra = '0';");
+      $this->db->exec("UPDATE ".$this->table_name." SET idorden_compra = NULL, ptefactura=1 "
+          . "  where idorden_compra not in (select idpedido from orden_compra_prov) OR idorden_compra is null");
    }
 }

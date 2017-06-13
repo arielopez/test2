@@ -57,7 +57,7 @@ class orden_compra extends fs_controller
 
    protected function private_core()
    {
-      $this->ppage = $this->page->get('orden_compra');
+      $this->ppage = $this->page->get('ordenes_compra');
       $this->agente = FALSE;
       
       $this->divisa = new divisa();

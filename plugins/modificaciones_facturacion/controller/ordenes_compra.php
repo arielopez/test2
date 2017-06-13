@@ -182,7 +182,7 @@ class ordenes_compra extends fs_controller
 
    private function delete_pedido()
    {
-      $ped = new pedido_proveedor();
+      $ped = new orden_compra_proveedor();
       $ped1 = $ped->get($_POST['delete']);
       if($ped1)
       {

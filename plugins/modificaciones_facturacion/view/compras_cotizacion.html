@@ -1,16 +1,14 @@
 {include="header_modificado2"}
 <script type="text/javascript">
-    $(document).ready(function(){
-        $(".consulta_historico").click(function(){
+    $(document).on("click",".consulta_historico", function(){
+//        $(".consulta_historico").click(function(){
             $.getJSON("index.php?page=compras_cotizacion", 'his_referencia='+$(this).val(),function(result){
-                $.each(result, function(i, field){
-                    $("div").append(field + " ");
-                });
+               $(".resultado_precios").html(result);
             });
             result="<tr><th scope='row'>1</th><td>11/05/2017</td><td>15000</td><td>"+$(this).val()+"</td><td>FFFFF55</td></tr>";
             $(".resultado_precios").html(result);
 
-        });
+//        });
     });
 </script>
 {if="$fsc->cotizacion"}
@@ -205,7 +203,7 @@
          <div class="col-md-2 col-sm-4">
             <div class="form-group">
                Cod Pedido:
-               <input class="form-control" type="text" name="numproveedor" value="{$fsc->cotizacion->cod_pedido}" placeholder="Sin pedido registrado" disabled/>
+               <div class="form-control"  name="numproveedor">{$fsc->cotizacion->cod_pedido}</div>
             </div>
          </div>
          {if="$fsc->cotizacion->ptefactura"}
@@ -407,7 +405,7 @@
                                   value="0" onchange="recalcular()" autocomplete="off"/>
                         </td>-->
                      </tr>
-                     <tr>
+                     <tr style="display: none">
                         <td colspan="4"></td>
                         <td colspan="8">
 
@@ -431,7 +429,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-striped table-hover">
                                     <thead>
                                     <tr>
                                         <th width="50">#</th>
@@ -441,7 +439,7 @@
                                         <th colspan="" class="text-left">Ultima Factura</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="resultado_precios">
+                                    <tbody class="resultado_precios text-capitalize">
 
                                     </tbody>
                                 </table>
@@ -461,13 +459,12 @@
                      <tr>
                         <th class="text-left">Artículo</th>
                         <th class="text-right">Cantidad</th>
-                        <th class="text-right">Precio c/ IVA</th>
+                        <th class="text-right">Costo + IVA</th>
                         <th class="text-right">Dto</th>
-                        <th class="text-right">Neto</th>
                         <th class="text-right">{#FS_IVA#}</th>
+                        <th class="text-right">Sub Total</th>
                         <th class="text-right recargo">RE</th>
                         <th class="text-right irpf">{#FS_IRPF#}</th>
-                        <th class="text-right">Total</th>
                      </tr>
                   </thead>
                   {loop="$fsc->cotizacion->get_lineas()"}
@@ -481,13 +478,12 @@
                         <a href="{$value->articulo_url()}">{$value->referencia}</a> {$value->descripcion}
                      </td>
                      <td class="text-right">{$value->cantidad}</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvp_ivaincluido, $fsc->cotizacion->coddivisa)}</td>
-                     <td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->cotizacion->coddivisa)}</td>
+                  <td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->cotizacion->coddivisa)}</td>
+                  <td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>
                      <td class="text-right">{$fsc->show_numero($value->iva, 2)} %</td>
                      <td class="text-right recargo">{$fsc->show_numero($value->recargo, 2)} %</td>
                      <td class="text-right irpf">{$fsc->show_numero($value->irpf, 2)} %</td>
-                     <td class="text-right">{$fsc->show_precio($value->total_iva(), $fsc->cotizacion->coddivisa)}</td>
+                     <td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->cotizacion->coddivisa)}</td>
                   </tr>
                   {else}
                   <tr class="warning">
@@ -503,7 +499,6 @@
                      {else}
                      <td colspan="4"></td>
                      {/if}
-                     <td class="text-right"><b>{$fsc->show_precio($fsc->cotizacion->neto, $fsc->cotizacion->coddivisa)}</b></td>
                      <td class="text-right"><b>{$fsc->show_precio($fsc->cotizacion->totaliva, $fsc->cotizacion->coddivisa)}</b></td>
                      <td class="text-right recargo"><b>{$fsc->show_precio($fsc->cotizacion->totalrecargo, $fsc->cotizacion->coddivisa)}</b></td>
                      <td class="text-right irpf"><b>-{$fsc->show_precio($fsc->cotizacion->totalirpf, $fsc->cotizacion->coddivisa)}</b></td>

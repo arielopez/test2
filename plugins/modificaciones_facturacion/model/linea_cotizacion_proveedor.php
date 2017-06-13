@@ -197,7 +197,7 @@ class linea_cotizacion_proveedor extends fs_model
    
    public function total_iva()
    {
-      return $this->pvptotal*(100+$this->iva-$this->irpf+$this->recargo)/100;
+      return $this->pvptotal;//*(100+$this->iva-$this->irpf+$this->recargo)/100;
    }
    
    /// Devuelve el precio total por unidad (con descuento incluido e iva aplicado)
