@@ -384,7 +384,7 @@ class pedido_proveedor extends fs_model
       $this->observaciones = $this->no_html($this->observaciones);
       $this->totaleuros = $this->total * $this->tasaconv;
 
-      if ($this->floatcmp($this->total, $this->neto + $this->totaliva - $this->totalirpf + $this->totalrecargo, FS_NF0, TRUE))
+      if ($this->floatcmp($this->total, $this->neto , FS_NF0, TRUE))
       {
          return TRUE;
       }
@@ -410,7 +410,7 @@ class pedido_proveedor extends fs_model
             $status = FALSE;
 
          $neto += $l->pvptotal;
-         $iva += $l->pvptotal * $l->iva / 100;
+         $iva += ($l->pvptotal * $l->iva )/ (100+$l->iva );
          $irpf += $l->pvptotal * $l->irpf / 100;
          $recargo += $l->pvptotal * $l->recargo / 100;
       }
@@ -419,7 +419,7 @@ class pedido_proveedor extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
+      $total = $neto ;
 
       if (!$this->floatcmp($this->neto, $neto, FS_NF0, TRUE))
       {

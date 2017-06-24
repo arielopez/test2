@@ -427,7 +427,7 @@
                         Nombre del proveedor:
                         <input class="form-control" type="text" name="nombre" value="{$fsc->pedido->nombre}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>
@@ -437,7 +437,7 @@
                         {#FS_CIFNIF#}:
                         <input class="form-control" type="text" name="cifnif" value="{$fsc->pedido->cifnif}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>
@@ -447,7 +447,7 @@
                         <a href="{$fsc->forma_pago->url()}">Forma de pago</a>:
                         <select name="forma_pago" class="form-control"
                                 {if="!$fsc->pedido->editable"}
-                                disabled="disabled"
+                                readonly="readonly"
                                 {/if}
                         >
                            {loop="$fsc->forma_pago->all()"}
@@ -479,7 +479,7 @@
                         Tasa de conversión a Gs.
                         <input type="text" name="tasaconv" class="form-control" placeholder="{$fsc->pedido->tasaconv}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>

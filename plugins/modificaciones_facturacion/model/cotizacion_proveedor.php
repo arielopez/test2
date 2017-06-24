@@ -390,7 +390,7 @@ class cotizacion_proveedor extends fs_model
          $this->ptefactura = FALSE;
       }
       
-      if( $this->floatcmp($this->total, $this->neto-$this->totalirpf+$this->totalrecargo, FS_NF0, TRUE) )
+      if( $this->floatcmp($this->total, $this->neto, FS_NF0, TRUE) )
       {
          return TRUE;
       }

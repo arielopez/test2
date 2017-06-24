@@ -93,7 +93,9 @@ function recalcular()
    var total_iva = 0;
    var total_irpf = 0;
    var total_recargo = 0;
-   
+   var l_descuento = 0;
+   var total_dto= 0;
+
    for(var i=0; i<numlineas; i++)
    {
       if($("#linea_"+i).length > 0)
@@ -101,10 +103,10 @@ function recalcular()
          l_uds = parseFloat( $("#cantidad_"+i).val() );
          l_pvp = parseFloat( $("#pvp_"+i).val() );
          l_dto = parseFloat( $("#dto_"+i).val() );
-         l_neto = l_uds*l_pvp*(100-l_dto)/100;
+         l_neto = l_uds*l_pvp;
          l_iva = parseFloat( $("#iva_"+i).val() );
          l_irpf = parseFloat( $("#irpf_"+i).val() );
-         
+
          if(tiene_recargo)
          {
             l_recargo = parseFloat( $("#recargo_"+i).val() );
@@ -114,24 +116,23 @@ function recalcular()
             l_recargo = 0;
             $("#recargo_"+i).val(0);
          }
-         
+
          $("#neto_"+i).val( l_neto );
          if(numlineas == 1)
          {
-            $("#total_"+i).val( fs_round(l_neto, fs_nf0) + fs_round(l_neto*(l_iva-l_irpf+l_recargo)/100, fs_nf0) );
+            $("#total_"+i).val( fs_round(l_neto, fs_nf0) + fs_round(l_neto*(l_irpf+l_recargo)/100, fs_nf0) );
          }
          else
          {
-            $("#total_"+i).val( number_format(l_neto + (l_neto*(l_iva-l_irpf+l_recargo)/100), fs_nf0, '.', '') );
+            $("#total_"+i).val( number_format(l_neto + (l_neto*(l_irpf+l_recargo)/100), fs_nf0, '.', '') );
          }
-         
+
          neto += l_neto;
-         total_iva += l_neto * l_iva/100;
+         total_iva += (l_neto*l_iva)/(100 + l_iva);
          total_irpf += l_neto * l_irpf/100;
          total_recargo += l_neto * l_recargo/100;
       }
    }
-   
    neto = fs_round(neto, fs_nf0);
    total_iva = fs_round(total_iva, fs_nf0);
    total_irpf = fs_round(total_irpf, fs_nf0);
@@ -140,8 +141,9 @@ function recalcular()
    $("#aiva").html( show_numero(total_iva) );
    $("#are").html( show_numero(total_recargo) );
    $("#airpf").html( show_numero(total_irpf) );
-   $("#atotal").val( neto + total_iva - total_irpf + total_recargo );
-   
+   $("#atotal").val( neto);
+
+   $(".recargo").hide();
    if(total_recargo == 0 && !tiene_recargo)
    {
       $(".recargo").hide();
@@ -150,7 +152,6 @@ function recalcular()
    {
       $(".recargo").hide();
    }
-   
    if(total_irpf == 0 && irpf == 0)
    {
       $(".irpf").hide();
