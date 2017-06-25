@@ -293,7 +293,7 @@ class compras_albaran extends fs_controller
                         if( $lineas[$k]->save() )
                         {
                            $this->albaran->neto += $value->pvptotal;
-                           $this->albaran->totaliva += $value->pvptotal * $value->iva/100;
+                           $this->albaran->totaliva += $value->pvptotal * $value->iva/(100+ $value->iva);
                            $this->albaran->totalirpf += $value->pvptotal * $value->irpf/100;
                            $this->albaran->totalrecargo += $value->pvptotal * $value->recargo/100;
                            
@@ -350,7 +350,7 @@ class compras_albaran extends fs_controller
                         }
                         
                         $this->albaran->neto += $linea->pvptotal;
-                        $this->albaran->totaliva += $linea->pvptotal * $linea->iva/100;
+                        $this->albaran->totaliva += $linea->pvptotal * $linea->iva/(100+ $linea->iva);
                         $this->albaran->totalirpf += $linea->pvptotal * $linea->irpf/100;
                         $this->albaran->totalrecargo += $linea->pvptotal * $linea->recargo/100;
                      }
@@ -365,13 +365,9 @@ class compras_albaran extends fs_controller
             $this->albaran->totaliva = round($this->albaran->totaliva, FS_NF0);
             $this->albaran->totalirpf = round($this->albaran->totalirpf, FS_NF0);
             $this->albaran->totalrecargo = round($this->albaran->totalrecargo, FS_NF0);
-            $this->albaran->total = $this->albaran->neto + $this->albaran->totaliva - $this->albaran->totalirpf + $this->albaran->totalrecargo;
+            $this->albaran->total = $this->albaran->neto - $this->albaran->totalirpf + $this->albaran->totalrecargo;
             
-            if( abs(floatval($_POST['atotal']) - $this->albaran->total) >= .02 )
-            {
-               $this->new_error_msg("El total difiere entre el controlador y la vista (".$this->albaran->total.
-                       " frente a ".$_POST['atotal']."). Debes informar del error.");
-            }
+
          }
       }
       

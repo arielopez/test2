@@ -266,7 +266,7 @@ class compras_factura extends fs_controller
       $factura->totalirpf = 0 - $factura->totalirpf;
       $factura->totaliva = 0 - $factura->totaliva;
       $factura->totalrecargo = 0 - $factura->totalrecargo;
-      $factura->total = $factura->neto + $factura->totaliva + $factura->totalrecargo - $factura->totalirpf;
+      $factura->total = $factura->neto + $factura->totalrecargo - $factura->totalirpf;
       
       if( $factura->save() )
       {

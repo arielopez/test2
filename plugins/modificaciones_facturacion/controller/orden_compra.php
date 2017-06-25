@@ -149,6 +149,7 @@ class orden_compra extends fs_controller
 
    private function modificar()
    {
+//      print_r($_POST);
       $this->pedido->observaciones = $_POST['observaciones'];
       $this->pedido->numproveedor = $_POST['numproveedor'];
       $this->pedido->nombre = $_POST['nombre'];
@@ -270,7 +271,7 @@ class orden_compra extends fs_controller
                         $lineas[$k]->codimpuesto = NULL;
                         $lineas[$k]->iva = 0;
                         $lineas[$k]->recargo = 0;
-                        $lineas[$k]->irpf = floatval($_POST['irpf_' . $num]);
+                        $lineas[$k]->irpf =0;//floatval($_POST['irpf_' . $num]);
                         if(!$serie->siniva AND $proveedor->regimeniva != 'Exento')
                         {
                            $imp0 = $this->impuesto->get_by_iva($_POST['iva_' . $num]);
@@ -280,13 +281,13 @@ class orden_compra extends fs_controller
                            }
 
                            $lineas[$k]->iva = floatval($_POST['iva_' . $num]);
-                           $lineas[$k]->recargo = floatval($_POST['recargo_' . $num]);
+                           $lineas[$k]->recargo = 0;//floatval($_POST['recargo_' . $num]);
                         }
 
                         if( $lineas[$k]->save() )
                         {
                            $this->pedido->neto += $value->pvptotal;
-                           $this->pedido->totaliva += $value->pvptotal * $value->iva / 100;
+                           $this->pedido->totaliva += $value->pvptotal * $value->iva / (100+ $value->iva);
                            $this->pedido->totalirpf += $value->pvptotal * $value->irpf / 100;
                            $this->pedido->totalrecargo += $value->pvptotal * $value->recargo / 100;
                         }
@@ -312,10 +313,10 @@ class orden_compra extends fs_controller
                         }
                         
                         $linea->iva = floatval($_POST['iva_' . $num]);
-                        $linea->recargo = floatval($_POST['recargo_' . $num]);
+                        $linea->recargo = 0;//floatval($_POST['recargo_' . $num]);
                      }
                      
-                     $linea->irpf = floatval($_POST['irpf_'.$num]);
+                     $linea->irpf = 0;
                      $linea->cantidad = floatval($_POST['cantidad_' . $num]);
                      $linea->pvpunitario = floatval($_POST['pvp_' . $num]);
                      $linea->dtopor = floatval($_POST['dto_' . $num]);
@@ -346,19 +347,14 @@ class orden_compra extends fs_controller
             $this->pedido->totaliva = round($this->pedido->totaliva, FS_NF0);
             $this->pedido->totalirpf = round($this->pedido->totalirpf, FS_NF0);
             $this->pedido->totalrecargo = round($this->pedido->totalrecargo, FS_NF0);
-            $this->pedido->total = $this->pedido->neto + $this->pedido->totaliva - $this->pedido->totalirpf + $this->pedido->totalrecargo;
+            $this->pedido->total = $this->pedido->neto - $this->pedido->totalirpf + $this->pedido->totalrecargo;
 
-            if( abs(floatval($_POST['atotal']) - $this->pedido->total) >= .02 )
-            {
-               $this->new_error_msg("El total difiere entre el controlador y la vista (" . $this->pedido->total .
-                       " frente a " . $_POST['atotal'] . "). Debes informar del error.");
-            }
          }
       }
 
       if( $this->pedido->save() )
       {
-         $this->new_message(ucfirst(FS_PEDIDO) . " modificado correctamente.");
+         $this->new_message("Orden de compra modificada correctamente.");
          $this->new_change(ucfirst(FS_PEDIDO) . ' Proveedor ' . $this->pedido->codigo, $this->pedido->url());
       }
       else
@@ -479,6 +475,6 @@ class orden_compra extends fs_controller
          }
       }
       else
-         $this->new_error_msg("¡Imposible guardar el " . FS_ALBARAN . "!");
+         $this->new_error_msg("¡Imposible guardar la remision!");
    }
 }

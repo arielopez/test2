@@ -396,7 +396,7 @@ class orden_compra_proveedor extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
+      $total = $neto - $irpf + $recargo;
 
       if (!$this->floatcmp($this->neto, $neto, FS_NF0, TRUE))
       {
@@ -405,7 +405,7 @@ class orden_compra_proveedor extends fs_model
       }
       else if (!$this->floatcmp($this->totaliva, $iva, FS_NF0, TRUE))
       {
-         $this->new_error_msg("Valor totaliva de " . FS_PEDIDO . " incorrecto. Valor correcto: " . $iva);
+         $this->new_error_msg("Valor totaliva de orden de compra incorrecto. Valor correcto: " . $iva);
          $status = FALSE;
       }
       else if (!$this->floatcmp($this->totalirpf, $irpf, FS_NF0, TRUE))
