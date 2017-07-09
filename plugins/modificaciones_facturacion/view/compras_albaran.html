@@ -1,4 +1,16 @@
 {include="header_modificado2"}
+<script type="text/javascript">
+   $(document).on("click",".consulta_historico", function(){
+//        $(".consulta_historico").click(function(){
+      $.getJSON("index.php?page=compras_cotizacion", 'his_referencia='+$(this).val(),function(result){
+         $(".resultado_precios").html(result);
+      });
+      result="<tr><th scope='row'>1</th><td>11/05/2017</td><td>15000</td><td>"+$(this).val()+"</td><td>FFFFF55</td></tr>";
+      $(".resultado_precios").html(result);
+
+//        });
+   });
+</script>
 
 {if="$fsc->albaran"}
 {if="$fsc->albaran->ptefactura"}
@@ -264,7 +276,8 @@
                         <th class="text-right" width="110">Cantidad</th>
                         <th width="50"></th>
                         <th class="text-center" width="130">Costo + IVA</th>
-                        <th width="5"></th>
+
+                        <th class="text-right" width="60">Historico</th>
                         <th class="text-right" width="90">Dto. %</th>
                         <th class="text-right" width="120">IVA</th>
                         <th class="text-right" width="150">Sub Total</th>
@@ -295,7 +308,11 @@
                            <input type="text" class="form-control text-right numeric" id="pvp_{$counter}" name="pvp_{$counter}" value="{$value->pvpunitario}"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
-                        <td></td>
+                        <td class="text-center" >
+                           <button type="button" class="btn btn-sm btn-default consulta_historico"  data-toggle="modal" data-target="#precios" title="Historico de Precios" value="{$value->referencia}">
+                              <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                           </button>
+                        </td>
                         <td>
                            <input type="text" id="dto_{$counter}" name="dto_{$counter}" value="{$value->dtopor}" class="form-control text-right numeric"
                                   onkeyup="recalcular()" onclick="this.select()" autocomplete="off"/>
@@ -316,10 +333,7 @@
                            <input type="text" class="form-control text-right" id="recargo_{$counter}" name="recargo_{$counter}" value="{$value->recargo}"
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
-                        <td class="irpf">
-                           <input type="text" class="form-control text-right" id="irpf_{$counter}" name="irpf_{$counter}" value="{$value->irpf}"
-                                  onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
-                        </td>
+                        sudo
                         
 						<td>
 						
@@ -391,6 +405,39 @@
                      {/if}
                   </tbody>
                </table>
+
+               <div class="modal fade" id="precios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog" role="document" style="width: 50%!important;">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                           <h4 class="modal-title" id="myModalLabel">Historico de Precios</h4>
+                        </div>
+                        <div class="modal-body">
+                           <div class="table-responsive">
+                              <table class="table table-striped table-hover">
+                                 <thead>
+                                 <tr>
+                                    <th width="50">#</th>
+                                    <th colspan="" width="180">Fecha de compra</th>
+                                    <th class="text-left">Precio</th>
+                                    <th colspan="" class="text-left">Proveedor</th>
+                                    <th colspan="" class="text-left">Ultima Factura</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody class="resultado_precios text-capitalize">
+
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
                {else}
                <table class="table table-hover">
                   <thead>

@@ -379,19 +379,22 @@ class nueva_compra extends fs_controller
                             if ($imp0) {
                                 $linea->codimpuesto = $imp0->codimpuesto;
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             } else {
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             }
                         }
 
-                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->irpf = floatval(0);
                         $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
                         $linea->cantidad = floatval($_POST['cantidad_' . $i]);
-                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        if(isset($_POST['dto_'.$i]))
+                            $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        else
+                            $linea->dtopor = floatval(0);
                         $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
-                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
+                        $linea->pvptotal = $linea->pvpunitario * $linea->cantidad *(100 - $linea->dtopor)/100;//$linea->pvptotal = floatval($_POST['neto_' . $i]);
 
                         $articulo = $art0->get($_POST['referencia_' . $i]);
                         if ($articulo) {
@@ -416,7 +419,7 @@ class nueva_compra extends fs_controller
                             }
 
                             $pedido->neto += $linea->pvptotal;
-                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / (100 + $linea->iva));
                             $pedido->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
                             $pedido->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
                         } else {
@@ -432,13 +435,9 @@ class nueva_compra extends fs_controller
                     $pedido->totaliva = round($pedido->totaliva, FS_NF0);
                     $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
                     $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
-                    $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+                    $pedido->total = $pedido->neto - $pedido->totalirpf + $pedido->totalrecargo;
 
-                    if (abs(floatval($_POST['atotal']) - $pedido->total) >= .02) {
-                        $this->new_error_msg("El total difiere entre la vista y el controlador (" .
-                            $_POST['atotal'] . " frente a " . $pedido->total . "). Debes informar del error.");
-                        $pedido->delete();
-                    } else if ($pedido->save()) {
+                    if ($pedido->save()) {
                         $this->new_message("<a href='" . $pedido->url() . "'>Orden de Compra </a> guardado correctamente.");
                         $this->new_change(ucfirst(FS_PEDIDO) . ' Proveedor ' . $pedido->codigo, $pedido->url(), TRUE);
 
@@ -546,20 +545,24 @@ class nueva_compra extends fs_controller
                             if ($imp0) {
                                 $linea->codimpuesto = $imp0->codimpuesto;
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             } else {
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             }
                         }
 
-                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->irpf = floatval(0);
                         $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
                         $linea->cantidad = floatval($_POST['cantidad_' . $i]);
-                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        if(isset($_POST['dto_'.$i]))
+                            $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        else
+                            $linea->dtopor = floatval(0);
                         $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
-                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
 
+//                        $linea->pvptotal = floatval($_POST['neto_' . $i]) ;
+                        $linea->pvptotal = $linea->pvpunitario * $linea->cantidad *(100 - $linea->dtopor)/100;
                         $articulo = $art0->get($_POST['referencia_' . $i]);
                         if ($articulo) {
                             $linea->referencia = $articulo->referencia;
@@ -583,7 +586,7 @@ class nueva_compra extends fs_controller
                             }
 
                             $pedido->neto += $linea->pvptotal;
-                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / (100+$linea->iva));
                             $pedido->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
                             $pedido->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
                         } else {
@@ -599,13 +602,9 @@ class nueva_compra extends fs_controller
                     $pedido->totaliva = round($pedido->totaliva, FS_NF0);
                     $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
                     $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
-                    $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+                    $pedido->total = $pedido->neto - $pedido->totalirpf + $pedido->totalrecargo;
 
-                    if (abs(floatval($_POST['atotal']) - $pedido->total) >= .02) {
-                        $this->new_error_msg("El total difiere entre la vista y el controlador (" .
-                            $_POST['atotal'] . " frente a " . $pedido->total . "). Debes informar del error.");
-                        $pedido->delete();
-                    } else if ($pedido->save()) {
+                    if ($pedido->save()) {
                         $this->new_message("<a href='" . $pedido->url() . "'>Cotizacion</a> guardada correctamente.");
                         $this->new_change('Cotizacion Proveedor ' . $pedido->codigo, $pedido->url(), TRUE);
 
@@ -713,19 +712,22 @@ class nueva_compra extends fs_controller
                             if ($imp0) {
                                 $linea->codimpuesto = $imp0->codimpuesto;
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             } else {
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             }
                         }
 
-                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->irpf = floatval(0);
                         $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
                         $linea->cantidad = floatval($_POST['cantidad_' . $i]);
-                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        if(isset($_POST['dto_'.$i]))
+                            $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        else
+                            $linea->dtopor = floatval(0);
                         $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
-                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
+                        $linea->pvptotal = $linea->pvpunitario * $linea->cantidad *(100 - $linea->dtopor)/100;//$linea->pvptotal = floatval($_POST['neto_' . $i]);
 
                         $articulo = $art0->get($_POST['referencia_' . $i]);
                         if ($articulo) {
@@ -750,7 +752,7 @@ class nueva_compra extends fs_controller
                             }
 
                             $pedido->neto += $linea->pvptotal;
-                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $pedido->totaliva += ($linea->pvptotal * $linea->iva / (100 + $linea->iva));
                             $pedido->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
                             $pedido->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
                         } else {
@@ -766,13 +768,9 @@ class nueva_compra extends fs_controller
                     $pedido->totaliva = round($pedido->totaliva, FS_NF0);
                     $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
                     $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
-                    $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+                    $pedido->total = $pedido->neto  - $pedido->totalirpf + $pedido->totalrecargo;
 
-                    if (abs(floatval($_POST['atotal']) - $pedido->total) >= .02) {
-                        $this->new_error_msg("El total difiere entre la vista y el controlador (" .
-                            $_POST['atotal'] . " frente a " . $pedido->total . "). Debes informar del error.");
-                        $pedido->delete();
-                    } else if ($pedido->save()) {
+                    if ($pedido->save()) {
                         $this->new_message("<a href='" . $pedido->url() . "'>" . ucfirst(FS_PEDIDO) . "</a> guardado correctamente.");
                         $this->new_change(ucfirst(FS_PEDIDO) . ' Proveedor ' . $pedido->codigo, $pedido->url(), TRUE);
 
@@ -880,19 +878,22 @@ class nueva_compra extends fs_controller
                             if ($imp0) {
                                 $linea->codimpuesto = $imp0->codimpuesto;
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             } else {
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             }
                         }
 
-                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->irpf = floatval(0);
                         $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
                         $linea->cantidad = floatval($_POST['cantidad_' . $i]);
-                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        if(isset($_POST['dto_'.$i]))
+                            $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        else
+                            $linea->dtopor = floatval(0);
                         $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
-                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
+                        $linea->pvptotal = $linea->pvpunitario * $linea->cantidad *(100 - $linea->dtopor)/100;//$linea->pvptotal = floatval($_POST['neto_' . $i]);
 
                         $articulo = $art0->get($_POST['referencia_' . $i]);
                         if ($articulo) {
@@ -903,20 +904,27 @@ class nueva_compra extends fs_controller
                             if ($articulo) {
                                 if (isset($_POST['stock'])) {
                                     $articulo->sum_stock($albaran->codalmacen, $linea->cantidad, isset($_POST['costemedio']));
+                                    if (isset($_POST['costemedio'])) {
+                                        $articulo->preciocoste=$linea->pvptotal/$linea->cantidad;
+                                        $articulo->save();
+                                    }
+
                                 } else if (isset($_POST['costemedio'])) {
                                     $articulo->stockfis += $linea->cantidad;
+                                    $articulo->preciocoste=$linea->pvptotal/$linea->cantidad;
                                     $articulo->costemedio = $articulo->get_costemedio();
                                     $articulo->stockfis -= $linea->cantidad;
                                     $articulo->save();
                                 }
 
                                 if (isset($_POST['costemedio'])) {
+
                                     $this->actualizar_precio_proveedor($albaran->codproveedor, $linea);
                                 }
                             }
 
                             $albaran->neto += $linea->pvptotal;
-                            $albaran->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $albaran->totaliva += ($linea->pvptotal * $linea->iva / (100 + $linea->iva));
                             $albaran->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
                             $albaran->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
                         } else {
@@ -932,13 +940,9 @@ class nueva_compra extends fs_controller
                     $albaran->totaliva = round($albaran->totaliva, FS_NF0);
                     $albaran->totalirpf = round($albaran->totalirpf, FS_NF0);
                     $albaran->totalrecargo = round($albaran->totalrecargo, FS_NF0);
-                    $albaran->total = $albaran->neto + $albaran->totaliva - $albaran->totalirpf + $albaran->totalrecargo;
+                    $albaran->total = $albaran->neto - $albaran->totalirpf + $albaran->totalrecargo;
 
-                    if (abs(floatval($_POST['atotal']) - $albaran->total) >= .02) {
-                        $this->new_error_msg("El total difiere entre la vista y el controlador (" .
-                            $_POST['atotal'] . " frente a " . $albaran->total . "). Debes informar del error.");
-                        $albaran->delete();
-                    } else if ($albaran->save()) {
+                    if ($albaran->save()) {
                         $this->new_message("<a href='" . $albaran->url() . "'>" . ucfirst(FS_ALBARAN) . "</a> guardado correctamente.");
                         $this->new_change(ucfirst(FS_ALBARAN) . ' Proveedor ' . $albaran->codigo, $albaran->url(), TRUE);
 
@@ -1050,19 +1054,22 @@ class nueva_compra extends fs_controller
                             if ($imp0) {
                                 $linea->codimpuesto = $imp0->codimpuesto;
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             } else {
                                 $linea->iva = floatval($_POST['iva_' . $i]);
-                                $linea->recargo = floatval($_POST['recargo_' . $i]);
+                                $linea->recargo = floatval(0);
                             }
                         }
 
-                        $linea->irpf = floatval($_POST['irpf_' . $i]);
+                        $linea->irpf = floatval(0);
                         $linea->pvpunitario = floatval($_POST['pvp_' . $i]);
                         $linea->cantidad = floatval($_POST['cantidad_' . $i]);
-                        $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        if(isset($_POST['dto_'.$i]))
+                            $linea->dtopor = floatval($_POST['dto_' . $i]);
+                        else
+                            $linea->dtopor = floatval(0);
                         $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
-                        $linea->pvptotal = floatval($_POST['neto_' . $i]);
+                        $linea->pvptotal = $linea->pvpunitario * $linea->cantidad *(100 - $linea->dtopor)/100;//$linea->pvptotal = floatval($_POST['neto_' . $i]);
 
                         $articulo = $art0->get($_POST['referencia_' . $i]);
                         if ($articulo) {
@@ -1092,7 +1099,7 @@ class nueva_compra extends fs_controller
                             }
 
                             $factura->neto += $linea->pvptotal;
-                            $factura->totaliva += ($linea->pvptotal * $linea->iva / 100);
+                            $factura->totaliva += ($linea->pvptotal * $linea->iva / (100 + $linea->iva));
                             $factura->totalirpf += ($linea->pvptotal * $linea->irpf / 100);
                             $factura->totalrecargo += ($linea->pvptotal * $linea->recargo / 100);
                         } else {
@@ -1108,13 +1115,9 @@ class nueva_compra extends fs_controller
                     $factura->totaliva = round($factura->totaliva, FS_NF0);
                     $factura->totalirpf = round($factura->totalirpf, FS_NF0);
                     $factura->totalrecargo = round($factura->totalrecargo, FS_NF0);
-                    $factura->total = $factura->neto + $factura->totaliva - $factura->totalirpf + $factura->totalrecargo;
+                    $factura->total = $factura->neto  - $factura->totalirpf + $factura->totalrecargo;
 
-                    if (abs(floatval($_POST['atotal']) - $factura->total) >= .02) {
-                        $this->new_error_msg("El total difiere entre el controlador y la vista (" .
-                            $factura->total . " frente a " . $_POST['atotal'] . "). Debes informar del error.");
-                        $factura->delete();
-                    } else if ($factura->save()) {
+                    if ($factura->save()) {
                         $this->generar_asiento($factura);
                         $this->new_message("<a href='" . $factura->url() . "'>Factura</a> guardada correctamente.");
                         $this->new_change('Factura Proveedor ' . $factura->codigo, $factura->url(), TRUE);
@@ -1161,7 +1164,7 @@ class nueva_compra extends fs_controller
                 $artp->codimpuesto = $linea->codimpuesto;
                 $artp->descripcion = $linea->descripcion;
             }
-
+            $artp->preciocoste=$linea->pvptotal;
             $artp->precio = $linea->pvpunitario;
             $artp->dto = $linea->dtopor;
             $artp->save();

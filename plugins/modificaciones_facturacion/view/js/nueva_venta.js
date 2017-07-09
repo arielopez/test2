@@ -130,7 +130,7 @@ function recalcular()
          }
          
          neto += l_neto;
-         total_iva += l_neto * l_iva/100;
+         total_iva += l_neto * l_iva/(100+l_iva);
          total_irpf += l_neto * l_irpf/100;
          total_recargo += l_neto * l_recargo/100;
       }
@@ -152,7 +152,7 @@ function recalcular()
    }
    else
    {
-      $(".recargo").show();
+      $(".recargo").hide();
    }
    
    if(total_irpf == 0 && irpf == 0)
@@ -161,7 +161,7 @@ function recalcular()
    }
    else
    {
-      $(".irpf").show();
+      $(".irpf").hide();
    }
 }
 
@@ -327,7 +327,7 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto,cantidad)
 {
    desc = Base64.decode(desc);
    $("#lineas_albaran").append("<tr id=\"linea_"+numlineas+"\">\n\
-      <td><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
+      <td colspan='3'><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
          <input type=\"hidden\" name=\"referencia_"+numlineas+"\" value=\""+ref+"\"/>\n\
          <div class=\"form-control\"><a target=\"_blank\" href=\"index.php?page=ventas_articulo&ref="+ref+"\">"+ref+"</a></div></td>\n\
       <td><div class=\"form-control\" onclick=\"this.select()\" >"+desc+"</div><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\" style='display: none'>"+desc+"</textarea></td>\n\
