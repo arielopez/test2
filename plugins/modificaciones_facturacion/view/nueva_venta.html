@@ -17,18 +17,24 @@
       recalcular();
    });
 </script>
-
-<form id="f_new_albaran" class="form" name="f_new_albaran" action="{$fsc->url()}" method="post">
+{$nombre_tipo=''}
+{loop="$fsc->tipos_a_guardar()"}
+{if="$value['tipo']==$fsc->tipo"}
+{$nombre_tipo=$value['nombre']}
+{/if}
+{/loop}
+<form id="f_new_albaran" class="form breadcrumb" name="f_new_albaran" action="{$fsc->url()}" method="post" style="margin-top: 10px;margin-left: -20px">
    <input type="hidden" name="petition_id" value="{$fsc->random_string()}"/>
    <input type="hidden" id="numlineas" name="numlineas" value="0"/>
+   <h3 class="breadcrumb" style="font-weight: bold; margin-top: 10 px;margin-left: -5px">{$nombre_tipo}</h3>
    <input type="hidden" name="cliente" value="{$fsc->cliente_s->codcliente}"/>
    <input type="hidden" name="redir"/>
    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-6">
-            <h1 style="margin-top: 5px;">
+            <h3 style="margin-top: 5px;"> CLIENTE :
                <a href="{$fsc->cliente_s->url()}">{$fsc->cliente_s->nombre}</a>
-            </h1>
+            </h3>
          </div>
          <div class="col-sm-2">
             <div class="form-group">
@@ -277,7 +283,7 @@
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title">Guardar como...</h4>
+               <h4 class="modal-title">Guardar {$fsc->tipo}</h4>
                <p class="help-block">
                   Puedes programar ventas usando el plugin
                   <a href="https://www.facturascripts.com/store/producto/plugin-para-programar-albaranes/" target="_blank">albaranes programados</a>.
@@ -285,7 +291,7 @@
             </div>
             <div class="modal-body">
                {loop="$fsc->tipos_a_guardar()"}
-               <div class="radio">
+               <div class="radio" style="display: none;">
                   <label>
                      <input type="radio" name="tipo" value="{$value['tipo']}"{if="$value['tipo']==$fsc->tipo"} checked="checked"{/if}/>
                      {$value['nombre']}
@@ -315,9 +321,9 @@
             </div>
             <div class="modal-footer">
                <div class="pull-left">
-                  <div class="checkbox">
+                  <div class="checkbox" style="display: none">
                      <label>
-                        <input type="checkbox" name="stock" value="TRUE" checked="checked"/>
+                        <input type="checkbox" name="stock" value="TRUE" {if="$fsc->tipo=='albaran'||$fsc->tipo=='factura'"} checked="checked" {/if}/>
                         Descontar de stock
                      </label>
                   </div>
@@ -389,7 +395,7 @@
             <li id="li_mis_articulos">
                <a href="#" id="b_mis_articulos">Mi catálogo</a>
             </li>
-            <li id="li_kiwimaru">
+            <li id="li_kiwimaru" style="display: none">
                <a href="#" id="b_kiwimaru">
                   <span class="glyphicon glyphicon-globe"></span>
                </a>

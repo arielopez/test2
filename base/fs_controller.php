@@ -750,7 +750,8 @@ class fs_controller
       
       if( isset($_COOKIE['default_almacen']) )
       {
-         $this->default_items->set_codalmacen( $_COOKIE['default_almacen'] );
+//         $this->default_items->set_codalmacen( $_COOKIE['default_almacen'] );
+         $this->default_items->set_codalmacen( $this->empresa->codalmacen );
       }
       else
       {

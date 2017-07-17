@@ -496,7 +496,6 @@ function buscar_articulos()
                      <span class=\"glyphicon glyphicon-eye-open\"></span></a>\n\
                      &nbsp; <a href=\"#\" onclick=\"return "+funcion+"\">"+val.referencia+'</a> '+val.descripcion+"</td>\n\
                      <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_precio(val.precio_con_iva*(100-val.dtopor)/100)+"</a></td>\n\
-                     <td class=\"text-right\"><a href=\"#\" onclick=\"return "+funcion+"\">"+show_pvp_iva(val.precio_con_iva*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
                      <td class=\"text-right\">"+stock+"</td></tr>");
                }
                else if(val.sevende)
@@ -528,7 +527,7 @@ function buscar_articulos()
             {
                $("#search_results").html("<div class=\"table-responsive\"><table class=\"table table-hover\"><thead><tr>\n\
                   <th class=\"text-left\">Referencia + descripción</th><th class=\"text-right\">Precio con IVA</th>\n\
-                  <th class=\"text-right\">Precio+IVA</th><th class=\"text-right\">Stock</th></tr></thead>"
+                  <th class=\"text-right\">Stock</th></tr></thead>"
                        +items.join('')+"</table></div>");
             }
          });

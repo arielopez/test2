@@ -244,37 +244,33 @@ class nueva_venta extends fs_controller
          $this->forma_pago = new forma_pago();
          $this->divisa = new divisa();
          
-         
-         if( isset($_POST['tipo']) )
-         {
-            if($_POST['tipo'] == 'albaran')
-            {
-               $this->nuevo_albaran_cliente();
-            }
-            else if($_POST['tipo'] == 'factura')
-            {
-               $this->nueva_factura_cliente();
-            }
-            else if($_POST['tipo'] == 'presupuesto' AND class_exists('presupuesto_cliente') )
-            {
-               $this->nuevo_presupuesto_cliente();
-            }
-            else if($_POST['tipo'] == 'pedido' AND class_exists('pedido_cliente') )
-            {
-               $this->nuevo_pedido_cliente();
-            }
-            
-            if(!$this->direccion)
-            {
-               $this->direccion = new direccion_cliente();
-               $this->direccion->codcliente = $this->cliente_s->codcliente;
-               $this->direccion->codpais = $_POST['codpais'];
-               $this->direccion->provincia = $_POST['provincia'];
-               $this->direccion->ciudad = $_POST['ciudad'];
-               $this->direccion->codpostal = $_POST['codpostal'];
-               $this->direccion->direccion = $_POST['direccion'];
-               $this->direccion->descripcion = 'Principal';
-               $this->direccion->save();
+//         print_r($_POST);
+         if (isset($_POST['numlineas'])) {
+            if ($_POST['numlineas'] == 0) {
+               $this->new_error_msg('No posee productos asociados');
+
+            } elseif (isset($_POST['tipo'])) {
+               if ($_POST['tipo'] == 'albaran') {
+                  $this->nuevo_albaran_cliente();
+               } else if ($_POST['tipo'] == 'factura') {
+                  $this->nueva_factura_cliente();
+               } else if ($_POST['tipo'] == 'presupuesto' AND class_exists('presupuesto_cliente')) {
+                  $this->nuevo_presupuesto_cliente();
+               } else if ($_POST['tipo'] == 'pedido' AND class_exists('pedido_cliente')) {
+                  $this->nuevo_pedido_cliente();
+               }
+
+               if (!$this->direccion) {
+                  $this->direccion = new direccion_cliente();
+                  $this->direccion->codcliente = $this->cliente_s->codcliente;
+                  $this->direccion->codpais = $_POST['codpais'];
+                  $this->direccion->provincia = $_POST['provincia'];
+                  $this->direccion->ciudad = $_POST['ciudad'];
+                  $this->direccion->codpostal = $_POST['codpostal'];
+                  $this->direccion->direccion = $_POST['direccion'];
+                  $this->direccion->descripcion = 'Principal';
+                  $this->direccion->save();
+               }
             }
          }
       }

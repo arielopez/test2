@@ -204,8 +204,7 @@ class empresa extends fs_model
       if( $this->test() )
       {
          $this->clean_cache();
-         
-         if( $this->exists() )
+          if( $this->exists() )
          {
             $sql = "UPDATE ".$this->table_name." SET nombre = ".$this->var2str($this->nombre)
                  .", nombrecorto = ".$this->var2str($this->nombrecorto)

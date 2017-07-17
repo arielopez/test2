@@ -228,7 +228,7 @@
                      <div class="row">
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" type="email" name="email" value="{$fsc->empresa->email}" autocomplete="off" placeholder="email" autofocus=""/>
+                              <input class="form-personal" type="email" name="email" value="{$fsc->empresa->email}" autocomplete="off" placeholder="email" autofocus=""/>
                               <p class="help-block">
                                  ¿Quieres usar tunombre@tuempresa.com?
                                  Prueba gratis <a href="https://goo.gl/bRFlmv" target="_blank">Google Apps for Work</a>.
@@ -324,19 +324,19 @@
                      </select>
                      <p class="help-block">El {#FS_IRPF#} se define en la serie.</p>
                   </div>
-                  <div class="col-sm-4">
-                     <!--<div class="checkbox">-->
-                        <!--<label>-->
-                           <!--<input type="checkbox" name="contintegrada" value="TRUE"{if="$fsc->empresa->contintegrada"} checked="checked"{/if}/>-->
-                           <!--Contabilidad integrada-->
-                        <!--</label>-->
-                     <!--</div>-->
-                     <!--<div class="checkbox">-->
-                        <!--<label>-->
-                           <!--<input type="checkbox" name="recequivalencia" value="TRUE"{if="$fsc->empresa->recequivalencia"} checked="checked"{/if}/>-->
-                           <!--Aplicar recargo de equivalencia-->
-                        <!--</label>-->
-                     <!--</div>-->
+                  <div class="col-sm-4" style="display: none">
+                     <div class="checkbox">
+                        <label>
+                           <input type="checkbox" name="contintegrada" value="TRUE"{if="$fsc->empresa->contintegrada"} checked="checked"{/if}/>
+                           Contabilidad integrada
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                           <input type="checkbox" name="recequivalencia" value="TRUE"{if="$fsc->empresa->recequivalencia"} checked="checked"{/if}/>
+                           Aplicar recargo de equivalencia
+                        </label>
+                     </div>
                   </div>
                   <div class="form-group col-sm-5">
                      <a href="{$fsc->forma_pago->url()}">Forma de pago</a>:
