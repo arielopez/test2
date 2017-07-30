@@ -42,12 +42,12 @@ class admin_home extends fs_controller
       if( isset($_GET['check4updates']) )
       {
          $this->template = FALSE;
-         if( $this->check_for_updates2() )
+         /*if( $this->check_for_updates2() )
          {
             echo 'Hay actualizaciones disponibles.';
          }
          else
-            echo 'No hay actualizaciones.';
+            echo 'No hay actualizaciones.';*/
       }
       else if( isset($_GET['updated']) )
       {

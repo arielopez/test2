@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : lineasrecetas.xml
+    Description:
+        Estructura de la tabla lineasrecetas.
+-->
+<tabla>
+   <columna>
+      <nombre>idlinea</nombre>
+      <tipo>serial</tipo>
+      <nulo>NO</nulo>
+      <defecto>nextval('lineasrecetas_idlinea_seq'::regclass)</defecto>
+   </columna>
+   <columna>
+      <nombre>codreceta</nombre>
+      <tipo>character varying(25)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>cantidad</nombre>
+      <tipo>double precision</tipo>
+   </columna>
+   <columna>
+      <nombre>referencia</nombre>
+      <tipo>character varying(25)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <restriccion>
+      <nombre>lineasrecetas_pkey</nombre>
+      <consulta>PRIMARY KEY (idlinea)</consulta>
+   </restriccion>
+   <restriccion>
+      <nombre>ca_linea_recetas</nombre>
+      <consulta>FOREIGN KEY (codreceta)
+      REFERENCES recetas (codreceta)
+      ON DELETE CASCADE ON UPDATE CASCADE</consulta>
+   </restriccion>
+</tabla>

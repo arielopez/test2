@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : recetas.xml
+    Description:
+        Estructura de la tabla recetas.
+-->
+<tabla>
+   <columna>
+      <nombre>codreceta</nombre>
+      <tipo>character varying(25)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>descripcion</nombre>
+      <tipo>character varying(250)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>referencia</nombre>
+      <tipo>character varying(25)</tipo>
+      <nulo>NO</nulo>
+   </columna>
+   <columna>
+      <nombre>cantidad</nombre>
+      <tipo>double precision</tipo>
+   </columna>
+   <columna>
+      <nombre>codalmacen</nombre>
+      <tipo>character varying(4)</tipo>
+   </columna>
+   <columna>
+      <nombre>codalmacen2</nombre>
+      <tipo>character varying(4)</tipo>
+   </columna>
+   <columna>
+      <nombre>ultima_produccion</nombre>
+      <tipo>timestamp</tipo>
+   </columna>
+   <columna>
+      <nombre>observaciones</nombre>
+      <tipo>text</tipo>
+   </columna>
+   <restriccion>
+      <nombre>recetas_pkey</nombre>
+      <consulta>PRIMARY KEY (codreceta)</consulta>
+   </restriccion>
+</tabla>

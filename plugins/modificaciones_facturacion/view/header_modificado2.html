@@ -25,6 +25,18 @@
               this.value = this.value.toUpperCase();
            });
         });
+        $(function() {
+           $('textarea[type=text]').keyup(function() {
+              this.value = this.value.toUpperCase();
+           });
+        });
+   </script>
+   <script type="text/javascript">
+      $(function() {
+         $('.numeric').keyup(function() {
+            this.value = this.value.replace(/\D/g, '');
+         });
+      });
    </script>
    <script type="text/javascript">
       function show_precio(precio)

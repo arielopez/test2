@@ -43,6 +43,17 @@ class compras_pedidos extends fs_controller
    public function __construct()
    {
       parent::__construct(__CLASS__, ucfirst(FS_PEDIDOS).' de compra', 'compras');
+      $stringSql="UPDATE fs_pages SET orden_importancia = '5' WHERE fs_pages.name = 'compras_facturas'";
+      $this->db->exec($stringSql);
+      $stringSql="UPDATE fs_pages SET orden_importancia = '4' WHERE fs_pages.name = 'compras_albaranes'";
+      $this->db->exec($stringSql);
+      $stringSql="UPDATE fs_pages SET orden_importancia = '3' WHERE fs_pages.name = 'ordenes_compra'";
+      $this->db->exec($stringSql);
+      $stringSql="UPDATE fs_pages SET orden_importancia = '2' WHERE fs_pages.name = 'compras_cotizaciones'";
+      $this->db->exec($stringSql);
+      $stringSql="UPDATE fs_pages SET orden_importancia = '1' WHERE fs_pages.name = 'compras_pedidos'";
+      $this->db->exec($stringSql);
+
    }
 
    protected function private_core()

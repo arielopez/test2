@@ -336,7 +336,7 @@ class ventas_presupuesto extends fs_controller {
                         $lineas[$k]->dtopor = floatval($_POST['dto_' . $num]);
                         $lineas[$k]->pvpsindto = ($value->cantidad * $value->pvpunitario);
                         $lineas[$k]->pvptotal = ($value->cantidad * $value->pvpunitario * (100 - $value->dtopor) / 100);
-                        $lineas[$k]->descripcion = $_POST['desc_' . $num];
+//                        $lineas[$k]->descripcion = $_POST['desc_' . $num];
 
                         $lineas[$k]->codimpuesto = NULL;
                         $lineas[$k]->iva = 0;
@@ -357,7 +357,7 @@ class ventas_presupuesto extends fs_controller {
                         if ($lineas[$k]->save())
                         {
                            $this->presupuesto->neto += $value->pvptotal;
-                           $this->presupuesto->totaliva += $value->pvptotal * $value->iva / 100;
+                           $this->presupuesto->totaliva += ($value->pvptotal * $value->iva)/(100 +$value->iva); //($value->pvptotal * $value->iva )/ (100+$value->iva)
                            $this->presupuesto->totalirpf += $value->pvptotal * $value->irpf / 100;
                            $this->presupuesto->totalrecargo += $value->pvptotal * $value->recargo / 100;
                         }
@@ -400,7 +400,7 @@ class ventas_presupuesto extends fs_controller {
                      if( $linea->save() )
                      {
                         $this->presupuesto->neto += $linea->pvptotal;
-                        $this->presupuesto->totaliva += $linea->pvptotal * $linea->iva / 100;
+                        $this->presupuesto->totaliva +=  ($linea->pvptotal * $linea->iva)/(100 +$linea->iva);
                         $this->presupuesto->totalirpf += $linea->pvptotal * $linea->irpf / 100;
                         $this->presupuesto->totalrecargo += $linea->pvptotal * $linea->recargo / 100;
                      }
@@ -415,7 +415,7 @@ class ventas_presupuesto extends fs_controller {
             $this->presupuesto->totaliva = round($this->presupuesto->totaliva, FS_NF0);
             $this->presupuesto->totalirpf = round($this->presupuesto->totalirpf, FS_NF0);
             $this->presupuesto->totalrecargo = round($this->presupuesto->totalrecargo, FS_NF0);
-            $this->presupuesto->total = $this->presupuesto->neto + $this->presupuesto->totaliva - $this->presupuesto->totalirpf + $this->presupuesto->totalrecargo;
+            $this->presupuesto->total = $this->presupuesto->neto - $this->presupuesto->totalirpf + $this->presupuesto->totalrecargo;
 
             if (abs(floatval($_POST['atotal']) - $this->presupuesto->total) >= .02)
             {

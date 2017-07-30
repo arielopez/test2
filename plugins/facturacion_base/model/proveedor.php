@@ -478,11 +478,16 @@ class proveedor extends fs_model
       $this->cache->delete('m_proveedor_all');
    }
    
-   public function all($offset = 0, $solo_acreedores = FALSE)
+   public function all($offset = 0, $total_tipo = 0)
    {
       $provelist = array();
       $sql = "SELECT * FROM ".$this->table_name." ORDER BY nombre ASC";
-      if($solo_acreedores)
+
+      if($total_tipo==1)
+      {
+         $sql = "SELECT * FROM ".$this->table_name." WHERE acreedor=0 ORDER BY nombre ASC";
+      }
+      else if($total_tipo==2)
       {
          $sql = "SELECT * FROM ".$this->table_name." WHERE acreedor ORDER BY nombre ASC";
       }

@@ -67,7 +67,7 @@ class ventas_clientes extends fs_controller
             'nuevocli_direccion' => 1,
             'nuevocli_direccion_req' => 0,
             'nuevocli_codpostal' => 1,
-            'nuevocli_codpostal_req' => 0,
+//            'nuevocli_codpostal_req' => 0,
             'nuevocli_pais' => 0,
             'nuevocli_pais_req' => 0,
             'nuevocli_provincia' => 1,

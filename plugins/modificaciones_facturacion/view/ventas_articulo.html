@@ -1,5 +1,77 @@
 {include="header_modificado2"}
+<script type="text/javascript">
+   function fun_precio_sin_iva(){
+      var iva=10;
+      var precio_con_iva= parseFloat($("#precio_con_iva").val());
+//      alert("ingresa saldo");
+      var precio_sin_iva=0;
+      iva=parseFloat({$fsc->articulo->get_iva()});
 
+      if( parseFloat( $("#precio_con_iva").val() ) > 0 )
+      {
+         precio_sin_iva=precio_con_iva*100/(100+iva);
+         $("#pvp_sin_iva").val( show_numero(precio_sin_iva) );
+      }
+      else {
+         $("#pvp_sin_iva").val( show_numero(precio_sin_iva) );
+      }
+
+   }
+</script>
+<script type="text/javascript">
+   $(document).ready(function () {
+
+      $('#b_eliminar').click(function (event) {
+         event.preventDefault();
+
+         if( confirm("¿Estas seguro de que deseas eliminar este articulo?") )
+            alert("hijo de puta");
+            //window.location.href = {$fsc->url()}"/"({$fsc->articulo->referencia})
+      });
+
+   });
+
+
+
+
+</script>
+
+<script type="text/javascript">
+    function cambiar_margen()
+    {
+        var iva = parseFloat( $("#iva").val() );
+        var coste = parseFloat( $("#coste").val() );
+        var margen = parseFloat( $("#margen").val() );
+
+        if( !isNaN(margen) && isFinite(margen) )
+        {
+            var pvp = coste*(100 + margen)/100;
+            $("#precio_con_iva").val(pvp);
+//         $("#precio_con_ivai").val( pvp * (100 + iva)/100 );
+        }
+       fun_precio_sin_iva();
+    }
+
+    function cambiar_margen2()
+    {
+       var iva = parseFloat( $("#iva").val() );
+       var coste = parseFloat( $("#coste").val() );
+       var margen = parseFloat( $("#margen").val() );
+       var precio_con_iva = parseFloat( $("#precio_con_iva").val() );
+//         alert("jodeputa");
+       if( !isNaN(precio_con_iva) && isFinite(precio_con_iva) )
+       {
+          var margen = (precio_con_iva*100)/coste - 100;
+          $("#margen").val(margen.toFixed(2));
+//         $("#precio_con_ivai").val( pvp * (100 + iva)/100 );
+       }
+    }
+
+   function cambia(){
+      cambiar_margen2();
+      fun_precio_sin_iva();
+   }
+</script>
 {if="$fsc->articulo"}
 <script type="text/javascript">
    function cambiar_pvp()
@@ -8,13 +80,13 @@
       var iva = parseFloat( $("#iva").val() );
       var pvp = parseFloat( $("#pvp").val() );
       $("#pvpi").val( pvp * (100 + iva)/100 );
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
    function cambiar_pvpi()
@@ -22,47 +94,35 @@
       var coste = parseFloat( $("#coste").val() );
       var iva = parseFloat( $("#iva").val() );
       var pvpi = parseFloat( $("#pvpi").val() );
-      
+
       var pvp = (100 * pvpi) / (100 + iva);
       $("#pvp").val(pvp);
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
-   function cambiar_margen()
-   {
-      var iva = parseFloat( $("#iva").val() );
-      var coste = parseFloat( $("#coste").val() );
-      var margen = parseFloat( $("#margen").val() );
-      
-      if( !isNaN(margen) && isFinite(margen) )
-      {
-         var pvp = coste*(100 + margen)/100;
-         $("#pvp").val(pvp);
-         $("#pvpi").val( pvp * (100 + iva)/100 );
-      }
-   }
+
    function calcular_margen()
    {
       var coste = parseFloat( $("#coste").val() );
       var pvp = parseFloat( $("#pvp").val() );
-      
+
       var margen = 0;
       if(coste > 0)
       {
          margen = (pvp*100)/coste - 100;
       }
-      
+
       $("#margen").val(margen);
    }
    $(document).ready(function() {
       calcular_margen();
-      
+
       if(window.location.hash.substring(1) == 'precios')
       {
          $('#tab_articulo a[href="#precios"]').tab('show');
@@ -71,8 +131,8 @@
       {
          $('#tab_articulo a[href="#stock"]').tab('show');
       }
-      
-      $("#b_eliminar_articulo").click(function(event) {
+
+      $("#b_eliminar").click(function(event) {
          event.preventDefault();
          {if="$fsc->articulo->publico"}
          alert('Este artículo es público. Si estas seguro de que quieres eliminarlo, desmarcalo como público, guarda y pulsa eliminar.');
@@ -126,7 +186,7 @@
       </div>
       <div class="col-xs-2 text-right">
          {if="$fsc->allow_delete"}
-         <a href="#" id="b_eliminar_articulo" class="btn btn-sm btn-danger">
+         <a href="index.php?page=articulos&delete={$fsc->articulo->referencia}" id="b_eliminar" class="btn btn-sm btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
             <span class="hidden-xs">&nbsp; Eliminar</span>
          </a>
@@ -167,13 +227,7 @@
          </a>
       </li>
       {/if}
-      {loop="$fsc->extensions"}
-         {if="$value->type=='tab'"}
-         <li role="presentation">
-            <a href="#ext_{$value->name}" aria-controls="ext_{$value->name}" role="tab" data-toggle="tab">{$value->text}</a>
-         </li>
-         {/if}
-      {/loop}
+
       <li class="dropdown">
          <a class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -202,7 +256,7 @@
                   <div class="col-sm-3">
                      <div class="form-group">
                         Referencia:
-                        <input class="form-control" type="text" name="nreferencia" value="{$fsc->articulo->referencia}" maxlength="18" autocomplete="off"/>
+                        <input class="form-control" type="text" name="nreferencia" value="{$fsc->articulo->referencia}" maxlength="25" autocomplete="off"/>
                      </div>
                      <div class="form-group">
                         Tipo:
@@ -219,7 +273,7 @@
                   <div class="col-sm-9">
                      <div class="form-group">
                         Descripción:
-                        <textarea name="descripcion" class="form-control" rows="4">{$fsc->articulo->descripcion}</textarea>
+                        <textarea name="descripcion" type="text" class="form-control" rows="4">{$fsc->articulo->descripcion}</textarea>
                      </div>
                   </div>
                </div>
@@ -359,49 +413,21 @@
             <input type="hidden" name="referencia" value="{$fsc->articulo->referencia}"/>
             <input type="hidden" id="iva" name="iva" value="{$fsc->articulo->get_iva()}"/>
             <div class="container-fluid" style="margin-top: 10px;">
+
                <div class="row">
                   <div class="col-sm-4">
                      <div class="form-group">
-                        Precio:
-                        <div class="input-group">
-                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvp" name="pvp" value="{$fsc->articulo->pvp}" autocomplete="off" onkeyup="cambiar_pvp()" onclick="this.select()"/>
-                        </div>
-                        <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
-                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        <a href="{$fsc->impuesto->url()}">{#FS_IVA#}</a>:
-                        <select class="form-control" name="codimpuesto" onchange="this.form.submit()">
-                        {loop="$fsc->impuesto->all()"}
-                           {if="$value->codimpuesto==$fsc->articulo->codimpuesto"}
-                           <option value="{$value->codimpuesto}" selected="">{$value->descripcion}</option>
-                           {else}
-                           <option value="{$value->codimpuesto}">{$value->descripcion}</option>
-                           {/if}
-                        {/loop}
-                        </select>
-                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        Precio+{#FS_IVA#}:
-                        <div class="input-group">
-                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
-                           <input type="text" class="form-control" id="pvpi" name="pvpiva" value="{$fsc->articulo->pvp_iva()}" autocomplete="off" onkeyup="cambiar_pvpi()" onclick="this.select()"/>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-sm-4">
-                     <div class="form-group">
-                        Precio de Coste:
+                        Precio de Compra:
                         {if="$fsc->articulo->secompra AND FS_COST_IS_AVERAGE"}
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
                         <input type="text" name="coste" id="coste" class="form-control" value="{$fsc->articulo->preciocoste()}" disabled="disabled">
+                        </div>
                         {else}
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
                         <input type="text" name="preciocoste" id="coste" class="form-control" value="{$fsc->articulo->preciocoste()}" onclick="this.select()" autocomplete="off">
+                          </div>
                         {/if}
                         <p class="help-block">
                            Puede cambiar la configuración de precio de coste desde
@@ -414,7 +440,7 @@
                         Margen sobre precio de coste
                         <div class="input-group">
                            <span class="input-group-addon">%</span>
-                           <input type="text" class="form-control" id="margen" name="margen" value="0" autocomplete="off" onkeyup="cambiar_margen()" onclick="this.select()"/>
+                           <input type="text" class="form-control" id="margen" name="margen" value="{$fsc->articulo->margen_calculado}" autocomplete="off"  onkeyup="cambiar_margen()" onchange="fun_precio_sin_iva()" onclick="this.select()" />
                         </div>
                         <p class="help-block">Sirve para calcular el Precio, pero no se almacena (todavía).</p>
                      </div>
@@ -425,6 +451,41 @@
                         <span class="glyphicon glyphicon-floppy-disk"></span> &nbsp; Guardar
                      </button>
                      <div class="visible-xs"><br/></div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        Precio venta IVA incluido:
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
+                           <input type="text" class="form-control" id="precio_con_iva" name="precio_con_iva" value="{$fsc->articulo->precio_con_iva}" autocomplete="off"  onkeyup="cambia()" onchange="fun_precio_sin_iva()" />
+                        </div>
+                        <p class="help-block">Último cambio de precio: {$fsc->articulo->factualizado}</p>
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        <a href="{$fsc->impuesto->url()}">{#FS_IVA#}</a>:
+                        <select class="form-control" name="codimpuesto" onchange="this.form.submit()">
+                           {loop="$fsc->impuesto->all()"}
+                           {if="$value->codimpuesto==$fsc->articulo->codimpuesto"}
+                           <option value="{$value->codimpuesto}" selected="">{$value->descripcion}</option>
+                           {else}
+                           <option value="{$value->codimpuesto}">{$value->descripcion}</option>
+                           {/if}
+                           {/loop}
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group">
+                        Precio sin {#FS_IVA#}:
+                        <div class="input-group">
+                           <span class="input-group-addon">{$fsc->simbolo_divisa()}</span>
+                           <input type="text" class="form-control" id="pvp_sin_iva" name="pvp_sin_iva" value="{$fsc->articulo->get_precio_sin_iva()}" autocomplete="off" disabled/>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>

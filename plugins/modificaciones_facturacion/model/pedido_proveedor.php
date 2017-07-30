@@ -286,10 +286,10 @@ class pedido_proveedor extends fs_model
    {
       if( is_null($this->idalbaran) )
       {
-         return 'index.php?page=compras_albaranes';
+         return 'index.php?page=compras_cotizaciones';
       }
       else
-         return 'index.php?page=compras_albaran&id='.$this->idalbaran;
+         return 'index.php?page=compras_cotizacion&id='.$this->idalbaran;
    }
 
    public function agente_url()
@@ -384,7 +384,7 @@ class pedido_proveedor extends fs_model
       $this->observaciones = $this->no_html($this->observaciones);
       $this->totaleuros = $this->total * $this->tasaconv;
 
-      if ($this->floatcmp($this->total, $this->neto + $this->totaliva - $this->totalirpf + $this->totalrecargo, FS_NF0, TRUE))
+      if ($this->floatcmp($this->total, $this->neto , FS_NF0, TRUE))
       {
          return TRUE;
       }
@@ -410,7 +410,7 @@ class pedido_proveedor extends fs_model
             $status = FALSE;
 
          $neto += $l->pvptotal;
-         $iva += $l->pvptotal * $l->iva / 100;
+         $iva += ($l->pvptotal * $l->iva )/ (100+$l->iva );
          $irpf += $l->pvptotal * $l->irpf / 100;
          $recargo += $l->pvptotal * $l->recargo / 100;
       }
@@ -419,7 +419,7 @@ class pedido_proveedor extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
+      $total = $neto ;
 
       if (!$this->floatcmp($this->neto, $neto, FS_NF0, TRUE))
       {
@@ -455,7 +455,7 @@ class pedido_proveedor extends fs_model
       
       if($this->idalbaran)
       {
-         $alb0 = new albaran_proveedor();
+         $alb0 = new cotizacion_proveedor();
          $albaran = $alb0->get($this->idalbaran);
          if (!$albaran)
          {
@@ -663,6 +663,6 @@ class pedido_proveedor extends fs_model
    public function cron_job()
    {
       $this->db->exec("UPDATE ".$this->table_name." SET idalbaran = NULL, editable = TRUE"
-              . " WHERE idalbaran NOT IN (SELECT idalbaran FROM albaranesprov);");
+              . " WHERE idalbaran NOT IN (SELECT idcotizacion FROM cotizacion_prov)");
    }
 }

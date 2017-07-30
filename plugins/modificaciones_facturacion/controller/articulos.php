@@ -144,7 +144,7 @@ class articulos extends fs_controller
                $articulo->codfabricante = $_POST['codfabricante'];
             }
 
-            $articulo->set_pvp( floatval($_POST['pvp']) );
+            $articulo->set_precio_con_iva( floatval($_POST['precio_con_iva']) );
             $articulo->set_impuesto($_POST['codimpuesto']);
             if( $articulo->save() )
             {

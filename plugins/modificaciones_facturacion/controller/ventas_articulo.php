@@ -182,12 +182,22 @@ class ventas_articulo extends fs_controller
    
    private function modificar()
    {
-      if( isset($_POST['pvpiva']) )
+//      print_r($_POST);
+      if( isset($_POST['precio_con_iva']) )
       {
          $continuar = TRUE;
          $this->articulo->set_impuesto( $_POST['codimpuesto'] );
-         $this->articulo->set_pvp_iva( floatval($_POST['pvpiva']) );
-         
+//         $this->articulo->set_pvp_iva( floatval($_POST['pvpiva']) );
+
+         $this->articulo->precio_con_iva = 0;
+         if($_POST['precio_con_iva'] != '')
+         {
+            $this->articulo->precio_con_iva = floatval($_POST['precio_con_iva']);
+         }
+         if($_POST['margen'] != '' && intval($_POST['margen']))
+         {
+            $this->articulo->margen_calculado= intval($_POST['margen']);
+         }
          if( isset($_POST['preciocoste']) )
          {
             $this->articulo->costemedio = $this->articulo->preciocoste = floatval($_POST['preciocoste']);
@@ -310,12 +320,14 @@ class ventas_articulo extends fs_controller
          {
             $this->articulo->codfamilia = $_POST['codfamilia'];
          }
-         
+
          $this->articulo->codfabricante = NULL;
          if($_POST['codfabricante'] != '')
          {
             $this->articulo->codfabricante = $_POST['codfabricante'];
          }
+
+
          
          /// ¿Existe ya ese código de barras?
          if($_POST['codbarras'] != '')
@@ -388,6 +400,7 @@ class ventas_articulo extends fs_controller
          $this->calcular_stock_real();
       }
    }
+
    
    public function get_tarifas()
    {
