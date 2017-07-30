@@ -625,7 +625,7 @@ class nueva_venta extends fs_controller
                      }
                      
                      $albaran->neto += $linea->pvptotal;
-                     $albaran->totaliva += ($linea->pvptotal * $linea->iva/100);
+                     $albaran->totaliva += ($linea->pvptotal * $linea->iva/(100 + $linea->iva));
                      $albaran->totalirpf += ($linea->pvptotal * $linea->irpf/100);
                      $albaran->totalrecargo += ($linea->pvptotal * $linea->recargo/100);
                   }
@@ -644,7 +644,7 @@ class nueva_venta extends fs_controller
                $albaran->totaliva = round($albaran->totaliva, FS_NF0);
                $albaran->totalirpf = round($albaran->totalirpf, FS_NF0);
                $albaran->totalrecargo = round($albaran->totalrecargo, FS_NF0);
-               $albaran->total = $albaran->neto + $albaran->totaliva - $albaran->totalirpf + $albaran->totalrecargo;
+               $albaran->total = $albaran->neto - $albaran->totalirpf + $albaran->totalrecargo;
                
                if( abs(floatval($_POST['atotal']) - $albaran->total) >= .02 )
                {
@@ -830,7 +830,7 @@ class nueva_venta extends fs_controller
                      }
                      
                      $factura->neto += $linea->pvptotal;
-                     $factura->totaliva += ($linea->pvptotal * $linea->iva/100);
+                     $factura->totaliva += ($linea->pvptotal * $linea->iva/(100 + $linea->iva));
                      $factura->totalirpf += ($linea->pvptotal * $linea->irpf/100);
                      $factura->totalrecargo += ($linea->pvptotal * $linea->recargo/100);
                   }
@@ -849,7 +849,7 @@ class nueva_venta extends fs_controller
                $factura->totaliva = round($factura->totaliva, FS_NF0);
                $factura->totalirpf = round($factura->totalirpf, FS_NF0);
                $factura->totalrecargo = round($factura->totalrecargo, FS_NF0);
-               $factura->total = $factura->neto + $factura->totaliva - $factura->totalirpf + $factura->totalrecargo;
+               $factura->total = $factura->neto - $factura->totalirpf + $factura->totalrecargo;
                
                if( abs(floatval($_POST['atotal']) - $factura->total) >= .02 )
                {
@@ -1042,7 +1042,7 @@ class nueva_venta extends fs_controller
                   if( $linea->save() )
                   {
                      $presupuesto->neto += $linea->pvptotal;
-                     $presupuesto->totaliva += ($linea->pvptotal * $linea->iva/100);
+                     $presupuesto->totaliva += ($linea->pvptotal * $linea->iva/(100 + $linea->iva));
                      $presupuesto->totalirpf += ($linea->pvptotal * $linea->irpf/100);
                      $presupuesto->totalrecargo += ($linea->pvptotal * $linea->recargo/100);
                   }
@@ -1061,7 +1061,7 @@ class nueva_venta extends fs_controller
                $presupuesto->totaliva = round($presupuesto->totaliva, FS_NF0);
                $presupuesto->totalirpf = round($presupuesto->totalirpf, FS_NF0);
                $presupuesto->totalrecargo = round($presupuesto->totalrecargo, FS_NF0);
-               $presupuesto->total = $presupuesto->neto + $presupuesto->totaliva - $presupuesto->totalirpf + $presupuesto->totalrecargo;
+               $presupuesto->total = $presupuesto->neto - $presupuesto->totalirpf + $presupuesto->totalrecargo;
                
                if( abs(floatval($_POST['atotal']) - $presupuesto->total) >= .02)
                {
@@ -1233,7 +1233,7 @@ class nueva_venta extends fs_controller
                   if( $linea->save() )
                   {
                      $pedido->neto += $linea->pvptotal;
-                     $pedido->totaliva += ($linea->pvptotal * $linea->iva/100);
+                     $pedido->totaliva += ($linea->pvptotal * $linea->iva/(100 + $linea->iva));
                      $pedido->totalirpf += ($linea->pvptotal * $linea->irpf/100);
                      $pedido->totalrecargo += ($linea->pvptotal * $linea->recargo/100);
                   }
@@ -1252,7 +1252,7 @@ class nueva_venta extends fs_controller
                $pedido->totaliva = round($pedido->totaliva, FS_NF0);
                $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
                $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
-               $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+               $pedido->total = $pedido->neto  - $pedido->totalirpf + $pedido->totalrecargo;
                
                if( abs(floatval($_POST['atotal']) - $pedido->total) >= .02)
                {

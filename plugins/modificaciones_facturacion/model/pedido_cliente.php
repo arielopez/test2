@@ -455,7 +455,7 @@ class pedido_cliente extends fs_model
          $this->editable = FALSE;
       }
       
-      if($this->floatcmp($this->total, $this->neto + $this->totaliva - $this->totalirpf + $this->totalrecargo, FS_NF0, TRUE))
+      if($this->floatcmp($this->total, $this->neto - $this->totalirpf + $this->totalrecargo, FS_NF0, TRUE))
       {
          return TRUE;
       }
@@ -481,7 +481,7 @@ class pedido_cliente extends fs_model
             $status = FALSE;
 
          $neto += $l->pvptotal;
-         $iva += $l->pvptotal * $l->iva / 100;
+         $iva += $l->pvptotal * $l->iva / (100+$l->iva);
          $irpf += $l->pvptotal * $l->irpf / 100;
          $recargo += $l->pvptotal * $l->recargo / 100;
       }
@@ -490,7 +490,7 @@ class pedido_cliente extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
+      $total = $neto  - $irpf + $recargo;
 
       if (!$this->floatcmp($this->neto, $neto, FS_NF0, TRUE))
       {

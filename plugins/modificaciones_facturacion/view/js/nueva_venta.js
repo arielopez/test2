@@ -144,7 +144,7 @@ function recalcular()
    $("#aiva").html( show_numero(total_iva) );
    $("#are").html( show_numero(total_recargo) );
    $("#airpf").html( show_numero(total_irpf) );
-   $("#atotal").val( neto  - total_irpf + total_recargo );
+   $("#atotal").val( neto);
    
    if(total_recargo == 0 && !cliente.recargo)
    {
@@ -327,10 +327,10 @@ function add_articulo(ref,desc,pvp,dto,codimpuesto,cantidad)
 {
    desc = Base64.decode(desc);
    $("#lineas_albaran").append("<tr id=\"linea_"+numlineas+"\">\n\
-      <td colspan='3'><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
+      <td colspan=''><input type=\"hidden\" name=\"idlinea_"+numlineas+"\" value=\"-1\"/>\n\
          <input type=\"hidden\" name=\"referencia_"+numlineas+"\" value=\""+ref+"\"/>\n\
          <div class=\"form-control\"><a target=\"_blank\" href=\"index.php?page=ventas_articulo&ref="+ref+"\">"+ref+"</a></div></td>\n\
-      <td><div class=\"form-control\" onclick=\"this.select()\" >"+desc+"</div><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\" style='display: none'>"+desc+"</textarea></td>\n\
+      <td colspan='3'><div class=\"form-control\" onclick=\"this.select()\" >"+desc+"</div><textarea class=\"form-control\" id=\"desc_"+numlineas+"\" name=\"desc_"+numlineas+"\" rows=\"1\" onclick=\"this.select()\" style='display: none'>"+desc+"</textarea></td>\n\
       <td><input type=\"number\" step=\"any\" id=\"cantidad_"+numlineas+"\" class=\"form-control text-right\" name=\"cantidad_"+numlineas+
          "\" onchange=\"recalcular()\" onkeyup=\"recalcular()\" autocomplete=\"off\" value=\""+cantidad+"\"/></td>\n\
       <td><button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"$('#linea_"+numlineas+"').remove();recalcular();\">\n\

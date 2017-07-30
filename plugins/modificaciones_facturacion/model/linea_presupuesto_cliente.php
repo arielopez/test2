@@ -84,12 +84,12 @@ class linea_presupuesto_cliente extends fs_model
    
    public function pvp_iva()
    {
-      return $this->pvpunitario*(100+$this->iva)/100;
+      return $this->pvpunitario;
    }
    
    public function total_iva()
    {
-      return $this->pvptotal*(100+$this->iva-$this->irpf+$this->recargo)/100;
+      return $this->pvptotal;
    }
    
    public function descripcion()
