@@ -265,7 +265,7 @@ class ventas_agrupar_albaranes extends fs_controller
          foreach($alb->get_lineas() as $l)
          {
             $factura->neto += $l->pvptotal;
-            $factura->totaliva += $l->pvptotal * $l->iva/100;
+            $factura->totaliva += $l->pvptotal * $l->iva/(100+$l->iva);
             $factura->totalirpf += $l->pvptotal * $l->irpf/100;
             $factura->totalrecargo += $l->pvptotal * $l->recargo/100;
          }
@@ -276,7 +276,7 @@ class ventas_agrupar_albaranes extends fs_controller
       $factura->totaliva = round($factura->totaliva, FS_NF0);
       $factura->totalirpf = round($factura->totalirpf, FS_NF0);
       $factura->totalrecargo = round($factura->totalrecargo, FS_NF0);
-      $factura->total = $factura->neto + $factura->totaliva - $factura->totalirpf + $factura->totalrecargo;
+      $factura->total = $factura->neto - $factura->totalirpf + $factura->totalrecargo;
       
       /// asignamos la mejor fecha posible, pero dentro del ejercicio
       $ejercicio = new ejercicio();

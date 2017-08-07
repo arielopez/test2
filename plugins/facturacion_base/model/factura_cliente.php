@@ -317,7 +317,11 @@ class factura_cliente extends fs_model
       else
          return substr($this->observaciones, 0, 50).'...';
    }
-   
+
+   public function set_fecha_hora()
+   {
+
+   }
    public function vencida()
    {
       if($this->pagada)
@@ -407,7 +411,7 @@ class factura_cliente extends fs_model
                   {
                      $encontrada = TRUE;
                      $lineasi[$i]->neto += $l->pvptotal;
-                     $lineasi[$i]->totaliva += ($l->pvptotal*$l->iva)/100;
+                     $lineasi[$i]->totaliva += ($l->pvptotal*$l->iva)/(100+$l->iva);
                      $lineasi[$i]->totalrecargo += ($l->pvptotal*$l->recargo)/100;
                   }
                   $i++;
@@ -420,7 +424,7 @@ class factura_cliente extends fs_model
                   $lineasi[$i]->iva = $l->iva;
                   $lineasi[$i]->recargo = $l->recargo;
                   $lineasi[$i]->neto = $l->pvptotal;
-                  $lineasi[$i]->totaliva = ($l->pvptotal*$l->iva)/100;
+                  $lineasi[$i]->totaliva = ($l->pvptotal*$l->iva)/(100+$l->iva);
                   $lineasi[$i]->totalrecargo = ($l->pvptotal*$l->recargo)/100;
                }
             }
@@ -431,7 +435,7 @@ class factura_cliente extends fs_model
                $lineasi[0]->neto = round($lineasi[0]->neto, FS_NF0);
                $lineasi[0]->totaliva = round($lineasi[0]->totaliva, FS_NF0);
                $lineasi[0]->totaliva = round($lineasi[0]->totaliva, FS_NF0);
-               $lineasi[0]->totallinea = $lineasi[0]->neto + $lineasi[0]->totaliva + $lineasi[0]->totalrecargo;
+               $lineasi[0]->totallinea = $lineasi[0]->neto + $lineasi[0]->totalrecargo;
                $lineasi[0]->save();
             }
             else
@@ -447,7 +451,7 @@ class factura_cliente extends fs_model
                {
                   $li->neto = bround($li->neto, FS_NF0);
                   $li->totaliva = bround($li->totaliva, FS_NF0);
-                  $li->totallinea = $li->neto + $li->totaliva;
+                  $li->totallinea = $li->neto ;
                   
                   $t_neto += $li->neto;
                   $t_iva += $li->totaliva;
@@ -517,7 +521,7 @@ class factura_cliente extends fs_model
                
                foreach($lineasi as $i => $value)
                {
-                  $lineasi[$i]->totallinea = $value->neto + $value->totaliva + $value->totalrecargo;
+                  $lineasi[$i]->totallinea = $value->neto + $value->totalrecargo;
                   $lineasi[$i]->save();
                }
             }
@@ -648,7 +652,7 @@ class factura_cliente extends fs_model
       $this->observaciones = $this->no_html($this->observaciones);
       $this->totaleuros = $this->total * $this->tasaconv;
       
-      if( $this->floatcmp($this->total, $this->neto+$this->totaliva-$this->totalirpf+$this->totalrecargo, FS_NF0, TRUE) )
+      if( $this->floatcmp($this->total, $this->neto-$this->totalirpf+$this->totalrecargo, FS_NF0, TRUE) )
       {
          return TRUE;
       }
@@ -713,7 +717,7 @@ class factura_cliente extends fs_model
             $status = FALSE;
          
          $neto += $l->pvptotal;
-         $iva += $l->pvptotal * $l->iva / 100;
+         $iva += $l->pvptotal * $l->iva / (100+$l->iva);
          $irpf += $l->pvptotal * $l->irpf / 100;
          $recargo += $l->pvptotal * $l->recargo / 100;
       }
@@ -722,7 +726,7 @@ class factura_cliente extends fs_model
       $iva = round($iva, FS_NF0);
       $irpf = round($irpf, FS_NF0);
       $recargo = round($recargo, FS_NF0);
-      $total = $neto + $iva - $irpf + $recargo;
+      $total = $neto - $irpf + $recargo;
       
       if( !$this->floatcmp($this->neto, $neto, FS_NF0, TRUE) )
       {

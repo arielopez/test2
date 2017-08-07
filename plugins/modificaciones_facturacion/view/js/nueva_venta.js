@@ -122,11 +122,11 @@ function recalcular()
          $("#neto_"+i).val( l_neto );
          if(numlineas == 1)
          {
-            $("#total_"+i).val( fs_round(l_neto, fs_nf0) + fs_round(l_neto*(l_iva-l_irpf+l_recargo)/100, fs_nf0) );
+            $("#total_"+i).val( fs_round(l_neto, fs_nf0) );
          }
          else
          {
-            $("#total_"+i).val( number_format(l_neto + (l_neto*(l_iva-l_irpf+l_recargo)/100), fs_nf0, '.', '') );
+            $("#total_"+i).val( number_format(l_neto, fs_nf0, '.', '') );
          }
          
          neto += l_neto;

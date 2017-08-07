@@ -196,7 +196,7 @@
          <div class="col-md-3 col-sm-12">
             <div class="form-group">
                Cliente actual:
-               <div class="input-group">
+               <div class="">
                   <input class="form-control" type="text" name="ac_cliente" id="ac_cliente" value="{$fsc->pedido->nombrecliente}" placeholder="Buscar" autocomplete="off" readonly/>
                </div>
             </div>
@@ -341,8 +341,8 @@
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
-                           <input type="text" class="form-control text-right" id="total_{$counter}" name="total_{$counter}"
-                                  onchange="ajustar_total()" onclick="this.select()" autocomplete="off"/>
+                           <input type="text" class="form-control text-right" id="neto_{$counter}" name="neto_{$counter}"
+                                  onchange="ajustar_neto()" onclick="this.select()" autocomplete="off"/>
                         </td>
                      </tr>
                      {/loop}
@@ -411,12 +411,13 @@
                   </tr>
                   {/loop}
                   <tr>
+				     <td width="40"></td>
                      {if="$fsc->pedido->coddivisa!=$fsc->empresa->coddivisa"}
                      <td colspan="4" class="text-right warning"><b>{$fsc->pedido->coddivisa}:</b></td>
                      {else}
                      <td colspan="3"></td>
                      {/if}
-                     <td class="text-right"><b>{$fsc->show_precio($fsc->pedido->totaliva, $fsc->pedido->coddivisa)}</b></td>
+                     <td class="text-right" colspan="2"><b>{$fsc->show_precio($fsc->pedido->totaliva, $fsc->pedido->coddivisa)}</b></td>
                      <td class="text-right"><b>{$fsc->show_precio($fsc->pedido->total, $fsc->pedido->coddivisa)}</b></td>
                   </tr>
                </table>

@@ -361,7 +361,7 @@ class orden_compra_proveedor extends fs_model
       $this->observaciones = $this->no_html($this->observaciones);
       $this->totaleuros = $this->total * $this->tasaconv;
 
-      if ($this->floatcmp($this->total, $this->neto - $this->totalirpf + $this->totalrecargo, FS_NF0, TRUE))
+      if ($this->floatcmp($this->total, $this->neto , FS_NF0, TRUE))
       {
          return TRUE;
       }

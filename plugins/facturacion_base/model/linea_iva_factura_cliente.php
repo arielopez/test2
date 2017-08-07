@@ -79,7 +79,7 @@ class linea_iva_factura_cliente extends fs_model
    
    public function test()
    {
-      if( $this->floatcmp($this->totallinea, $this->neto + $this->totaliva + $this->totalrecargo, FS_NF0, TRUE) )
+      if( $this->floatcmp($this->totallinea, $this->neto  + $this->totalrecargo, FS_NF0, TRUE) )
       {
          return TRUE;
       }
@@ -120,7 +120,7 @@ class linea_iva_factura_cliente extends fs_model
       }
       else if( !$this->floatcmp($totaliva, $li_iva, FS_NF0, TRUE) )
       {
-         $this->new_error_msg("La suma de los totales de iva de las líneas de IVA debería ser: ".$totaliva);
+         $this->new_error_msg("La suma de los totales de iva de las líneas de IVA debería ser: ".$totaliva." ".$li_iva);
          $status = FALSE;
       }
       else if( !$this->floatcmp($totalrecargo, $li_recargo, FS_NF0, TRUE) )

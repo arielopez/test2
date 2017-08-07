@@ -162,7 +162,7 @@ class linea_pedido_cliente extends fs_model
    
    public function total_iva()
    {
-      return $this->pvptotal*(100+$this->iva-$this->irpf+$this->recargo)/100;
+      return $this->pvptotal*(100-$this->irpf+$this->recargo)/100;
    }
    
    public function descripcion()
