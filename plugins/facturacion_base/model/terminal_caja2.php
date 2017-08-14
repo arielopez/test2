@@ -35,6 +35,7 @@ class terminal_caja2 extends fs_model
    public $comandoapertura;
    public $num_tickets;
    
+    public $sin_comandos;
    public function __construct($t = FALSE)
    {
       parent::__construct('cajas_terminales', 'plugins/facturacion_base/');
@@ -81,6 +82,7 @@ class terminal_caja2 extends fs_model
          $this->comandocorte = '27.105';
          $this->comandoapertura = '27.112.48';
          $this->num_tickets = 1;
+            $this->sin_comandos = FALSE;
       }
    }
    
@@ -106,12 +108,20 @@ class terminal_caja2 extends fs_model
    
    public function add_linea_big($linea)
    {
-      $this->tickets .= chr(27).chr(33).chr(56).$linea.chr(27).chr(33).chr(1);
-   }
+        if ($this->sin_comandos) {
+            $this->tickets .= $linea;
+        } else {
+            $this->tickets .= chr(27) . chr(33) . chr(56) . $linea . chr(27) . chr(33) . chr(1);
+        }
+    }
    
    public function abrir_cajon()
    {
-      $aux = explode('.', $this->comandoapertura);
+      
+        if ($this->sin_comandos) {
+            /// nada
+        } else if ($this->comandoapertura) {
+            $aux = explode('.', $this->comandoapertura);
       if($aux)
       {
          foreach($aux as $a)
@@ -119,19 +129,25 @@ class terminal_caja2 extends fs_model
       }
       
       $this->tickets .= "\n";
+      }
    }
    
-   public function cortar_papel()
-   {
-      $aux = explode('.', $this->comandocorte);
-      if($aux)
-      {
-         foreach($aux as $a)
-            $this->tickets .= chr($a);
-      }
-      
-      $this->tickets .= "\n";
-   }
+    public function cortar_papel()
+    {
+        if ($this->sin_comandos) {
+            /// nada
+        } else if ($this->comandocorte) {
+            $aux = explode('.', $this->comandocorte);
+            if ($aux) {
+                foreach ($aux as $a) {
+                    $this->tickets .= chr($a);
+                }
+
+                $this->tickets .= "\n";
+            }
+        }
+    }
+
    
    public function center_text($word = '', $ancho = FALSE)
    {
@@ -295,4 +311,37 @@ class terminal_caja2 extends fs_model
       
       return $tlist;
    }
+    public function sanitize($txt)
+    {
+        $changes = array('/à/' => 'a', '/á/' => 'a', '/â/' => 'a', '/ã/' => 'a', '/ä/' => 'a',
+            '/å/' => 'a', '/æ/' => 'ae', '/ç/' => 'c', '/è/' => 'e', '/é/' => 'e', '/ê/' => 'e',
+            '/ë/' => 'e', '/ì/' => 'i', '/í/' => 'i', '/î/' => 'i', '/ï/' => 'i', '/ð/' => 'd',
+            '/ñ/' => 'n', '/ò/' => 'o', '/ó/' => 'o', '/ô/' => 'o', '/õ/' => 'o', '/ö/' => 'o',
+            '/ő/' => 'o', '/ø/' => 'o', '/ù/' => 'u', '/ú/' => 'u', '/û/' => 'u', '/ü/' => 'u',
+            '/ű/' => 'u', '/ý/' => 'y', '/þ/' => 'th', '/ÿ/' => 'y',
+            '/&quot;/' => '-',
+            '/À/' => 'A', '/Á/' => 'A', '/Â/' => 'A', '/Ä/' => 'A',
+            '/Ç/' => 'C', '/È/' => 'E', '/É/' => 'E', '/Ê/' => 'E',
+            '/Ë/' => 'E', '/Ì/' => 'I', '/Í/' => 'I', '/Î/' => 'I', '/Ï/' => 'I',
+            '/Ñ/' => 'N', '/Ò/' => 'O', '/Ó/' => 'O', '/Ô/' => 'O', '/Ö/' => 'O',
+            '/Ù/' => 'U', '/Ú/' => 'U', '/Û/' => 'U', '/Ü/' => 'U',
+            '/Ý/' => 'Y', '/Ÿ/' => 'Y',
+        );
+
+        return preg_replace(array_keys($changes), $changes, $txt);
+    }
+
+    protected function show_precio($precio, $coddivisa)
+    {
+        if (FS_POS_DIVISA == 'right') {
+            return number_format($precio, FS_NF0, FS_NF1, FS_NF2) . ' ' . $coddivisa;
+        }
+
+        return $coddivisa . ' ' . number_format($precio, FS_NF0, FS_NF1, FS_NF2);
+    }
+
+    protected function show_numero($num = 0, $decimales = FS_NF0)
+    {
+        return number_format($num, $decimales, FS_NF1, FS_NF2);
+    }
 }

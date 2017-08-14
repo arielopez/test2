@@ -176,21 +176,21 @@ class tpv_arqueo extends fs_model
    
    public function total_contado()
    {
-      $total = $this->m001*0.01;
-      $total += $this->m002*0.02;
-      $total += $this->m005*0.05;
-      $total += $this->m010*0.10;
-      $total += $this->m020*0.20;
-      $total += $this->m050*0.50;
-      $total += $this->m1;
-      $total += $this->m2*2;
-      $total += $this->b5*5;
-      $total += $this->b10*10;
-      $total += $this->b20*20;
-      $total += $this->b50*50;
-      $total += $this->b100*100;
-      $total += $this->b200*200;
-      $total += $this->b500*500;
+      $total = $this->m001*0.05*1000;
+      $total += $this->m002*0.10*1000;
+      $total += $this->m005*0.50*1000;
+      $total += $this->m010*1*1000;
+      $total += $this->m020*0;
+      $total += $this->m050*0;
+      $total += $this->m1*0;
+      $total += $this->m2*0;
+      $total += $this->b5*2*1000;
+      $total += $this->b10*5*1000;
+      $total += $this->b20*10*1000;
+      $total += $this->b50*20*1000;
+      $total += $this->b100*50*1000;
+      $total += $this->b200*100*1000;
+      $total += $this->b500*0;
       
       return $total;
    }

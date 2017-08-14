@@ -46,77 +46,77 @@
          
          if( !$.isNumeric(document.f_cerrar_caja.m1c.value) )
          {
-            alert('Cuenta las monedas de 1 céntimo.');
+            alert('Cuenta las monedas de 50.');
             document.f_cerrar_caja.m1c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m2c.value) )
          {
-            alert('Cuenta las monedas de 2 céntimos.');
+            alert('Cuenta las monedas de 100.');
             document.f_cerrar_caja.m2c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m5c.value) )
          {
-            alert('Cuenta las monedas de 5 céntimos.');
+            alert('Cuenta las monedas de 500.');
             document.f_cerrar_caja.m5c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m10c.value) )
          {
-            alert('Cuenta las monedas de 10 céntimos.');
+            alert('Cuenta las monedas de 1000.');
             document.f_cerrar_caja.m10c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m20c.value) )
          {
-            alert('Cuenta las monedas de 20 céntimos.');
+            alert('Cuenta las monedas de 20 .');
             document.f_cerrar_caja.m20c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m50c.value) )
          {
-            alert('Cuenta las monedas de 50 céntimos.');
+            alert('Cuenta las monedas de 50 .');
             document.f_cerrar_caja.m50c.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m1e.value) )
          {
-            alert('Cuenta las monedas de 1 euro.');
+            alert('Cuenta las monedas de 1 .');
             document.f_cerrar_caja.m1e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.m2e.value) )
          {
-            alert('Cuenta las monedas de 2 euros.');
+            alert('Cuenta las monedas de 2 .');
             document.f_cerrar_caja.m2e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b5e.value) )
          {
-            alert('Cuenta los billetes de 5 euros.');
+            alert('Cuenta los billetes de 2000.');
             document.f_cerrar_caja.b5e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b10e.value) )
          {
-            alert('Cuenta los billetes de 10 euros.');
+            alert('Cuenta los billetes de 5000.');
             document.f_cerrar_caja.b10e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b20e.value) )
          {
-            alert('Cuenta los billetes de 20 euros.');
+            alert('Cuenta los billetes de 10000.');
             document.f_cerrar_caja.b20e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b50e.value) )
          {
-            alert('Cuenta los billetes de 50 euros.');
+            alert('Cuenta los billetes de 20000.');
             document.f_cerrar_caja.b50e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b100e.value) )
          {
-            alert('Cuenta los billetes de 100 euros.');
+            alert('Cuenta los billetes de 50000.');
             document.f_cerrar_caja.b100e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b200e.value) )
          {
-            alert('Cuenta los billetes de 200 euros.');
+            alert('Cuenta los billetes de 100000.');
             document.f_cerrar_caja.b200e.focus();
          }
          else if( !$.isNumeric(document.f_cerrar_caja.b500e.value) )
          {
-            alert('Cuenta los billetes de 500 euros.');
+            alert('Cuenta los billetes de 500 .');
             document.f_cerrar_caja.b500e.focus();
          }
          else
@@ -150,7 +150,7 @@
       <div class="row" style="margin-top: 10px;">
          <div class="col-sm-3">
             <div class="form-group">
-               1 céntimo
+               50 guaranies
                <div class="input-group">
                   <input id="m1c" class="form-control" type="text" name="m1c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -163,7 +163,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               2 céntimos
+               100 guaranies
                <div class="input-group">
                   <input id="m2c" class="form-control" type="text" name="m2c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -176,7 +176,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               5 céntimos
+               500 guaranies
                <div class="input-group">
                   <input id="m5c" class="form-control" type="text" name="m5c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -189,7 +189,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               10 céntimos
+               1.000 guaranies
                <div class="input-group">
                   <input id="m10c" class="form-control" type="text" name="m10c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -200,9 +200,9 @@
                </div>
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 display_none">
             <div class="form-group">
-               20 céntimos
+               20
                <div class="input-group">
                   <input id="m20c" class="form-control" type="text" name="m20c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -213,9 +213,9 @@
                </div>
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 display_none">
             <div class="form-group">
-               50 céntimos
+               50
                <div class="input-group">
                   <input id="m50c" class="form-control" type="text" name="m50c" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -226,9 +226,9 @@
                </div>
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 display_none">
             <div class="form-group">
-               1 euro
+
                <div class="input-group">
                   <input id="m1e" class="form-control" type="text" name="m1e" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -239,9 +239,9 @@
                </div>
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 display_none">
             <div class="form-group">
-               2 euros
+
                <div class="input-group">
                   <input id="m2e" class="form-control" type="text" name="m2e" value="0" autocomplete="off" placeholder="¿Cuantas?"/>
                   <span class="input-group-btn">
@@ -265,7 +265,7 @@
       <div class="row" style="margin-top: 10px;">
          <div class="col-sm-3">
             <div class="form-group">
-               5 euros
+               2.000 guaranies
                <div class="input-group">
                   <input id="b5e" class="form-control" type="text" name="b5e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -278,7 +278,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               10 euros
+               5.000 guaranies
                <div class="input-group">
                   <input id="b10e" class="form-control" type="text" name="b10e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -291,7 +291,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               20 euros
+               10.000 guaranies
                <div class="input-group">
                   <input id="b20e" class="form-control" type="text" name="b20e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -304,7 +304,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               50 euros
+               20.000 guaranies
                <div class="input-group">
                   <input id="b50e" class="form-control" type="text" name="b50e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -317,7 +317,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               100 euros
+               50.000 guaranies
                <div class="input-group">
                   <input id="b100e" class="form-control" type="text" name="b100e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -330,7 +330,7 @@
          </div>
          <div class="col-sm-3">
             <div class="form-group">
-               200 euros
+               100.000 guaranies
                <div class="input-group">
                   <input id="b200e" class="form-control" type="text" name="b200e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">
@@ -341,9 +341,9 @@
                </div>
             </div>
          </div>
-         <div class="col-sm-3">
+         <div class="col-sm-3 display_none">
             <div class="form-group">
-               500 euros
+               500
                <div class="input-group">
                   <input id="b500e" class="form-control" type="text" name="b500e" value="0" autocomplete="off" placeholder="¿Cuantos?"/>
                   <span class="input-group-btn">

@@ -31,7 +31,7 @@
       }
    }
    $(document).ready(function() {
-      $("body").css('margin-top', 35);
+      $("body").css('margin-top', 53);
       
       $("#ac_cliente").autocomplete({
          serviceUrl: '{$fsc->url()}',
@@ -70,7 +70,7 @@
    <input type="hidden" name="idtpv_comanda" value="{$fsc->comanda->idtpv_comanda}"/>
    {/if}
    
-   <nav class="navbar navbar-default navbar-fixed-top">
+   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
          <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -104,7 +104,8 @@
                </ul>
             </li>
             <li>
-               <a href="#" data-toggle="modal" data-target="#modal_cambio_agente">
+               <!--<a href="#" data-toggle="modal" data-target="#modal_cambio_agente">-->
+                  <a href="#" data-toggle="modal" data-target="">
                   <span class="glyphicon glyphicon-user"></span>
                   <span class="hidden-sm">&nbsp; {$fsc->agente->get_fullname()}</span>
                </a>

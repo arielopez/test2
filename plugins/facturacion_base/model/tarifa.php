@@ -210,17 +210,17 @@ class tarifa extends fs_model
          $articulos[$i]->tarifa_url = $this->url();
          $articulos[$i]->dtopor = 0;
          
-         $pvp = $articulos[$i]->pvp;
+         $pvp = $articulos[$i]->precio_con_iva;
          if($this->aplicar_a == 'pvp')
          {
             if( $this->x() >= 0 )
             {
                $articulos[$i]->dtopor = $this->x();
-               $articulos[$i]->pvp = $articulos[$i]->pvp - $this->y();
+               $articulos[$i]->pvp = $articulos[$i]->precio_con_iva - $this->y();
             }
             else
             {
-               $articulos[$i]->pvp = $articulos[$i]->pvp * (100 - $this->x())/100 - $this->y();
+               $articulos[$i]->pvp = $articulos[$i]->precio_con_iva * (100 - $this->x())/100 - $this->y();
             }
          }
          else

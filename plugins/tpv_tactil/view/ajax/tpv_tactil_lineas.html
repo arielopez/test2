@@ -2,7 +2,7 @@
 <tr id="linea_{$fsc->numlineas+$counter}">
    <td>
       <input type="hidden" name="referencia_{$fsc->numlineas+$counter}" value="{$value->referencia}"/>
-      <input type="hidden" id="pvp_{$fsc->numlineas+$counter}" name="pvp_{$fsc->numlineas+$counter}" value="{$value->pvp}"/>
+      <input type="hidden" id="pvp_{$fsc->numlineas+$counter}" name="pvp_{$fsc->numlineas+$counter}" value="{$value->precio_con_iva}"/>
       <input type="hidden" id="iva_{$fsc->numlineas+$counter}" name="iva_{$fsc->numlineas+$counter}" value="{$value->get_iva()}"/>
       <input type="hidden" id="codimpuesto_{$fsc->numlineas+$counter}" name="codimpuesto_{$fsc->numlineas+$counter}" value="{$value->codimpuesto}"/>
       <div class="input-group">
@@ -13,7 +13,7 @@
       </div>
    </td>
    <td>
-      <div class="input-group">
+      <div class="input-group" style="min-width: 117px">
          <span class="input-group-btn">
             <button class="btn btn-default" type="button" onclick="linea_sum_ud('{$fsc->numlineas+$counter}','-1')">-</button>
          </span>

@@ -169,7 +169,7 @@ function recalcular()
          l_pvp = parseFloat($("#pvp_" + i).val());
          l_iva = parseFloat($("#iva_" + i).val());
          l_codimpuesto = parseFloat($("#codimpuesto_" + i).val());
-         $("#pvpt_" + i).val(fs_round(l_uds * l_pvp * (100 + l_iva) / 100, fs_nf0));
+         $("#pvpt_" + i).val(fs_round(l_uds * l_pvp , fs_nf0));
          neto += l_uds * l_pvp;
          
          l_re = 0;
@@ -202,8 +202,8 @@ function recalcular()
    total_iva = fs_round(total_iva, fs_nf0);
    total_re = fs_round(total_re, fs_nf0);
    total_irpf = fs_round(total_irpf, fs_nf0);
-   $("#tpv_total").html( show_precio(neto + total_iva + total_re - total_irpf) );
-   $("#tpv_total2").val( fs_round(neto + total_iva + total_re - total_irpf, fs_nf0) );
+   $("#tpv_total").html( show_precio(neto  + total_re - total_irpf) );
+   $("#tpv_total2").val( fs_round(neto  + total_re - total_irpf, fs_nf0) );
    $("#total_lineas").html(total_lineas);
    $("#total_articulos").html(total_articulos);
    
@@ -245,7 +245,7 @@ function set_pvpi(num)
    l_pvpi = parseFloat($("#pvpi_" + num).val());
    l_iva = parseFloat($("#iva_" + num).val());
    
-   $("#pvp_" + num).val( l_pvpi*100/(100+l_iva) );
+   $("#pvp_" + num).val( l_pvpi);
    recalcular();
 }
 
@@ -684,20 +684,20 @@ function calcular_cambio_tarjeta()
       tarjeta = parseFloat( $("#tpv_tarjeta").val() );
    }
    
-   if(tesoreria)
+   if(tesoreria || 1==1)
    {
       if( $("#tpv_efectivo").val() != '' )
       {
          efectivo = parseFloat( $("#tpv_efectivo").val() );
       }
       
-      if(efectivo > tarjeta)
+      if(parseFloat($("#tpv_total2").val()) > efectivo)
       {
-         tarjeta = 0;
+         tarjeta = parseFloat($("#tpv_total2").val())-efectivo;
          $("#tpv_tarjeta").val(tarjeta);
       }
       
-      if(tarjeta > efectivo + parseFloat($("#tpv_total2").val()))
+      if(tarjeta > (efectivo + parseFloat($("#tpv_total2").val())))
       {
          tarjeta = parseFloat($("#tpv_total2").val()) - efectivo;
          $("#tpv_tarjeta").val(tarjeta);
@@ -707,14 +707,14 @@ function calcular_cambio_tarjeta()
    }
    else
    {
-      $("#tpv_efectivo").val(0);
+      //$("#tpv_efectivo").val(0);
       if(tarjeta > parseFloat($("#tpv_total2").val()))
       {
          tarjeta = parseFloat($("#tpv_total2").val());
          $("#tpv_tarjeta").val(tarjeta);
       }
       
-      cambio = tarjeta - parseFloat($("#tpv_total2").val());
+      cambio = tarjeta + efectivo- parseFloat($("#tpv_total2").val());
    }
    
    $("#tpv_cambio").val(number_format(parseFloat(cambio), 2, '.', ''));
@@ -748,9 +748,10 @@ $(document).ready(function () {
       calcular_cambio_efectivo();
    });
    $("#tpv_tarjeta").click(function () {
-      
+      //alert("tpv_total"+$("#tpv_total2").val());
+      //alert("tpv_efectivo"+$("#tpv_efectivo").val());
       keyboard2_id = 'tpv_tarjeta';
-      if(!tesoreria)
+      if(!tesoreria && 1==2)
       {
          $("#tpv_efectivo").val(0);
          $("#tpv_cambio").val(0);

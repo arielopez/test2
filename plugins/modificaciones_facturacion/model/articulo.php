@@ -357,9 +357,18 @@ class articulo extends fs_model
       return base64_encode($this->descripcion);
    }
    
+   public function descripcion($len = 120)
+    {
+        if (mb_strlen($this->descripcion, 'UTF8') > $len) {
+            return mb_substr($this->descripcion, 0, $len) . '...';
+        }
+
+        return $this->descripcion;
+    }
+   
    public function pvp_iva()
    {
-      return $this->pvp * (100+$this->get_iva()) / 100;
+      return $this->precio_con_iva ;//* (100+$this->get_iva()) / 100;
    }
    
    /**
@@ -368,7 +377,7 @@ class articulo extends fs_model
     */
    public function costemedio_iva()
    {
-      return $this->costemedio * (100+$this->get_iva()) / 100;
+      return $this->precio_con_iva;//costemedio * (100+$this->get_iva()) / 100;
    }
    
    /**
@@ -379,15 +388,15 @@ class articulo extends fs_model
    {
       if(FS_COST_IS_AVERAGE)
       {
-         return $this->costemedio;
+         return $this->precio_con_iva;//costemedio;
       }
       else
-         return $this->preciocoste;
+         return $this->precio_con_iva;//preciocoste;
    }
    
    public function preciocoste_iva()
    {
-      return $this->preciocoste() * (100+$this->get_iva()) / 100;
+      return $this->preciocoste() ;//* (100+$this->get_iva()) / 100;
    }
    public function get_precio_con_iva(){
       return $this->precio_con_iva;

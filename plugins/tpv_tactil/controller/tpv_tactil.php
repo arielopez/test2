@@ -136,6 +136,7 @@ class tpv_tactil extends fs_controller
       }
       else if( isset($_REQUEST['add_ref']) )
       {
+         print_r($_REQUEST);
          $this->add_ref();
       }
       else if($this->agente)
@@ -637,7 +638,7 @@ class tpv_tactil extends fs_controller
                      {
                         if($value->dtopor != 0)
                         {
-                           $res[$i]->pvp -= $value->pvp * $value->dtopor / 100;
+                           $res[$i]->pvp -= $value->precio_con_iva * $value->dtopor / 100;
                         }
                      }
                   }
@@ -710,6 +711,7 @@ class tpv_tactil extends fs_controller
    
    private function add_ref()
    {
+//      print_r($_REQUEST);
       $this->template = 'ajax/tpv_tactil_lineas';
       $this->resultado = array();
       
@@ -886,7 +888,7 @@ class tpv_tactil extends fs_controller
                         $art0->sum_stock($comanda->codalmacen, 0 - $linea->cantidad);
                         
                         $comanda->neto += $linea->pvptotal;
-                        $comanda->totaliva += ($linea->pvptotal * $linea->iva/100);
+                        $comanda->totaliva += ($linea->pvptotal * $linea->iva)/(100+$linea->iva);
                      }
                      else
                      {
@@ -907,7 +909,7 @@ class tpv_tactil extends fs_controller
                /// redondeamos
                $comanda->neto = round($comanda->neto, FS_NF0);
                $comanda->totaliva = round($comanda->totaliva, FS_NF0);
-               $comanda->total = $comanda->neto + $comanda->totaliva;
+               $comanda->total = $comanda->neto ;
                
                if($comanda->totalpago > $comanda->total)
                {

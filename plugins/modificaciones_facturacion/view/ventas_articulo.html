@@ -1,4 +1,5 @@
 {include="header_modificado2"}
+<script type="text/javascript" src="{$fsc->get_js_location('ventas_articulo.js')}"></script>
 <script type="text/javascript">
    function fun_precio_sin_iva(){
       var iva=10;
@@ -20,20 +21,14 @@
 </script>
 <script type="text/javascript">
    $(document).ready(function () {
-
-      $('#b_eliminar').click(function (event) {
+      $("#b_eliminar").click(function(event) {
          event.preventDefault();
 
          if( confirm("¿Estas seguro de que deseas eliminar este articulo?") )
-            alert("hijo de puta");
-            //window.location.href = {$fsc->url()}"/"({$fsc->articulo->referencia})
+            window.location.href = "../../../index.php"urlencode($fsc->articulo->referencia)"}";
+
       });
-
    });
-
-
-
-
 </script>
 
 <script type="text/javascript">
