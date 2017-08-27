@@ -55,6 +55,9 @@ class tpv_tactil extends fs_controller
    public $utlcambio;
    public $ultentregado;
    public $ultventa;
+   public $nuevocli_setup;
+   public $grupo;
+   public $name_selected;
    
    private $multi_almacen;
    
@@ -69,7 +72,32 @@ class tpv_tactil extends fs_controller
       
       /// ¿El usuario tiene permiso para eliminar en esta página?
       $this->allow_delete = $this->user->allow_delete_on(__CLASS__);
-      
+      $this->name_selected="SIN NOMBRE";
+      /// cargamos la configuración
+      $fsvar = new fs_var();
+      $this->nuevocli_setup = $fsvar->array_get(
+          array(
+              'nuevocli_cifnif_req' => 0,
+              'nuevocli_direccion' => 0,
+              'nuevocli_direccion_req' => 0,
+              'nuevocli_codpostal' => 0,
+              'nuevocli_codpostal_req' => 0,
+              'nuevocli_pais' => 0,
+              'nuevocli_pais_req' => 0,
+              'nuevocli_provincia' => 0,
+              'nuevocli_provincia_req' => 0,
+              'nuevocli_ciudad' => 0,
+              'nuevocli_ciudad_req' => 0,
+              'nuevocli_telefono1' => 0,
+              'nuevocli_telefono1_req' => 0,
+              'nuevocli_telefono2' => 0,
+              'nuevocli_telefono2_req' => 0,
+              'nuevocli_codgrupo' => '',
+          ),
+          FALSE
+      );
+      $this->grupo = new grupo_clientes();
+//      print_r($_POST);
       $this->agente = $this->user->get_agente();
       $this->almacen = new almacen();
       $this->arqueo = FALSE;
@@ -304,7 +332,7 @@ class tpv_tactil extends fs_controller
          /// modificar una factura
          $this->modificar_factura();
       }
-      else if( isset($_POST['cliente']) )
+      else if( isset($_POST['cliente']) and  !isset($_POST['nuevo_cliente']))
       {
          if($this->comanda)
          {
@@ -394,7 +422,95 @@ class tpv_tactil extends fs_controller
       {
          $this->template = 'tpv_tactil_pin';
       }
-      
+
+      /**
+       * Nuevo cliente
+       */
+      if( isset($_POST['nuevo_cliente']) )
+      {
+         if($_POST['nuevo_cliente'] != '')
+         {
+            $this->cliente_s = FALSE;
+            if($_POST['nuevo_cifnif'] != '')
+            {
+               $this->cliente_s = $this->cliente->get_by_cifnif($_POST['nuevo_cifnif']);
+               if($this->cliente_s)
+               {
+                  $this->new_advice('Ya existe un cliente con ese '.FS_CIFNIF.'. Se ha seleccionado.');
+               }
+            }
+
+            if(!$this->cliente_s)
+            {
+               $this->cliente_s = new cliente();
+               $this->cliente_s->codcliente = $this->cliente_s->get_new_codigo();
+               $this->cliente_s->nombre = $this->cliente_s->razonsocial = $_POST['nuevo_cliente'];
+               $this->cliente_s->cifnif = $_POST['nuevo_cifnif'];
+               $this->name_selected=$this->cliente_s->nombre;
+
+               if( isset($_POST['codgrupo']) )
+               {
+                  if($_POST['codgrupo'] != '')
+                  {
+                     $this->cliente_s->codgrupo = $_POST['codgrupo'];
+                  }
+               }
+
+               if( isset($_POST['nuevo_telefono1']) )
+               {
+                  $this->cliente_s->telefono1 = $_POST['nuevo_telefono1'];
+               }
+
+               if( isset($_POST['nuevo_telefono2']) )
+               {
+                  $this->cliente_s->telefono2 = $_POST['nuevo_telefono2'];
+               }
+
+               if( $this->cliente_s->save() )
+               {
+                  $dircliente = new direccion_cliente();
+                  $dircliente->codcliente = $this->cliente_s->codcliente;
+                  $dircliente->codpais = $this->empresa->codpais;
+                  $dircliente->provincia = $this->empresa->provincia;
+                  $dircliente->ciudad = $this->empresa->ciudad;
+                  $dircliente->descripcion = 'Principal';
+
+                  if( isset($_POST['nuevo_pais']) )
+                  {
+                     $dircliente->codpais = $_POST['nuevo_pais'];
+                  }
+
+                  if( isset($_POST['nuevo_provincia']) )
+                  {
+                     $dircliente->provincia = $_POST['nuevo_provincia'];
+                  }
+
+                  if( isset($_POST['nuevo_ciudad']) )
+                  {
+                     $dircliente->ciudad = $_POST['nuevo_ciudad'];
+                  }
+
+                  if( isset($_POST['nuevo_codpostal']) )
+                  {
+                     $dircliente->codpostal = $_POST['nuevo_codpostal'];
+                  }
+
+                  if( isset($_POST['nuevo_direccion']) )
+                  {
+                     $dircliente->direccion = $_POST['nuevo_direccion'];
+                  }
+
+                  if( $dircliente->save() )
+                  {
+                     $this->new_message('Cliente agregado correctamente.');
+                  }
+               }
+               else
+                  $this->new_error_msg("¡Imposible guardar la dirección del cliente!");
+            }
+         }
+      }
+
       $comanda = new tpv_comanda();
       $this->historial = $comanda->all_from_arqueo($this->arqueo->idtpv_arqueo);
       foreach($this->historial as $h)
@@ -1248,7 +1364,7 @@ class tpv_tactil extends fs_controller
                   $linea->cantidad = floatval($_POST['f_cantidad_'.$i]);
                   $linea->pvpsindto = ($linea->pvpunitario * $linea->cantidad);
                   $linea->pvptotal = ($linea->pvpunitario * $linea->cantidad);
-                  
+
                   if( $linea->save() )
                   {
                      /// descontamos del stock

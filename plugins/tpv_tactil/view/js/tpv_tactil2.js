@@ -1,6 +1,6 @@
 /**
  * @author Carlos García Gómez      neorazorx@gmail.com
- * @copyright 2015-2017, Carlos García Gómez. All Rights Reserved. 
+ * @copyright 2015-2017, Carlos García Gómez. All Rights Reserved.
  * @copyright 2015-2017, Jorge Casal Lopez. All Rights Reserved.
  */
 
@@ -34,7 +34,7 @@ function get_articulos(codfamilia)
          $('#tabs_catalogo a[href="#articulos1"]').tab('show');
       }
    }
-   
+
    $.ajax({
       type: 'POST',
       url: tpv_url,
@@ -43,7 +43,7 @@ function get_articulos(codfamilia)
       success: function (datos) {
          $("#catalogo").html(datos);
          $('#tabs_catalogo a[href="#articulos1"]').tab('show');
-         
+
          /// comprobamos si el navegador soporta localstorage
          if( typeof(Storage) !== "undefined" && usar_cache )
          {
@@ -52,7 +52,7 @@ function get_articulos(codfamilia)
          }
       }
    });
-   
+
    return false;
 }
 
@@ -69,7 +69,7 @@ function get_combinaciones(ref)
          $("#modal_combinaciones").modal('show');
       }
    });
-   
+
    return false;
 }
 
@@ -88,7 +88,7 @@ function add_referencia(ref)
          else
          {
             $('#tabs_tpv a:first').tab('show')
-            
+
             if(numlineas == 1)
             {
                $("#tpv_albaran").html(datos);
@@ -97,15 +97,15 @@ function add_referencia(ref)
             {
                $("#tpv_albaran").prepend(datos);
             }
-            
+
             recalcular();
          }
-         
+
          $("#modal_articulos").modal('hide');
          document.f_tpv.codbar.focus();
       }
    });
-   
+
    return false;
 }
 
@@ -116,7 +116,7 @@ function add_combinacion(ref,desc,pvp,dto,codimpuesto)
       url: tpv_url,
       dataType: 'html',
       data: 'add_ref='+ref+'&desc='+desc+'&pvp='+pvp+'&dto='+dto+'&codimpuesto='+codimpuesto
-              +'&numlineas='+numlineas+'&codcliente='+document.f_tpv.cliente.value,
+      +'&numlineas='+numlineas+'&codcliente='+document.f_tpv.cliente.value,
       success: function (datos) {
          if(datos.indexOf('<!--no_encontrado-->') != -1)
          {
@@ -125,7 +125,7 @@ function add_combinacion(ref,desc,pvp,dto,codimpuesto)
          else
          {
             $('#tabs_tpv a:first').tab('show')
-            
+
             if(numlineas == 1)
             {
                $("#tpv_albaran").html(datos);
@@ -134,16 +134,16 @@ function add_combinacion(ref,desc,pvp,dto,codimpuesto)
             {
                $("#tpv_albaran").prepend(datos);
             }
-            
+
             recalcular();
          }
-         
+
          $("#modal_articulos").modal('hide');
          $("#modal_combinaciones").modal('hide');
          document.f_tpv.codbar.focus();
       }
    });
-   
+
    return false;
 }
 
@@ -160,7 +160,7 @@ function recalcular()
    var total_irpf = 0;
    var total_lineas = 0;
    var total_articulos = 0;
-   
+
    for(var i = 1; i <= numlineas+100; i++)
    {
       if( $("#linea_" + i).length > 0 )
@@ -171,7 +171,7 @@ function recalcular()
          l_codimpuesto = parseFloat($("#codimpuesto_" + i).val());
          $("#pvpt_" + i).val(fs_round(l_uds * l_pvp , fs_nf0));
          neto += l_uds * l_pvp;
-         
+
          l_re = 0;
          if(cliente.recargo)
          {
@@ -184,13 +184,13 @@ function recalcular()
                }
             }
          }
-         
+
          total_iva += l_uds * l_pvp * l_iva / 100;
          total_re += l_uds * l_pvp * l_re / 100;
          total_irpf += l_uds * l_pvp * irpf/100;
          total_lineas++;
          total_articulos += l_uds;
-         
+
          if(i >= numlineas)
          {
             numlineas = i+1;
@@ -206,7 +206,7 @@ function recalcular()
    $("#tpv_total2").val( fs_round(neto  + total_re - total_irpf, fs_nf0) );
    $("#total_lineas").html(total_lineas);
    $("#total_articulos").html(total_articulos);
-   
+
    set_cache_lineas();
 }
 
@@ -216,7 +216,7 @@ function set_cache_lineas()
    if( typeof(Storage) !== "undefined" && usar_cache )
    {
       lineas_cache = '';
-      
+
       for(var i = 1; i <= numlineas+100; i++)
       {
          /// solamente nos guardamos la caché si hay alguna linea de venta
@@ -244,7 +244,7 @@ function set_pvpi(num)
 {
    l_pvpi = parseFloat($("#pvpi_" + num).val());
    l_iva = parseFloat($("#iva_" + num).val());
-   
+
    $("#pvp_" + num).val( l_pvpi);
    recalcular();
 }
@@ -253,7 +253,7 @@ function set_pvpi_factura(num)
 {
    l_pvpi = parseFloat($("#f_pvpi_" + num).val());
    l_iva = parseFloat($("#f_iva_" + num).val());
-   
+
    $("#f_pvp_" + num).val( l_pvpi*100/(100+l_iva) );
    recalcular_factura();
 }
@@ -265,7 +265,7 @@ function recalcular_factura()
    var l_iva = 0;
    var neto = 0;
    var total_iva = 0;
-   
+
    for (var i = 1; i <= 200; i++)
    {
       if( $("#f_linea_" + i).length > 0 )
@@ -328,7 +328,7 @@ function send_ticket()
                {
                   $("#tpv_albaran").prepend(datos);
                }
-               
+
                document.f_tpv.codbar.value = '';
                recalcular();
             }
@@ -351,7 +351,7 @@ function aparcar_ticket()
       document.f_tpv.tpv_total.disabled = false;
       document.f_tpv.tpv_cambio.disabled = false;
       document.f_tpv.numlineas.value = numlineas;
-      
+
       $.ajax({
          type: 'POST',
          url: tpv_url,
@@ -360,13 +360,13 @@ function aparcar_ticket()
          success: function(datos) {
             /// limpiamos la caché
             clean_cache_lineas()
-            
+
             var newDoc = document.open("text/html", "replace");
             newDoc.write(datos);
             newDoc.close();
          }
       });
-      
+
       return false;
    }
    else
@@ -385,7 +385,7 @@ function preimprimir_ticket()
       document.f_tpv.tpv_total.disabled = false;
       document.f_tpv.tpv_cambio.disabled = false;
       document.f_tpv.numlineas.value = numlineas;
-      
+
       $.ajax({
          type: 'POST',
          url: tpv_url,
@@ -394,13 +394,13 @@ function preimprimir_ticket()
          success: function(datos) {
             /// limpiamos la caché
             clean_cache_lineas()
-            
+
             var newDoc = document.open("text/html", "replace");
             newDoc.write(datos);
             newDoc.close();
          }
       });
-      
+
       return false;
    }
    else
@@ -418,7 +418,7 @@ function guardar_ticket()
       document.f_tpv.tpv_total.disabled = false;
       document.f_tpv.tpv_cambio.disabled = false;
       document.f_tpv.numlineas.value = numlineas;
-      
+
       $.ajax({
          type: 'POST',
          url: tpv_url,
@@ -427,13 +427,13 @@ function guardar_ticket()
          success: function(datos) {
             /// limpiamos la caché
             clean_cache_lineas()
-            
+
             var newDoc = document.open("text/html", "replace");
             newDoc.write(datos);
             newDoc.close();
          }
       });
-      
+
       return false;
    }
    else
@@ -455,7 +455,7 @@ function mostrar_factura(id)
          $("#modal_factura").modal('show');
       }
    });
-   
+
    return false;
 }
 
@@ -468,7 +468,7 @@ function buscar_articulos()
    else
    {
       document.f_buscar_articulos.codcliente.value = document.f_tpv.cliente.value;
-      
+
       fin_busqueda1 = false;
       $.getJSON(tpv_url, $("form[name=f_buscar_articulos]").serialize(), function(json) {
          var items = [];
@@ -479,7 +479,7 @@ function buscar_articulos()
             {
                stock += ' ('+val.stockfis+')';
             }
-            
+
             var tr_aux = '<tr>';
             if(val.bloqueado)
             {
@@ -493,16 +493,16 @@ function buscar_articulos()
             {
                tr_aux = "<tr class=\"success\">";
             }
-            
+
             if( val.sevende && (val.stockalm > 0 || val.controlstock) )
             {
                var funcion = "add_referencia('"+val.referencia+"')";
-               
+
                if(val.tipo == 'atributos')
                {
                   funcion = "get_combinaciones('"+val.referencia+"')";
                }
-               
+
                items.push(tr_aux+"<td>\n\
                   <a href=\"#\" onclick=\""+funcion+"\">"+val.referencia+'</a> '+val.descripcion+"</td>\n\
                   <td class=\"text-right\"><a href=\"#\" onclick=\""+funcion+"\">"+show_pvp_iva(val.pvp*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
@@ -515,20 +515,20 @@ function buscar_articulos()
                   <td class=\"text-right\"><a href=\"#\" onclick=\"alert('Sin stock.')\">"+show_pvp_iva(val.pvp*(100-val.dtopor)/100,val.codimpuesto)+"</a></td>\n\
                   <td class=\"text-right\">"+stock+"</td></tr>");
             }
-            
+
             if(val.query == document.f_buscar_articulos.query.value)
             {
                insertar = true;
                fin_busqueda1 = true;
             }
          });
-         
+
          if(items.length == 0 && !fin_busqueda1)
          {
             items.push("<tr><td colspan=\"4\" class=\"warning\">Sin resultados.</td></tr>");
             insertar = true;
          }
-         
+
          if(insertar)
          {
             $("#search_results").html("<div class=\"table-responsive\"><table class=\"table table-hover\"><thead><tr>\n\
@@ -553,7 +553,7 @@ function show_pvp_iva(pvp,codimpuesto)
          }
       }
    }
-   
+
    return show_precio(pvp + pvp*iva/100);
 }
 
@@ -562,7 +562,7 @@ function get_keyboard(id,tipo,num)
    keyboard_id = id;
    keyboard_tipo = tipo;
    keyboard_num = num;
-   
+
    $("#modal_keyboard").modal('show');
    $("#i_keyboard").val( $("#"+keyboard_id).val() );
 }
@@ -572,7 +572,7 @@ function set_keyboard(key)
    if(key == 'back')
    {
       var str = $("#i_keyboard").val();
-      
+
       if(str.length > 0)
       {
          $("#i_keyboard").val( str.substring(0, str.length-1) );
@@ -590,7 +590,7 @@ function set_keyboard(key)
    {
       $("#"+keyboard_id).val( $("#i_keyboard").val() );
       $("#modal_keyboard").modal('hide');
-      
+
       if(keyboard_tipo == 'pvpi')
       {
          set_pvpi(keyboard_num);
@@ -607,7 +607,7 @@ function set_keyboard2(key)
    if(key == 'back')
    {
       var str = $("#"+keyboard2_id).val();
-      
+
       if(str.length > 0)
       {
          $("#"+keyboard2_id).val( str.substring(0, str.length-1) );
@@ -621,7 +621,7 @@ function set_keyboard2(key)
    {
       $("#"+keyboard2_id).val( $("#"+keyboard2_id).val()+key );
    }
-   
+
    if(!tesoreria)
    {
       if(keyboard2_id == 'tpv_efectivo')
@@ -635,7 +635,7 @@ function set_keyboard2(key)
          $("#tpv_cambio").val(0);
       }
    }
-   
+
    if(keyboard2_id == 'tpv_efectivo')
    {
       calcular_cambio_efectivo();
@@ -655,14 +655,14 @@ function calcular_cambio_efectivo()
       efectivo = parseFloat( $("#tpv_efectivo").val() );
    }
    var tarjeta = 0;
-   
+
    if(tesoreria)
    {
       if( $("#tpv_tarjeta").val() != '' )
       {
          tarjeta = parseFloat( $("#tpv_tarjeta").val() );
       }
-      
+
       cambio = efectivo + tarjeta - parseFloat($("#tpv_total2").val());
    }
    else
@@ -670,7 +670,7 @@ function calcular_cambio_efectivo()
       $("#tpv_tarjeta").val(0);
       cambio = efectivo - parseFloat($("#tpv_total2").val());
    }
-   
+
    $("#tpv_cambio").val(number_format(parseFloat(cambio), 2, '.', ''));
 }
 
@@ -683,26 +683,26 @@ function calcular_cambio_tarjeta()
    {
       tarjeta = parseFloat( $("#tpv_tarjeta").val() );
    }
-   
+
    if(tesoreria || 1==1)
    {
       if( $("#tpv_efectivo").val() != '' )
       {
          efectivo = parseFloat( $("#tpv_efectivo").val() );
       }
-      
+
       if(parseFloat($("#tpv_total2").val()) > efectivo)
       {
          tarjeta = parseFloat($("#tpv_total2").val())-efectivo;
          $("#tpv_tarjeta").val(tarjeta);
       }
-      
+
       if(tarjeta > (efectivo + parseFloat($("#tpv_total2").val())))
       {
          tarjeta = parseFloat($("#tpv_total2").val()) - efectivo;
          $("#tpv_tarjeta").val(tarjeta);
       }
-      
+
       cambio = efectivo + tarjeta - parseFloat($("#tpv_total2").val());
    }
    else
@@ -713,10 +713,10 @@ function calcular_cambio_tarjeta()
          tarjeta = parseFloat($("#tpv_total2").val());
          $("#tpv_tarjeta").val(tarjeta);
       }
-      
+
       cambio = tarjeta + efectivo- parseFloat($("#tpv_total2").val());
    }
-   
+
    $("#tpv_cambio").val(number_format(parseFloat(cambio), 2, '.', ''));
 }
 
@@ -761,7 +761,7 @@ $(document).ready(function () {
          $("#tpv_efectivo").val(0);
       }
       $("#tpv_tarjeta").val(number_format(parseFloat($("#tpv_total2").val() - parseFloat($("#tpv_efectivo").val())), 2, '.', ''));
-      
+
       calcular_cambio_tarjeta();
    });
    $("#tpv_tarjeta").keyup(function (e) {
@@ -773,7 +773,7 @@ $(document).ready(function () {
          guardar_ticket();
       }
    });
-   
+
    /// comprobamos si el navegador soporta localstorage
    if( typeof(Storage) !== "undefined" && usar_cache)
    {
