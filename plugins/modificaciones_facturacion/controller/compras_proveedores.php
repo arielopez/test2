@@ -102,7 +102,7 @@ class compras_proveedores extends fs_controller
          }
       }
       
-      $this->mostrar = 'todo';
+      $this->mostrar = 'proveedores';
       if( isset($_GET['mostrar']) )
       {
          $this->mostrar = $_GET['mostrar'];
@@ -122,7 +122,11 @@ class compras_proveedores extends fs_controller
       {
          if($this->mostrar == 'acreedores')
          {
-            $this->resultados = $this->proveedor->all($this->offset, TRUE);
+            $this->resultados = $this->proveedor->all($this->offset,2);
+         }
+         else if ($this->mostrar== 'proveedores')
+         {
+            $this->resultados = $this->proveedor->all($this->offset,1);
          }
          else
             $this->resultados = $this->proveedor->all($this->offset);
@@ -194,7 +198,7 @@ class compras_proveedores extends fs_controller
    
    public function total_proveedores()
    {
-      $data = $this->db->select("SELECT COUNT(codproveedor) as total FROM proveedores;");
+      $data = $this->db->select("SELECT COUNT(codproveedor) as total FROM proveedores WHERE acreedor=0;");
       if($data)
       {
          return intval($data[0]['total']);

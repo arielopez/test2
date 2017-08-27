@@ -118,3 +118,9 @@ body{
 .hidden{
 	visibility: hidden;
 }
+
+.hover-cyan:hover {
+	text-decoration: none;
+	color: #ffffff;
+	background-color: #2fa4e7;
+}

@@ -19,6 +19,7 @@
  */
 
 require_model('albaran_proveedor.php');
+require_model('cotizacion_proveedor.php');
 require_model('articulo.php');
 require_model('divisa.php');
 require_model('ejercicio.php');
@@ -27,6 +28,7 @@ require_model('familia.php');
 require_model('forma_pago.php');
 require_model('impuesto.php');
 require_model('linea_pedido_proveedor.php');
+require_model('linea_cotizacion_proveedor.php');
 require_model('pedido_proveedor.php');
 require_model('proveedor.php');
 require_model('regularizacion_iva.php');
@@ -288,7 +290,7 @@ class compras_pedido extends fs_controller
                         if( $lineas[$k]->save() )
                         {
                            $this->pedido->neto += $value->pvptotal;
-                           $this->pedido->totaliva += $value->pvptotal * $value->iva / 100;
+                           $this->pedido->totaliva += ($value->pvptotal * $value->iva )/ (100+$value->iva);
                            $this->pedido->totalirpf += $value->pvptotal * $value->irpf / 100;
                            $this->pedido->totalrecargo += $value->pvptotal * $value->recargo / 100;
                         }
@@ -333,7 +335,7 @@ class compras_pedido extends fs_controller
                      if( $linea->save() )
                      {
                         $this->pedido->neto += $linea->pvptotal;
-                        $this->pedido->totaliva += $linea->pvptotal * $linea->iva / 100;
+                        $this->pedido->totaliva += ($linea->pvptotal * $linea->iva )/ (100+$linea->iva);
                         $this->pedido->totalirpf += $linea->pvptotal * $linea->irpf / 100;
                         $this->pedido->totalrecargo += $linea->pvptotal * $linea->recargo / 100;
                      }
@@ -348,7 +350,7 @@ class compras_pedido extends fs_controller
             $this->pedido->totaliva = round($this->pedido->totaliva, FS_NF0);
             $this->pedido->totalirpf = round($this->pedido->totalirpf, FS_NF0);
             $this->pedido->totalrecargo = round($this->pedido->totalrecargo, FS_NF0);
-            $this->pedido->total = $this->pedido->neto + $this->pedido->totaliva - $this->pedido->totalirpf + $this->pedido->totalrecargo;
+            $this->pedido->total = $this->pedido->neto;
 
             if( abs(floatval($_POST['atotal']) - $this->pedido->total) >= .02 )
             {
@@ -369,7 +371,7 @@ class compras_pedido extends fs_controller
 
    private function generar_albaran()
    {
-      $albaran = new albaran_proveedor();
+      $albaran = new cotizacion_proveedor();
       $albaran->cifnif = $this->pedido->cifnif;
       $albaran->codagente = $this->pedido->codagente;
       $albaran->codalmacen = $this->pedido->codalmacen;
@@ -383,6 +385,7 @@ class compras_pedido extends fs_controller
       $albaran->observaciones = $this->pedido->observaciones;
       $albaran->total = $this->pedido->total;
       $albaran->totaliva = $this->pedido->totaliva;
+      $albaran->cod_pedido= $this->pedido->codigo;
       $albaran->numproveedor = $this->pedido->numproveedor;
       $albaran->irpf = $this->pedido->irpf;
       $albaran->totalirpf = $this->pedido->totalirpf;
@@ -413,10 +416,10 @@ class compras_pedido extends fs_controller
 
          foreach($this->pedido->get_lineas() as $l)
          {
-            $n = new linea_albaran_proveedor();
+            $n = new linea_cotizacion_proveedor();
             $n->idlineapedido = $l->idlinea;
             $n->idpedido = $l->idpedido;
-            $n->idalbaran = $albaran->idalbaran;
+            $n->idcotizacion = $albaran->idcotizacion;
             $n->cantidad = $l->cantidad;
             $n->codimpuesto = $l->codimpuesto;
             $n->descripcion = $l->descripcion;
@@ -432,14 +435,14 @@ class compras_pedido extends fs_controller
             if( $n->save() )
             {
                /// añadimos al stock
-               if( !is_null($n->referencia) )
+               /*if( !is_null($n->referencia) )
                {
                   $articulo = $art0->get($n->referencia);
                   if($articulo)
                   {
                      $articulo->sum_stock($albaran->codalmacen, $l->cantidad);
                   }
-               }
+               }*/
             }
             else
             {
@@ -451,12 +454,12 @@ class compras_pedido extends fs_controller
 
          if($continuar)
          {
-            $this->pedido->idalbaran = $albaran->idalbaran;
+            $this->pedido->idalbaran = $albaran->idcotizacion;
             $this->pedido->editable = FALSE;
             
             if( $this->pedido->save() )
             {
-               $this->new_message("<a href='" . $albaran->url() . "'>" . ucfirst(FS_ALBARAN) . '</a> generado correctamente.');
+               $this->new_message("<a href='" . $albaran->url() . "'>" . "Cotizacion" . '</a> generada correctamente.');
             }
             else
             {
@@ -480,6 +483,6 @@ class compras_pedido extends fs_controller
          }
       }
       else
-         $this->new_error_msg("¡Imposible guardar el " . FS_ALBARAN . "!");
+         $this->new_error_msg("¡Imposible guardar Cotizacion!");
    }
 }

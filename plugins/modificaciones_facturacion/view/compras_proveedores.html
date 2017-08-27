@@ -75,10 +75,10 @@
 </div>
 
 <ul class="nav nav-tabs">
-   <li role="presentation"{if="$fsc->mostrar=='todo'"} class="active"{/if}>
-      <a class="word-upper" href="{$fsc->url()}&mostrar=todo">
+   <li role="presentation"{if="$fsc->mostrar=='proveedores'"} class="active"{/if}>
+      <a class="word-upper" href="{$fsc->url()}&mostrar=proveedores">
          {if="$fsc->query==''"}
-         Todos <span class="badge">{$fsc->total_proveedores()}</span>
+         Proveedores <span class="badge">{$fsc->total_proveedores()}</span>
          {else}
          <span class="glyphicon glyphicon-search"></span>
          <span class="hidden-xs">&nbsp; Resultados de "{$fsc->query}"</span>

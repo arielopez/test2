@@ -70,6 +70,9 @@
    <div class="container-fluid">
       <div class="row" style="margin-top: 10px;">
          <div class="col-md-8 col-sm-8 col-xs-8">
+            <a class="btn btn-sm btn-default hidden-xs" href="index.php?page=compras_pedidos" title="Atras">
+               <span class="glyphicon glyphicon-arrow-left"></span>
+            </a>
             <a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">
                <span class="glyphicon glyphicon-refresh"></span>
             </a>
@@ -95,7 +98,7 @@
                {if="1>0"}
                {if="$fsc->pedido->idalbaran"}
                <a class="btn btn-sm btn-info text-capitalize" href="{$fsc->pedido->albaran_url()}">
-                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Ver {#FS_ALBARAN#}
+                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp; Ver Cotización
                </a>
                {elseif="$fsc->pedido->editable"}
                <a class="btn btn-sm btn-default" href="{$fsc->url()}&aprobar=TRUE&petid={$fsc->random_string()}">
@@ -249,7 +252,7 @@
                <table class="table table-condensed">
                   <thead>
                      <tr>
-                        <th class="text-left col-md-3" width="180">Referencia</th>
+                        <th class="text-left col-md-2" width="180">Referencia</th>
                         <th class="text-left col-md-4">Descripción</th>
                         <th class="text-right col-md-1" width="80">Cantidad</th>
                         <th width="50"></th>
@@ -310,7 +313,7 @@
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td class="irpf">
-                           <input type="text" class="form-control text-right" id="irpf_{$counter}" name="irpf_{$counter}" value="{$value->irpf}"
+                           <input type="text" style="display: none" class="form-control text-right" id="irpf_{$counter}" name="irpf_{$counter}" value="{$value->irpf}"
                                   onchange="recalcular()" onclick="this.select()" autocomplete="off"/>
                         </td>
                         <td>
@@ -361,8 +364,9 @@
                <table class="table table-hover">
                   <thead>
                      <tr>
-                        <th class="text-left col-md-4">Artículo</th>
-                        <th class="text-right col-md-4">Cantidad</th>
+                        <th class="text-left col-md-1">Artículo</th>
+                        <th class="text-left col-md-3">Descripción</th>
+                        <th class="text-left col-md-5">Cantidad</th>
                         <!--<th class="text-right">Precio</th>-->
                         <!--<th class="text-right">Dto</th>-->
                         <!--<th class="text-right">Neto</th>-->
@@ -375,9 +379,10 @@
                   {loop="$fsc->pedido->get_lineas()"}
                   <tr>
                      <td>
-                        <a target="_blank" href="{$value->articulo_url()}">{$value->referencia}</a> {$value->descripcion}
+                        <a target="_blank" href="{$value->articulo_url()}">{$value->referencia}</a>
                      </td>
-                     <td class="text-right">{$value->cantidad}</td>
+                     <td>{$value->descripcion}</td>
+                     <td class="text-left">{$value->cantidad}</td>
                      <!--<td class="text-right">{$fsc->show_precio($value->pvpunitario, $fsc->pedido->coddivisa)}</td>-->
                      <!--<td class="text-right">{$fsc->show_numero($value->dtopor, 2)} %</td>-->
                      <!--<td class="text-right">{$fsc->show_precio($value->pvptotal, $fsc->pedido->coddivisa)}</td>-->
@@ -422,7 +427,7 @@
                         Nombre del proveedor:
                         <input class="form-control" type="text" name="nombre" value="{$fsc->pedido->nombre}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>
@@ -432,7 +437,7 @@
                         {#FS_CIFNIF#}:
                         <input class="form-control" type="text" name="cifnif" value="{$fsc->pedido->cifnif}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>
@@ -442,7 +447,7 @@
                         <a href="{$fsc->forma_pago->url()}">Forma de pago</a>:
                         <select name="forma_pago" class="form-control"
                                 {if="!$fsc->pedido->editable"}
-                                disabled="disabled"
+                                readonly="readonly"
                                 {/if}
                         >
                            {loop="$fsc->forma_pago->all()"}
@@ -474,7 +479,7 @@
                         Tasa de conversión a Gs.
                         <input type="text" name="tasaconv" class="form-control" placeholder="{$fsc->pedido->tasaconv}" autocomplete="off"
                                {if="!$fsc->pedido->editable"}
-                               disabled="disabled"
+                               readonly="readonly"
                                {/if}
                         />
                      </div>
@@ -637,14 +642,14 @@
                   <div class="row">
                      <div class="col-sm-4">
                         <div class="form-group">
-                           Precio compra:
-                           <input type="text" name="coste" value="0" class="form-control" autocomplete="off"/>
+                           <!--Precio compra:-->
+                           <input type="text" name="coste" value="0" class="form-control" autocomplete="off" style="visibility: hidden"/>
                         </div>
                      </div>
                      <div class="col-sm-4">
                         <div class="form-group">
-                           Precio venta:
-                           <input type="text" name="pvp" value="0" class="form-control" autocomplete="off"/>
+                           <!--Precio venta:-->
+                           <input type="text" name="pvp" value="0" class="form-control" autocomplete="off" style="visibility: hidden"/>
                            <div class="checkbox-inline" style="visibility: hidden;">
                               <label>
                                  <input type="checkbox" name="publico" value="TRUE"/> Público
@@ -707,7 +712,7 @@
                {loop="$fsc->extensions"}
                   {if="$value->type=='email'"}
                   <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.action='index.php?page={$value->from}{$value->params}&id={$fsc->pedido->idpedido}';this.form.submit();">
-                     <span class="glyphicon glyphicon-send"></span> &nbsp; {$value->text}
+                     <span class="glyphicon glyphicon-send"></span> &nbsp; Enviar
                   </button>
                   {/if}
                {/loop}

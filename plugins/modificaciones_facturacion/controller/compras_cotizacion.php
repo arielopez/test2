@@ -83,7 +83,22 @@ class compras_cotizacion extends fs_controller
          if($nuevoalbp)
             $this->nueva_cotizacion_url = $nuevoalbp->url();
       }
-      
+//      print_r($_POST);
+      if(isset($_GET['his_referencia'])){
+         $this->template = FALSE;
+         $ultimas_compras=$this->search_ultima_compra($_GET['his_referencia']);
+         $result="";
+         if($ultimas_compras){
+            foreach( $ultimas_compras as $i=>$compra){
+               $result=$result."<tr><td scope='row'>".($i+1)."</td><td>".$compra['fecha']."</td><td>".round($compra['precio'],2)."</td><td>".$compra['proveedor']."</td><td>".$compra['factura']."</td></tr>";
+            }
+         }
+         else
+            $result="<tr><td colspan='5' class='success'>Sin compras registradas..<td><tr>";
+         header('Content-Type: application/json');
+         echo json_encode($result);
+      }
+
       if( isset($_POST['idcotizacion']) )
       {
          $this->cotizacion = $cotizacion->get($_POST['idcotizacion']);
@@ -128,7 +143,20 @@ class compras_cotizacion extends fs_controller
       else
          $this->new_error_msg("¡Cotizacion de proveedor no encontrado!");
    }
-   
+
+
+   public function search_ultima_compra($ref){
+      $consulta = "SELECT fp.fecha, lf.pvpunitario precio, fp.nombre proveedor, lf.referencia,fp.codigo factura
+                      FROM lineasfacturasprov lf
+                      INNER JOIN facturasprov fp
+                      ON fp.idfactura= lf.idfactura
+                      AND lf.referencia='".$ref."'
+                      ORDER BY fp.fecha DESC LIMIT 6";
+//      $consulta = "SELECT * FROM historico_costo WHERE referencia = '".$ref."' ORDER BY fecha_compra desc limit 4;";
+//      echo " Query".$consulta;
+      $historicos = $this->db->select($consulta);
+      return $historicos;
+   }
    public function url()
    {
       if( !isset($this->cotizacion) )
@@ -271,7 +299,8 @@ class compras_cotizacion extends fs_controller
                         $cantidad_old = $value->cantidad;
                         $lineas[$k]->cantidad = floatval($_POST['cantidad_'.$num]);
                         $lineas[$k]->pvpunitario = floatval($_POST['pvp_'.$num]);
-                        $lineas[$k]->dtopor = floatval($_POST['dto_'.$num]);
+                        if(isset($_POST['dto_'.$num]))
+                           $lineas[$k]->dtopor = floatval($_POST['dto_'.$num]);
                         $lineas[$k]->pvpsindto = ($value->cantidad * $value->pvpunitario);
                         $lineas[$k]->pvptotal = ($value->cantidad * $value->pvpunitario * (100 - $value->dtopor)/100);
                         $lineas[$k]->descripcion = $_POST['desc_'.$num];
@@ -279,7 +308,7 @@ class compras_cotizacion extends fs_controller
                         $lineas[$k]->codimpuesto = NULL;
                         $lineas[$k]->iva = 0;
                         $lineas[$k]->recargo = 0;
-                        $lineas[$k]->irpf = floatval($_POST['irpf_'.$num]);
+                        $lineas[$k]->irpf = floatval(0);
                         if( !$serie->siniva AND $proveedor->regimeniva != 'Exento' )
                         {
                            $imp0 = $this->impuesto->get_by_iva($_POST['iva_'.$num]);
@@ -287,13 +316,13 @@ class compras_cotizacion extends fs_controller
                               $lineas[$k]->codimpuesto = $imp0->codimpuesto;
                            
                            $lineas[$k]->iva = floatval($_POST['iva_'.$num]);
-                           $lineas[$k]->recargo = floatval($_POST['recargo_'.$num]);
+                           $lineas[$k]->recargo = floatval(0);
                         }
                         
                         if( $lineas[$k]->save() )
                         {
                            $this->cotizacion->neto += $value->pvptotal;
-                           $this->cotizacion->totaliva += $value->pvptotal * $value->iva/100;
+                           $this->cotizacion->totaliva += $value->pvptotal * $value->iva/(100+$value->iva);
                            $this->cotizacion->totalirpf += $value->pvptotal * $value->irpf/100;
                            $this->cotizacion->totalrecargo += $value->pvptotal * $value->recargo/100;
                            
@@ -325,10 +354,10 @@ class compras_cotizacion extends fs_controller
                            $linea->codimpuesto = $imp0->codimpuesto;
                         
                         $linea->iva = floatval($_POST['iva_'.$num]);
-                        $linea->recargo = floatval($_POST['recargo_'.$num]);
+                        $linea->recargo = floatval(0);
                      }
                      
-                     $linea->irpf = floatval($_POST['irpf_'.$num]);
+                     $linea->irpf = floatval(0);
                      $linea->cantidad = floatval($_POST['cantidad_'.$num]);
                      $linea->pvpunitario = floatval($_POST['pvp_'.$num]);
                      $linea->dtopor = floatval($_POST['dto_'.$num]);
@@ -350,7 +379,7 @@ class compras_cotizacion extends fs_controller
                         }
                         
                         $this->cotizacion->neto += $linea->pvptotal;
-                        $this->cotizacion->totaliva += $linea->pvptotal * $linea->iva/100;
+                        $this->cotizacion->totaliva += $linea->pvptotal * $linea->iva/(100 + $linea->iva);
                         $this->cotizacion->totalirpf += $linea->pvptotal * $linea->irpf/100;
                         $this->cotizacion->totalrecargo += $linea->pvptotal * $linea->recargo/100;
                      }
@@ -365,13 +394,13 @@ class compras_cotizacion extends fs_controller
             $this->cotizacion->totaliva = round($this->cotizacion->totaliva, FS_NF0);
             $this->cotizacion->totalirpf = round($this->cotizacion->totalirpf, FS_NF0);
             $this->cotizacion->totalrecargo = round($this->cotizacion->totalrecargo, FS_NF0);
-            $this->cotizacion->total = $this->cotizacion->neto + $this->cotizacion->totaliva - $this->cotizacion->totalirpf + $this->cotizacion->totalrecargo;
+            $this->cotizacion->total = $this->cotizacion->neto - $this->cotizacion->totalirpf + $this->cotizacion->totalrecargo;
             
-            if( abs(floatval($_POST['atotal']) - $this->cotizacion->total) >= .02 )
-            {
-               $this->new_error_msg("El total difiere entre el controlador y la vista (".$this->cotizacion->total.
-                       " frente a ".$_POST['atotal']."). Debes informar del error.");
-            }
+//            if( abs(floatval($_POST['atotal']) - $this->cotizacion->total) >= .02 )
+//            {
+//               $this->new_error_msg("El total difiere entre el controlador y la vista (".$this->cotizacion->total.
+//                       " frente a ".$_POST['atotal']."). Debes informar del error.");
+//            }
          }
       }
       
@@ -422,6 +451,7 @@ class compras_cotizacion extends fs_controller
       $orden_compra->irpf = $this->cotizacion->irpf;
       $orden_compra->neto = $this->cotizacion->neto;
       $orden_compra->nombre = $this->cotizacion->nombre;
+      $orden_compra->cod_cotizacion= $this->cotizacion->codigo;
       $orden_compra->numproveedor = $this->cotizacion->numproveedor;
       $orden_compra->observaciones = $this->cotizacion->observaciones;
       $orden_compra->total = $this->cotizacion->total;

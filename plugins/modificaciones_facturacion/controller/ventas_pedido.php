@@ -312,7 +312,7 @@ class ventas_pedido extends fs_controller
                         if ($lineas[$k]->save())
                         {
                            $this->pedido->neto += $value->pvptotal;
-                           $this->pedido->totaliva += $value->pvptotal * $value->iva / 100;
+                           $this->pedido->totaliva += $value->pvptotal * $value->iva /( 100+ $value->iva);
                            $this->pedido->totalirpf += $value->pvptotal * $value->irpf / 100;
                            $this->pedido->totalrecargo += $value->pvptotal * $value->recargo / 100;
                         }
@@ -355,7 +355,7 @@ class ventas_pedido extends fs_controller
                      if( $linea->save() )
                      {
                         $this->pedido->neto += $linea->pvptotal;
-                        $this->pedido->totaliva += $linea->pvptotal * $linea->iva / 100;
+                        $this->pedido->totaliva += $linea->pvptotal * $linea->iva / (100+$linea->iva);
                         $this->pedido->totalirpf += $linea->pvptotal * $linea->irpf / 100;
                         $this->pedido->totalrecargo += $linea->pvptotal * $linea->recargo / 100;
                      }
@@ -370,7 +370,7 @@ class ventas_pedido extends fs_controller
             $this->pedido->totaliva = round($this->pedido->totaliva, FS_NF0);
             $this->pedido->totalirpf = round($this->pedido->totalirpf, FS_NF0);
             $this->pedido->totalrecargo = round($this->pedido->totalrecargo, FS_NF0);
-            $this->pedido->total = $this->pedido->neto + $this->pedido->totaliva - $this->pedido->totalirpf + $this->pedido->totalrecargo;
+            $this->pedido->total = $this->pedido->neto  - $this->pedido->totalirpf + $this->pedido->totalrecargo;
 
             if (abs(floatval($_POST['atotal']) - $this->pedido->total) >= .02)
             {

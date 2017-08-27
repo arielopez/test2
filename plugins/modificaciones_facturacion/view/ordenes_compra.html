@@ -71,26 +71,24 @@
             {/loop}
          </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-4 text-right">
-         <div class="btn-group">
+      <div class="col-md-4 col-sm-4 col-xs-8 text-right">
+         <div class="btn-group col-sm-12">
             <a id="b_buscar_lineas" class="btn btn-sm btn-info" title="Buscar en líneas">
-               <span class="glyphicon glyphicon-search"></span> &nbsp; Líneas
+               <span class="glyphicon glyphicon-search"></span> &nbsp; Buscar Articulos
             </a>
-         </div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-12">
-         <div class="visible-xs"><br/></div>
-         <form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
-            <div class="input-group">
-               <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Buscar">
+            <form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
+               <div class="input-group">
+                  <input class="form-control" type="text" name="query" value="{$fsc->query}" autocomplete="off" placeholder="Codigo Ordenes" style="height: 32px;">
                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="submit">
+                  <button class="btn btn-primary" type="submit"  style="font-size: 10px;">
                      <span class="glyphicon glyphicon-search"></span>
                   </button>
                </span>
-            </div>
-         </form>
+               </div>
+            </form>
+         </div>
       </div>
+
    </div>
 </div>
 
@@ -120,11 +118,12 @@
          <tr>
             <th></th>
             <th class="text-left col-md-1">Fecha</th>
-            <th class="text-left col-md-2">Código </th>
-            <th class="text-left col-md-2"> Nro. doc. Proveedor</th>
-            <th class="text-left col-md-3">Proveedor</th>
-            <th class="text-left col-md-2">Total</th>
-            <th class="text-left col-md-2">Observaciones</th>
+            <th class="text-left col-md-1">Código </th>
+            <th class="text-left col-md-1">Cotizacion </th>
+            <th class="text-center col-md-2"> Nro. doc. Proveedor</th>
+            <th class="text-left col-md-2">Proveedor</th>
+            <th class="text-center col-md-1">Total</th>
+            <th class="text-right col-md-4">Observaciones</th>
          </tr>
       </thead>
       {loop="$fsc->resultados"}
@@ -140,13 +139,14 @@
             </span>
          </td>
          <td><a href="{$value->url()}">{$value->codigo}</a> </td>
-         <td> {$value->numproveedor}</td>
+         <td> {$value->cod_cotizacion}</td>
+         <td class="text-center"> {$value->numproveedor}</td>
          <td>
             {$value->nombre}
             <a href="{$fsc->url()}&codproveedor={$value->codproveedor}" class="cancel_clickable" title="Ver más Ordenes de {$value->nombre}">[+]</a>
          </td>
          <td class="text-left">{$fsc->show_precio($value->total, $value->coddivisa)}</td>
-         <td>{$value->observaciones_resume()}</td>
+         <td class="text-right">{$value->observaciones_resume()}</td>
       </tr>
       {else}
       <tr class="bg-warning">

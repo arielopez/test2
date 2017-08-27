@@ -425,7 +425,7 @@ class nuevo_pedido extends fs_controller
                     $pedido->totaliva = round($pedido->totaliva, FS_NF0);
                     $pedido->totalirpf = round($pedido->totalirpf, FS_NF0);
                     $pedido->totalrecargo = round($pedido->totalrecargo, FS_NF0);
-                    $pedido->total = $pedido->neto + $pedido->totaliva - $pedido->totalirpf + $pedido->totalrecargo;
+                    $pedido->total = $pedido->neto ;
 
                     if (abs(floatval($_POST['atotal']) - $pedido->total) >= .02) {
                         $this->new_error_msg("El total difiere entre la vista y el controlador (" .

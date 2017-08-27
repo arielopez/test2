@@ -695,111 +695,21 @@ class ventas_imprimir extends fs_controller
             
             $this->generar_pdf_lineas($pdf_doc, $lineas, $linea_actual, $lppag, $this->factura);
             
-            if( $linea_actual == count($lineas) )
-            {
-               /*
-                * Añadimos la parte de la firma y las observaciones,
-                * para el tipo 'firma'
-                */
-               if($tipo == 'firma')
-               {
-                  $pdf_doc->pdf->ezText("\n", 9);
-                  
-                  $pdf_doc->new_table();
-                  $pdf_doc->add_table_header(
-                     array(
-                        'campo1' => "<b>Observaciones</b>",
-                        'campo2' => "<b>Firma</b>"
-                     )
-                  );
-                  $pdf_doc->add_table_row(
-                     array(
-                        'campo1' => $this->fix_html($this->factura->observaciones),
-                        'campo2' => ""
-                     )
-                  );
-                  $pdf_doc->save_table(
-                     array(
-                        'cols' => array(
-                           'campo1' => array('justification' => 'left'),
-                           'campo2' => array('justification' => 'right', 'width' => 100)
-                        ),
-                        'showLines' => 4,
-                        'width' => 530,
-                        'shaded' => 0
-                     )
-                  );
-               }
-               else if($this->factura->observaciones != '')
-               {
-                  $pdf_doc->pdf->ezText("\n".$this->fix_html($this->factura->observaciones), 9);
-               }
-               
-               if(!$this->factura->pagada)
-               {
-                  $fp0 = new forma_pago();
-                  $forma_pago = $fp0->get($this->factura->codpago);
-                  if($forma_pago)
-                  {
-                     $texto_pago = "\n<b>Forma de pago</b>: ".$forma_pago->descripcion;
-                     
-                     if($forma_pago->domiciliado)
-                     {
-                        $cbc0 = new cuenta_banco_cliente();
-                        $encontrada = FALSE;
-                        foreach($cbc0->all_from_cliente($this->factura->codcliente) as $cbc)
-                        {
-                           if($cbc->iban)
-                           {
-                              $texto_pago .= "\n<b>Domiciliado en</b>: ".$cbc->iban;
-                           }
-                           else
-                           {
-                              $texto_pago .= "\n<b>Domiciliado en</b>: ".$cbc->swift;
-                           }
-                           $encontrada = TRUE;
-                           break;
-                        }
-                        if(!$encontrada)
-                        {
-                           $texto_pago .= "\n<b>El cliente no tiene cuenta bancaria asignada.</b>";
-                        }
-                     }
-                     else if($forma_pago->codcuenta)
-                     {
-                        $cb0 = new cuenta_banco();
-                        $cuenta_banco = $cb0->get($forma_pago->codcuenta);
-                        if($cuenta_banco)
-                        {
-                           if($cuenta_banco->iban)
-                           {
-                              $texto_pago .= "\n<b>IBAN</b>: ".$cuenta_banco->iban;
-                           }
-                           else
-                           {
-                              $texto_pago .= "\n<b>SWIFT o BIC</b>: ".$cuenta_banco->swift;
-                           }
-                        }
-                     }
-                     
-                     $texto_pago .= "\n<b>Vencimiento</b>: ".$this->factura->vencimiento;
-                     $pdf_doc->pdf->ezText($texto_pago, 9);
-                  }
-               }
-            }
-            
-            $pdf_doc->set_y(80);
-            
+
+            $pdf_doc->new_table();
+
+//            $pdf_doc->set_y(80);
+
             /*
              * Rellenamos la última tabla de la página:
              * 
              * Página            Neto    IVA   Total
              */
             $pdf_doc->new_table();
-            $titulo = array('pagina' => '<b>Página</b>', 'neto' => '<b>Neto</b>',);
+            $titulo = array('pagina' => '<b></b>', 'neto' => '<b></b>',);
             $fila = array(
-                'pagina' => $pagina . '/' . ceil(count($lineas) / $lppag),
-                'neto' => $this->show_precio($this->factura->neto, $this->factura->coddivisa),
+//                'pagina' => $pagina . '/' . ceil(count($lineas) / $lppag),
+//                'neto' => $this->show_precio($this->factura->neto, $this->factura->coddivisa),
             );
             $opciones = array(
                 'cols' => array(
@@ -844,7 +754,100 @@ class ventas_imprimir extends fs_controller
             
             /// pié de página para la factura
             $pdf_doc->pdf->addText(10, 10, 8, $pdf_doc->center_text($this->fix_html($this->empresa->pie_factura), 153), 0, 1.5);
-            
+
+            if( $linea_actual == count($lineas) )
+            {
+               /*
+                * Añadimos la parte de la firma y las observaciones,
+                * para el tipo 'firma'
+                */
+               if($tipo == 'firma')
+               {
+                  $pdf_doc->pdf->ezText("\n", 9);
+
+                  $pdf_doc->new_table();
+                  $pdf_doc->add_table_header(
+                      array(
+                          'campo1' => "<b>Observaciones</b>",
+                          'campo2' => "<b>Firma</b>"
+                      )
+                  );
+                  $pdf_doc->add_table_row(
+                      array(
+                          'campo1' => $this->fix_html($this->factura->observaciones),
+                          'campo2' => ""
+                      )
+                  );
+                  $pdf_doc->save_table(
+                      array(
+                          'cols' => array(
+                              'campo1' => array('justification' => 'left'),
+                              'campo2' => array('justification' => 'right', 'width' => 100)
+                          ),
+                          'showLines' => 4,
+                          'width' => 530,
+                          'shaded' => 0
+                      )
+                  );
+               }
+               else if($this->factura->observaciones != '')
+               {
+                  $pdf_doc->pdf->ezText("\n".$this->fix_html($this->factura->observaciones), 9);
+               }
+
+               if(!$this->factura->pagada)
+               {
+                  $fp0 = new forma_pago();
+                  $forma_pago = $fp0->get($this->factura->codpago);
+                  if($forma_pago)
+                  {
+                     $texto_pago = "\n<b>Forma de pago</b>: ".$forma_pago->descripcion;
+
+                     if($forma_pago->domiciliado)
+                     {
+                        $cbc0 = new cuenta_banco_cliente();
+                        $encontrada = FALSE;
+                        foreach($cbc0->all_from_cliente($this->factura->codcliente) as $cbc)
+                        {
+                           if($cbc->iban)
+                           {
+                              $texto_pago .= "\n<b>Domiciliado en</b>: ".$cbc->iban;
+                           }
+                           else
+                           {
+                              $texto_pago .= "\n<b>Domiciliado en</b>: ".$cbc->swift;
+                           }
+                           $encontrada = TRUE;
+                           break;
+                        }
+                        if(!$encontrada)
+                        {
+                           $texto_pago .= "\n<b>El cliente no tiene cuenta bancaria asignada.</b>";
+                        }
+                     }
+                     else if($forma_pago->codcuenta)
+                     {
+                        $cb0 = new cuenta_banco();
+                        $cuenta_banco = $cb0->get($forma_pago->codcuenta);
+                        if($cuenta_banco)
+                        {
+                           if($cuenta_banco->iban)
+                           {
+                              $texto_pago .= "\n<b>IBAN</b>: ".$cuenta_banco->iban;
+                           }
+                           else
+                           {
+                              $texto_pago .= "\n<b>SWIFT o BIC</b>: ".$cuenta_banco->swift;
+                           }
+                        }
+                     }
+
+                     $texto_pago .= "\n<b>Vencimiento</b>: ".$this->factura->vencimiento;
+                     $pdf_doc->pdf->ezText($texto_pago, 9);
+                  }
+               }
+            }
+
             $pagina++;
          }
       }

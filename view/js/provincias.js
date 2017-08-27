@@ -82,13 +82,13 @@ $(document).ready(function() {
 
 
     //alert(dpto);
-    $("#ciudad, #ciudad2").focus(function(){
+    $("#ciudad, #ciudad2, .ciudad").focus(function(){
         var dpto=$("#ac_provincia").val();
         if (dpto==null||dpto==""){
             dpto=$("#ac_provincia2").val();
 
         }
-        $("#ciudad, #ciudad2").autocomplete({
+        $("#ciudad, #ciudad2, .ciudad").autocomplete({
             lookup: f[dpto],
         });
 

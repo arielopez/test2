@@ -53,7 +53,7 @@ class compras_cotizaciones extends fs_controller
       $cotizacion = new cotizacion_proveedor();
       $this->agente = new agente();
       $this->serie = new serie();
-      
+      $cotizacion->cron_job();
       $this->mostrar = 'todo';
       if( isset($_GET['mostrar']) )
       {

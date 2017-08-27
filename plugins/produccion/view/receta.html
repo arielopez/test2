@@ -1,0 +1,323 @@
+{include="header_modificado2"}
+
+{if="$fsc->receta2"}
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#b_eliminar_receta").click(function(event) {
+         event.preventDefault();
+         if( confirm("¿Realmente desea eliminar esta receta?") )
+         {
+            window.location.href = 'index.php?page=recetas&delete={$fsc->receta2->codreceta}';
+         }
+      });
+      $("#ac_referencia").autocomplete({
+         serviceUrl: '{$fsc->url()}',
+         paramName: 'buscar_referencia',
+         onSelect: function (suggestion) {
+            if(suggestion)
+            {
+               if(document.f_nueva_linea.referencia.value != suggestion.data.referencia)
+               {
+                  document.f_nueva_linea.referencia.value = suggestion.data.referencia;
+                  document.f_nueva_linea.ac_referencia.value = suggestion.data.referencia;
+                  document.f_nueva_linea.caca.value = suggestion.data.descripcion;
+               }
+            }
+         }
+      });
+   });
+</script>
+
+<form class="form" action="{$fsc->receta2->url()}" method="post">
+   <div class="container-fluid">
+      <div class="row" style="margin-bottom: 10px;">
+         <div class="col-xs-4 col-sm-4">
+            <div class="btn-group">
+               <a class="btn btn-sm btn-default" href="{$fsc->url()}">
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  <span class="hidden-xs hidden-sm">&nbsp; Recetas</span>
+               </a>
+               <a class="btn btn-sm btn-default hidden-xs" href="{$fsc->receta2->url()}" title="Recargar la página">
+                  <span class="glyphicon glyphicon-refresh"></span>
+               </a>
+            </div>
+            {if="$fsc->articulo_resultado"}
+            <a class="btn btn-sm btn-info" href="#" data-toggle="modal" data-target="#modal_cocinar">
+               <span class="glyphicon glyphicon-fire"></span>
+               <span class="hidden-xs">&nbsp;Producir&nbsp;</span>
+               <span class="badge">{$fsc->total_producir()}</span>
+            </a>
+            {/if}
+         </div>
+         <div class="col-xs-5 col-sm-5 text-center">
+            <h2 style="margin-top: 0px;">
+               <small>Producto: </small> {$fsc->receta2->codreceta}
+            </h2>
+         </div>
+         <div class="col-xs-3 col-sm-3 text-right">
+            <div class="btn-group">
+               {if="$fsc->allow_delete"}
+               <a href="#" id="b_eliminar_receta" class="btn btn-sm btn-danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                  <span class="hidden-xs hidden-sm">&nbsp;Eliminar</span>
+               </a>
+               {/if}
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                  <span class="hidden-xs">&nbsp;Guardar</span>
+               </button>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-6">
+            <div class="form-group">
+               Descripción:
+               <input class="form-control" type="text" name="descripcion" value="{$fsc->receta2->descripcion}" autocomplete="off"/>
+            </div>
+         </div>
+         <div class="col-sm-4">
+            <div class="form-group">
+               Referencia resultado:
+               <input class="form-control" type="text" name="referencia" value="{$fsc->receta2->referencia}" readonly=""/>
+               {if="$fsc->articulo_resultado"}
+               <p class="help-block">
+                  <a href="{$fsc->articulo_resultado->url()}" target="_blank">ver el artículo</a>,
+                  {$fsc->articulo_resultado->stockfis} en stock.
+               </p>
+               {/if}
+            </div>
+         </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               Cantidad:
+               <input type="number" name="cantidad" value="{$fsc->receta2->cantidad}" min="1" class="form-control" autocomplete="off"/>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-3">
+            <div class="form-group">
+               <a href="{$fsc->almacen->url()}">Almacén</a> ingredientes:
+               <select name="codalmacen" class="form-control">
+               {loop="$fsc->almacen->all()"}
+                  {if="$fsc->receta2->codalmacen==$value->codalmacen"}
+                  <option value="{$value->codalmacen}" selected="">{$value->nombre}</option>
+                  {else}
+                  <option value="{$value->codalmacen}">{$value->nombre}</option>
+                  {/if}
+               {/loop}
+               </select>
+            </div>
+         </div>
+         <div class="col-sm-3">
+            <div class="form-group">
+               <a href="{$fsc->almacen->url()}">Almacén</a> resultado:
+               <select name="codalmacen2" class="form-control">
+               {loop="$fsc->almacen->all()"}
+                  {if="$fsc->receta2->codalmacen2==$value->codalmacen"}
+                  <option value="{$value->codalmacen}" selected="">{$value->nombre}</option>
+                  {else}
+                  <option value="{$value->codalmacen}">{$value->nombre}</option>
+                  {/if}
+               {/loop}
+               </select>
+            </div>
+         </div>
+         <div class="col-sm-6">
+            <textarea name="observaciones" rows="3" class="form-control" placeholder="Observaciones">{$fsc->receta2->observaciones}</textarea>
+         </div>
+      </div>
+   </div>
+</form>
+
+<div role="tabpanel">
+   <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+         <a href="#ingredientes" aria-controls="ingredientes" role="tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+            <span class="hidden-xs">&nbsp;Ingredientes</span>
+         </a>
+      </li>
+      <li role="presentation">
+         <a href="#historial" aria-controls="historial" role="tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+            <span class="hidden-xs">&nbsp;Historial</span>
+         </a>
+      </li>
+   </ul>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="ingredientes">
+         <div class="table-responsive">
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th width="250" class="text-left">Referencia</th>
+                     <th class="text-left">Descripción</th>
+                     <th width="120" class="text-right">Coste</th>
+                     <th width="120" class="text-right">Necesario</th>
+                     <th width="120" class="text-right">Stock</th>
+                     <th width="120"></th>
+                  </tr>
+               </thead>
+               {loop="$fsc->lineas"}
+               <form class="form" action="{$fsc->receta2->url()}" method="post">
+                  <input type="hidden" name="idlinea" value="{$value->idlinea}"/>
+                  <tr>
+                     <td>
+                        <div class="input-group">
+                           <input class="form-control" type="text" name="referencia" value="{$value->referencia}" maxlength="25"/>
+                           <span class="input-group-btn">
+                              <a href="index.php?page=ventas_articulo&ref={$value->referencia}" target="_blank" class="btn btn-default">
+                                 <span class="glyphicon glyphicon-eye-open"></span>
+                              </a>
+                           </span>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="form-control">{$value->descripcion()}</div>
+                     </td>
+                     <td>
+                        <div class="form-control text-right">{$fsc->show_precio($value->coste())}</div>
+                     </td>
+                     <td>
+                        <input type="number" name="cantidad" value="{$value->cantidad}" step="any" class="form-control text-right" autocomplete="off"/>
+                     </td>
+                     <td>
+                        {if="$value->nostock()"}
+                        <div class="form-control text-right">-</div>
+                        {else}
+                        <div class="form-control text-right">{$value->stock()}</div>
+                        {/if}
+                     </td>
+                     <td class="text-right">
+                        <div class="btn-group">
+                           {if="$fsc->allow_delete"}
+                           <a href="{$fsc->receta2->url()}&deletel={$value->idlinea}" class="btn btn-sm btn-danger">
+                              <span class="glyphicon glyphicon-trash"></span>
+                           </a>
+                           {/if}
+                           <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                              <span class="glyphicon glyphicon-floppy-disk"></span>
+                           </button>
+                        </div>
+                     </td>
+                  </tr>
+               </form>
+               {/loop}
+               <form name="f_nueva_linea" class="form" action="{$fsc->receta2->url()}" method="post">
+                  <input type="hidden" name="referencia"/>
+                  <tr class="info">
+                     <td>
+                        <input type="hidden" name="idlinea" value="-1"/>
+                        <input class="form-control" type="text" name="ac_referencia" id="ac_referencia" maxlength="25" placeholder="referencia" autocomplete="off"/>
+                        <label>
+                           <input type="checkbox" name="crear" value="TRUE" checked=""/>
+                           Crear el artículo si no existe
+                        </label>
+                     </td>
+                     <td>
+                        <input type="text" name="caca" value="" class="form-control" placeholder="Nuevo ingrediente" readonly=""/>
+                     </td>
+                     <td>
+                        <div class="form-control"></div>
+                     </td>
+                     <td>
+                        <input type="number" name="cantidad" value="1" min="1" class="form-control text-right" autocomplete="off"/>
+                     </td>
+                     <td>
+                        <div class="form-control"></div>
+                     </td>
+                     <td class="text-right">
+                        <button class="btn btn-sm btn-primary" type="button" onclick="this.disabled=true;this.form.submit();">
+                           <span class="glyphicon glyphicon-plus-sign"></span>
+                           <span class="hidden-xs">&nbsp; Nuevo</span>
+                        </button>
+                     </td>
+                  </tr>
+               </form>
+            </table>
+         </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="historial">
+         <div class="table-responsive">
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th width="120">Usuario</th>
+                     <th>Detalle</th>
+                     <th width="120">IP</th>
+                     <th colspan="2" class="text-right">Fecha</th>
+                  </tr>
+               </thead>
+               {loop="$fsc->historial()"}
+               <tr{if="$value->alerta"} class="danger"{/if}>
+                  <td>{$value->usuario}</td>
+                  <td>{$value->detalle}</td>
+                  <td>{$value->ip}</td>
+                  <td colspan="2" class="text-right">{$value->fecha}</td>
+               </tr>
+               {else}
+               <tr class="warning">
+                  <td colspan="5">Sin resultados.</td>
+               </tr>
+               {/loop}
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+<form action="{$fsc->receta2->url()}" method="post" class="form">
+   <div class="modal" id="modal_cocinar" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-fire"></span> &nbsp; Producir
+               </h4>
+               <p class="help-block">
+                  Con el stock actual se pueden producir: {$fsc->total_producir()}
+               </p>
+               {if="$fsc->receta2->cantidad>1"}
+               <p class="help-block">
+                  Ten en cuenta que se van a producir {$fsc->receta2->cantidad}
+                  unidades cada vez.
+               </p>
+               {/if}
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+                  {if="$fsc->receta2->cantidad>1"}
+                  Multiplicador:
+                  <input type="number" name="cocinar" value="1" class="form-control" autocomplete="off" autofocus=""/>
+                  <p class="help-block">
+                     Puedes producir más de {$fsc->receta2->cantidad} unidad modificando
+                     el multiplicador.
+                  </p>
+                  {else}
+                  Cantidad a producir:
+                  <input type="number" name="cocinar" value="1" class="form-control" autocomplete="off" autofocus=""/>
+                  {/if}
+               </div>
+               <div class="form-group">
+                  Motivo:
+                  <textarea name="motivo" rows="5" class="form-control"></textarea>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                  <span class="hidden-xs">&nbsp;Guardar</span>
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+{/if}
+
+{include="footer2"}
